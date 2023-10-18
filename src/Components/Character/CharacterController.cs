@@ -13,7 +13,7 @@ namespace LDG.Components.Character
         {
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime time)
+        public override void Update(TimeFrame time)
         {
             bool keyPressed = false;
 

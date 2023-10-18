@@ -1,5 +1,8 @@
 ﻿using LDG.Components;
 using LDG.Components.Character;
+using LDG.Components.Collision;
+using LDG.Components.Sprite;
+using LDG.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +16,7 @@ namespace LDG
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private List<GameObject> gameObjects = new List<GameObject>();
+        private Scene currentScene = new Scene();
 
         public LDGGame()
         {
@@ -31,29 +34,86 @@ namespace LDG
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var gameObject = new GameObject();
+            var gameObject = new GameObject(currentScene);
+
+            Texture2D sheet = Content.Load<Texture2D>("Graphics/Sprites/george");
+
+            var rows = SpriteFrame.GetRowsFromSheet(sheet, new Vector2(48, 48), true);
 
             gameObject.Components = new List<GameComponent>()
             {
+                new BoxCollider(gameObject)
+                {
+                    Bounds = new Vector2()
+                    {
+                        X = 48,
+                        Y = 48
+                    }
+                },
                 new Actor(gameObject)
                 {
                     Direction = Direction.Up,
-                    MovementSpeed = 30
+                    MovementSpeed = 60
                 },
                 new SpriteRenderer(gameObject)
                 {
-                    Texture = Content.Load<Texture2D>("Graphics/Sprites/Sample")
+
                 },
                 new Transform(gameObject)
                 {
-
+                    Position = new Vector2(120, 20)
                 },
-                new CharacterController(gameObject)
+                new CharacterController(gameObject),
+                new SpriteMovementAnimator(gameObject)
+                {
+                    FramesPerSecond = 10,
+                    DownFrames = rows[0],
+                    LeftFrames = rows[1],
+                    UpFrames = rows[2],
+                    RightFrames = rows[3]
+                }
             };
 
-            gameObjects = new List<GameObject>()
+            var npc = new GameObject(currentScene);
+
+            npc.Components = new List<GameComponent>()
             {
-                gameObject
+                new BoxCollider(npc)
+                {
+                    Bounds = new Vector2()
+                    {
+                        X = 48,
+                        Y = 48
+                    }
+                },
+                new Actor(npc)
+                {
+                    Direction = Direction.Right,
+                    MovementSpeed = 60,
+                    IsMoving = true
+                },
+                new SpriteRenderer(npc)
+                {
+
+                },
+                new Transform(npc)
+                {
+                    Position = new Vector2(20, 20)
+                },
+                new SpriteMovementAnimator(npc)
+                {
+                    FramesPerSecond = 10,
+                    DownFrames = rows[0],
+                    LeftFrames = rows[1],
+                    UpFrames = rows[2],
+                    RightFrames = rows[3]
+                }
+            };
+
+            currentScene.GameObjects = new List<GameObject>()
+            {
+                gameObject,
+                npc
             };
 
             // TODO: use this.Content to load your game content here
@@ -64,11 +124,13 @@ namespace LDG
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            foreach (var gameObject in gameObjects)
+            var timeFrame = new TimeFrame(gameTime);
+
+            foreach (var gameObject in currentScene.GameObjects)
             {
                 gameObject.Components.ForEach((x) =>
                 {
-                    x.Update(gameTime);
+                    x.Update(timeFrame);
                 });
             }
 
@@ -81,7 +143,7 @@ namespace LDG
 
             _spriteBatch.Begin();
 
-            foreach(var gameObject in gameObjects)
+            foreach(var gameObject in currentScene.GameObjects)
             {
                 gameObject.Components.ForEach((x) =>
                 {

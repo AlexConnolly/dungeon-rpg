@@ -1,4 +1,5 @@
-﻿using LDG.Extensions;
+﻿using LDG.Components.Sprite;
+using LDG.Extensions;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,10 @@ namespace LDG.Components
             }
         }
 
-        public override void Update(GameTime time)
+        public override void Update(TimeFrame time)
         {
-            Vector2 move = (Velocity * time.ElapsedGameTime.Milliseconds) * 0.001f;
+            // Handle movement
+            Vector2 move = (Velocity * time.Delta);
 
             this.Transform.Translate(move);
         }

@@ -18,7 +18,7 @@ namespace LDG
             this._gameObject = gameObject;
         }
 
-        public virtual void Update(GameTime time)
+        public virtual void Update(TimeFrame time)
         {
 
         }
