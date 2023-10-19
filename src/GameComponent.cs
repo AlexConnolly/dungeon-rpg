@@ -28,6 +28,11 @@ namespace LDG
 
         }
 
+        public virtual void DrawDebug(SpriteBatch spriteBatch)
+        {
+
+        }
+
         public Transform Transform { 
             get
             {

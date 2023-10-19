@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LDG.Extensions;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,11 @@ namespace LDG.Components.Collision
             {
                 return new Rectangle((int)this.Transform.Position.X - (int)(Bounds.X / 2), (int)this.Transform.Position.Y - (int)(Bounds.Y / 2), (int)Bounds.X, (int)Bounds.Y);
             }
+        }
+
+        public override void DrawDebug(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawSquare(this.WorldRectangle);
         }
 
         public bool Intersects(Rectangle source)

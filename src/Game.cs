@@ -46,8 +46,8 @@ namespace LDG
                 {
                     Bounds = new Vector2()
                     {
-                        X = 48,
-                        Y = 48
+                        X = 20,
+                        Y = 20
                     }
                 },
                 new Actor(gameObject)
@@ -82,14 +82,14 @@ namespace LDG
                 {
                     Bounds = new Vector2()
                     {
-                        X = 48,
-                        Y = 48
+                        X = 20,
+                        Y = 20
                     }
                 },
                 new Actor(npc)
                 {
                     Direction = Direction.Right,
-                    MovementSpeed = 60,
+                    MovementSpeed = 20,
                     IsMoving = true
                 },
                 new SpriteRenderer(npc)
@@ -139,7 +139,7 @@ namespace LDG
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Green);
 
             _spriteBatch.Begin();
 
@@ -148,6 +148,18 @@ namespace LDG
                 gameObject.Components.ForEach((x) =>
                 {
                     x.Draw(_spriteBatch);
+                });
+            }
+
+            _spriteBatch.End();
+
+            _spriteBatch.Begin();
+
+            foreach (var gameObject in currentScene.GameObjects)
+            {
+                gameObject.Components.ForEach((x) =>
+                {
+                    x.DrawDebug(_spriteBatch);
                 });
             }
 
