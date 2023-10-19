@@ -50,7 +50,11 @@ namespace LDG.UI
 
             foreach(var element in _elements)
             {
-                element.Draw(offset, spriteBatch);
+                Vector2 alignmentOffset = element.CalculateAlignmentOffset();
+
+
+                // Calculate offset based on 
+                element.Draw(offset + alignmentOffset, spriteBatch);
             }
         }
 

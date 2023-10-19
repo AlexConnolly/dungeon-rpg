@@ -8,23 +8,20 @@ using System.Threading.Tasks;
 
 namespace LDG.UI
 {
-    public enum TextAlign
-    {
-        Left,
-        Center,
-        Right
-    }
-
     public class TextElement : UIElement
     {
         public int Size { get; set; } = 12;
-        public TextAlign Alignment { get; set; } = TextAlign.Left;
 
         public required string Text { get; set; }
 
-        public required Rectangle Position { get; set; }
+        public override Rectangle Position { get; set; }
 
         public required Color Color { get; set; }
+
+        public override Vector2 ContentDimensions()
+        {
+            return UIManager.LargeFont.MeasureString(this.Text);
+        }
 
         public override void Draw(Vector2 offset, SpriteBatch spriteBatch)
         {

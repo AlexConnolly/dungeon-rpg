@@ -63,7 +63,18 @@ namespace LDG.Components.Character
                 {
                     Color = new Color(137, 118, 37),
                     Position = new Rectangle(0, 0, group.Settings.Position.Width, 40),
-                    Text = "Hello, world!"
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Middle,
+                    Text = "Message box"
+                });
+
+                group.Text(new TextElement()
+                {
+                    Color = new Color(137, 118, 37),
+                    Position = new Rectangle(0, 70, group.Settings.Position.Width, 40),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Middle,
+                    Text = "Text can be centered, or even aligned to the left"
                 });
             }
         }
