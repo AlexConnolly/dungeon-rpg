@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,19 @@ namespace LDG.UI
             get; private set;
         }
 
+        public static SpriteFont LargeFont
+        {
+            get; private set;
+        }
+
         private static List<UIGroup> _groups = new List<UIGroup>();
 
-        public static void Load(SpriteBatch spriteBatch)
+        public static void Load(SpriteBatch spriteBatch, ContentManager Content)
         {
             UIManager.CurrentSpriteBatch = spriteBatch;
 
             // Load sprite sheets
+            LargeFont = Content.Load<SpriteFont>("Fonts/Large");
 
             // Do anything else?
         }

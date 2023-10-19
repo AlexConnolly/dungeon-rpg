@@ -11,10 +11,12 @@ namespace LDG.UI
 {
     public class UIGroup : IDisposable
     {
-        private readonly UIGroupSettings _settings;
+        public readonly UIGroupSettings Settings;
 
         private Color BackgroundColor = new Color(255, 224, 163);
         private Color BorderColor = new Color(214, 170, 82);
+
+        private List<UIElement> _elements = new List<UIElement>();
 
         public UIGroup()
         {
@@ -23,7 +25,7 @@ namespace LDG.UI
 
         private UIGroup(UIGroupSettings settings)
         {
-            this._settings = settings;
+            this.Settings = settings;
         }
 
         public static UIGroup BeginGroup(UIGroupSettings settings)
@@ -42,8 +44,19 @@ namespace LDG.UI
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawSquare(this._settings.Position, BackgroundColor, BorderColor, 4);
+            spriteBatch.DrawSquare(this.Settings.Position, BackgroundColor, BorderColor, 4);
 
+            Vector2 offset = new Vector2(this.Settings.Position.X, this.Settings.Position.Y);
+
+            foreach(var element in _elements)
+            {
+                element.Draw(offset, spriteBatch);
+            }
+        }
+
+        public void Text(TextElement options)
+        {
+            _elements.Add(options);
         }
     }
 }

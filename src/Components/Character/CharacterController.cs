@@ -59,7 +59,12 @@ namespace LDG.Components.Character
                 Position = new Rectangle(10, 10, 400, 180)
             }))
             {
-
+                group.Text(new TextElement()
+                {
+                    Color = new Color(137, 118, 37),
+                    Position = new Rectangle(0, 0, group.Settings.Position.Width, 40),
+                    Text = "Hello, world!"
+                });
             }
         }
     }

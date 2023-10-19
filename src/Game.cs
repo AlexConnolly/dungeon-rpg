@@ -35,7 +35,7 @@ namespace LDG
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            UIManager.Load(_spriteBatch);
+            UIManager.Load(_spriteBatch, Content);
 
             var gameObject = new GameObject(currentScene);
 
