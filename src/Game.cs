@@ -3,6 +3,7 @@ using LDG.Components.Character;
 using LDG.Components.Collision;
 using LDG.Components.Sprite;
 using LDG.Sprite;
+using LDG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -33,6 +34,8 @@ namespace LDG
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            UIManager.Load(_spriteBatch);
 
             var gameObject = new GameObject(currentScene);
 
@@ -121,11 +124,12 @@ namespace LDG
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             var timeFrame = new TimeFrame(gameTime);
 
+            // Update the UI manager
+            UIManager.Update(timeFrame);
+
+            // Update the scene
             foreach (var gameObject in currentScene.GameObjects)
             {
                 gameObject.Components.ForEach((x) =>
@@ -134,6 +138,7 @@ namespace LDG
                 });
             }
 
+            // Base updates
             base.Update(gameTime);
         }
 
@@ -141,6 +146,7 @@ namespace LDG
         {
             GraphicsDevice.Clear(Color.Green);
 
+            // Draw scene
             _spriteBatch.Begin();
 
             foreach(var gameObject in currentScene.GameObjects)
@@ -153,6 +159,14 @@ namespace LDG
 
             _spriteBatch.End();
 
+            // Draw UI
+            _spriteBatch.Begin();
+
+            UIManager.Draw();
+
+            _spriteBatch.End();
+
+            // Draw debugs
             _spriteBatch.Begin();
 
             foreach (var gameObject in currentScene.GameObjects)
@@ -164,6 +178,7 @@ namespace LDG
             }
 
             _spriteBatch.End();
+
 
             // TODO: Add your drawing code here
 

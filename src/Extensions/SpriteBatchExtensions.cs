@@ -12,7 +12,7 @@ namespace LDG.Extensions
     {
         private static Texture2D _blackSquare = null;
 
-        private static Texture2D GetSquare(SpriteBatch batch)
+        public static Texture2D GetSquareTexture2D(SpriteBatch batch)
         {
             if(SpriteBatchExtensions._blackSquare == null)
             {
@@ -34,9 +34,24 @@ namespace LDG.Extensions
             return SpriteBatchExtensions._blackSquare;
         }
 
-        public static void DrawSquare(this SpriteBatch spriteBatch, Rectangle rectangle)
+        public static void DrawSquare(this SpriteBatch spriteBatch, Rectangle rectangle, Color color, Color? borderColor, int borderThickness = 0)
         {
-            spriteBatch.Draw(SpriteBatchExtensions.GetSquare(spriteBatch), rectangle, new Color(Color.Pink, 0.45f));
+            spriteBatch.Draw(SpriteBatchExtensions.GetSquareTexture2D(spriteBatch), rectangle, color);
+
+            if(borderColor != null && borderThickness != 0)
+            {
+                // Draw top border
+                DrawSquare(spriteBatch, new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, borderThickness), borderColor.Value, null, 0);
+
+                // Draw bottom border
+                DrawSquare(spriteBatch, new Rectangle(rectangle.X, rectangle.Y + (rectangle.Height - borderThickness), rectangle.Width, borderThickness), borderColor.Value, null, 0);
+
+                // Draw left border
+                DrawSquare(spriteBatch, new Rectangle(rectangle.X, rectangle.Y, borderThickness, rectangle.Height), borderColor.Value, null, 0);
+
+                // Draw left border
+                DrawSquare(spriteBatch, new Rectangle(rectangle.X + (rectangle.Width - borderThickness), rectangle.Y, borderThickness, rectangle.Height), borderColor.Value, null, 0);
+            }
         }
     }
 }

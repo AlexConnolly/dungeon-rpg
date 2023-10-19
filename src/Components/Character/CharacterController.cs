@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using LDG.UI;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +52,14 @@ namespace LDG.Components.Character
             else
             {
                 actor.IsMoving = true;
+            }
+
+            using (var group = UIGroup.BeginGroup(new UIGroupSettings()
+            {
+                Position = new Rectangle(10, 10, 400, 180)
+            }))
+            {
+
             }
         }
     }
