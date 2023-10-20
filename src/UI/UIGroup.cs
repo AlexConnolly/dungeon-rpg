@@ -13,8 +13,6 @@ namespace LDG.UI
     {
         public readonly UIGroupSettings Settings;
 
-        public Color BackgroundColor = new Color(255, 224, 163);
-        public Color BorderColor = new Color(214, 170, 82);
 
         private List<UIElement> _elements = new List<UIElement>();
 
@@ -44,7 +42,7 @@ namespace LDG.UI
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawSquare(this.Settings.Position, BackgroundColor, BorderColor, 4);
+            spriteBatch.DrawSquare(this.Settings.Position, UIManager.Style.BackgroundColor, UIManager.Style.BorderColor, 4);
 
             foreach (var element in _elements)
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,21 +17,30 @@ namespace LDG.UI
             get; private set;
         }
 
-        public static SpriteFont LargeFont
-        {
-            get; private set;
-        }
-
         private static List<UIGroup> _groups = new List<UIGroup>();
+
+        public static UIStyle Style { get; set; }
 
         public static void Load(SpriteBatch spriteBatch, ContentManager Content)
         {
             UIManager.CurrentSpriteBatch = spriteBatch;
 
             // Load sprite sheets
-            LargeFont = Content.Load<SpriteFont>("Fonts/Large");
+            var defaultFont = new FontConfig()
+            {
+                Font = Content.Load<SpriteFont>("Fonts/Large"),
+                Color = Color.Black
+            };
 
-            // Do anything else?
+            UIManager.Style = new UIStyle()
+            {
+                BackgroundColor = new Color(255, 224, 163),
+                BorderColor = new Color(214, 170, 82),
+                
+                ButtonFont = defaultFont,
+                HeaderFont = defaultFont,
+                TextFont = defaultFont
+            };
         }
 
         internal static void RegisterGroup(UIGroup group)

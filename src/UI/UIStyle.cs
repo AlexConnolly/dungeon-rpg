@@ -1,0 +1,26 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LDG.UI
+{
+    public class FontConfig
+    {
+        public SpriteFont Font { get; set; }
+        public Color Color { get; set; }
+    }
+
+    public class UIStyle
+    {
+        public Color BackgroundColor { get; set; }
+        public Color BorderColor { get; set; }
+
+        public FontConfig ButtonFont { get; set; }
+        public FontConfig HeaderFont { get; set; }
+        public FontConfig TextFont { get; set; }
+    }
+}

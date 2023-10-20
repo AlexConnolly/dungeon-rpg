@@ -24,12 +24,12 @@ namespace LDG.UI
 
         public override Vector2 ContentDimensions()
         {
-            return UIManager.LargeFont.MeasureString(this.Text);
+            return UIManager.Style.TextFont.Font.MeasureString(this.Text);
         }
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            spriteBatch.DrawString(UIManager.LargeFont, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Color);
+            spriteBatch.DrawString(UIManager.Style.TextFont.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Color);
         }
     }
 }
