@@ -44,5 +44,17 @@ namespace LDG.Components.Collision
                 spriteBatch.DrawSquare(new Rectangle(LDG.Camera.WorldPositionToCameraPoint(new Vector2(tileRect.Location.X, tileRect.Location.Y)), tileRect.Size), Color.GreenYellow, null, 0);
             }
         }
+
+        public override List<Rectangle> GetCollisionRectangles()
+        {
+            var returns = new List<Rectangle>();
+
+            foreach (var tile in Layer.Tiles)
+            {
+                returns.Add(new Rectangle(tile.Location.X * TileSize.X, tile.Location.Y * TileSize.Y, TileSize.X, TileSize.Y));
+            }
+
+            return returns;
+        }
     }
 }

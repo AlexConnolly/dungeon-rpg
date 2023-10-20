@@ -13,6 +13,8 @@ namespace LDG.Components.Collision
         {
         }
 
+        public abstract List<Rectangle> GetCollisionRectangles();
+
         public abstract bool Intersects(Rectangle rectangle);
     }
 }

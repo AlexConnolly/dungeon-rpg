@@ -2,6 +2,7 @@
 using LDG.Components.Camera;
 using LDG.Components.Character;
 using LDG.Components.Collision;
+using LDG.Components.NPC;
 using LDG.Components.Sprite;
 using LDG.Components.Tile;
 using LDG.Sprite;
@@ -127,7 +128,8 @@ namespace LDG
                     LeftFrames = chickenRows[3],
                     UpFrames = chickenRows[0],
                     RightFrames = chickenRows[1]
-                }
+                }, 
+                new NPCMover(npc)
             };
 
             Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Tiles/world");
@@ -169,7 +171,7 @@ namespace LDG
                     tileLayer.Layers[0].Tiles.Add(new TilemapItem()
                     {
                         Location = new Point(x, y),
-                        Frame = tileFrames[11]
+                        Frame = tileFrames[12]
                     });
                 }
             }

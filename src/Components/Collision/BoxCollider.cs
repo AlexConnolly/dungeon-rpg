@@ -25,6 +25,14 @@ namespace LDG.Components.Collision
             }
         }
 
+        public override List<Rectangle> GetCollisionRectangles()
+        {
+            return new List<Rectangle>()
+            {
+                WorldRectangle
+            };
+        }
+
         public override void DrawDebug(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawSquare(new Rectangle(LDG.Camera.WorldPositionToCameraPoint(new Vector2(WorldRectangle.Location.X, WorldRectangle.Location.Y)), WorldRectangle.Size), Color.GreenYellow, null, 0);
