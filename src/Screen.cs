@@ -9,6 +9,6 @@ namespace LDG
 {
     internal class Screen
     {
-        public static Vector2 Resolution { get; set; }
+        public static Point Resolution { get; } = new Point(1280, 720);
     }
 }

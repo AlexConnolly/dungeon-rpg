@@ -22,6 +22,12 @@ namespace LDG
         public LDGGame()
         {
             _graphics = new GraphicsDeviceManager(this);
+
+            _graphics.PreferredBackBufferWidth = Screen.Resolution.X;
+            _graphics.PreferredBackBufferHeight = Screen.Resolution.Y;
+
+            _graphics.ApplyChanges();
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }

@@ -35,7 +35,7 @@ namespace LDG.UI
             UIManager.Style = new UIStyle()
             {
                 BackgroundColor = new Color(255, 224, 163),
-                BorderColor = new Color(214, 170, 82),
+                BorderColor = new Color(61, 52, 22),
                 
                 ButtonFont = defaultFont,
                 HeaderFont = defaultFont,
