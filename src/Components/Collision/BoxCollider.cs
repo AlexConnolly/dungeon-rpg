@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LDG.Components.Collision
 {
-    internal class BoxCollider : GameComponent
+    internal class BoxCollider : Collider
     {
         public BoxCollider(GameObject gameObject) : base(gameObject)
         {
@@ -30,7 +30,7 @@ namespace LDG.Components.Collision
             spriteBatch.DrawSquare(this.WorldRectangle, Color.Black, null, 0);
         }
 
-        public bool Intersects(Rectangle source)
+        public override bool Intersects(Rectangle source)
         {
             return !(source.X > WorldRectangle.X + WorldRectangle.Width ||
          source.X + source.Width < WorldRectangle.X ||

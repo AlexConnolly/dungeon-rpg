@@ -31,7 +31,7 @@ namespace LDG.Components
                 if (gameObject == this.GameObject)
                     continue;
 
-                if(gameObject.TryGetComponent<BoxCollider>(out var other))
+                if(gameObject.TryGetComponent<Collider>(out var other))
                 {
                     // Check whether the object intersects
                     if(other.Intersects(new Rectangle((int)xStart, (int)yStart, (int)collider.Bounds.X, (int)collider.Bounds.Y)))

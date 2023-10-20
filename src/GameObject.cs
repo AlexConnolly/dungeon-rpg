@@ -16,6 +16,11 @@ namespace LDG
             this._scene = scene;
         }
 
+        /// <summary>
+        /// The higher the priority the sooner the item will be drawn before others
+        /// </summary>
+        public int DrawPriority { get; set; } = 0;
+
         public List<GameComponent> Components { get; set; }
 
         public Scene Scene

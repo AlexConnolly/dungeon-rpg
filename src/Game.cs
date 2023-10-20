@@ -9,7 +9,9 @@ using LDG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace LDG
@@ -57,7 +59,7 @@ namespace LDG
                 {
                     Bounds = new Vector2()
                     {
-                        X = 20,
+                        X = 10,
                         Y = 20
                     }
                 },
@@ -101,8 +103,7 @@ namespace LDG
                 new Actor(npc)
                 {
                     Direction = Direction.Right,
-                    MovementSpeed = 20,
-                    IsMoving = true
+                    MovementSpeed = 20
                 },
                 new SpriteRenderer(npc)
                 {
@@ -126,11 +127,12 @@ namespace LDG
 
             var tileFrames = SpriteFrame.GetFramesFromSheet(tileSheet, new Vector2(16, 16));
 
-            var tilemap = new GameObject(currentScene);
-
-            tilemap.Components = new List<GameComponent>()
+            var tilemap = new GameObject(currentScene)
             {
-                new Transform(tilemap),
+                DrawPriority = 99
+            };
+
+            var tileLayer =
                 new Tilemap(tilemap)
                 {
                     Layers = new List<TilemapLayer>()
@@ -139,21 +141,77 @@ namespace LDG
                         {
                             Tiles = new List<TilemapItem>()
                             {
-                                new TilemapItem()
-                                {
-                                    Location = new Point(1, 1),
-                                    Frame = tileFrames[0]
-                                },
-                                new TilemapItem()
-                                {
-                                    Location = new Point(2, 2),
-                                    Frame = tileFrames[0]
-                                }
+
+                            }
+                        },
+                        new TilemapLayer()
+                        {
+                            Tiles = new List<TilemapItem>()
+                            {
+
                             }
                         }
                     },
                     TileSize = new Point(32, 32)
+                };
+
+            for(int x = -10; x < 10; x++)
+            {
+                for(int y = -10; y < 10; y++)
+                {
+                    tileLayer.Layers[0].Tiles.Add(new TilemapItem()
+                    {
+                        Location = new Point(x, y),
+                        Frame = tileFrames[11]
+                    });
                 }
+            }
+
+            for(int x = -10; x < 10; x++)
+            {
+                for(int y = -10; y < 10; y++)
+                {
+                    bool yes = Random.Shared.Next(1, 100) < 8;
+
+                    if(yes)
+                    {
+                        tileLayer.Layers[1].Tiles.Add(new TilemapItem()
+                        {
+                            Location = new Point(x, y),
+                            Frame = tileFrames[30]
+                        });
+                    }
+                }
+            }
+
+            for (int x = -10; x < 10; x++)
+            {
+                for (int y = -10; y < 10; y++)
+                {
+                    bool yes = Random.Shared.Next(1, 100) < 2;
+
+                    if (yes)
+                    {
+                        tileLayer.Layers[1].Tiles.Add(new TilemapItem()
+                        {
+                            Location = new Point(x, y),
+                            Frame = tileFrames[31]
+                        });
+                    }
+                }
+            }
+
+            var layerCollider = new TileLayerCollider(tilemap)
+            {
+                TileSize = new Point(32, 32),
+                Layer = tileLayer.Layers[1]
+            };
+
+            tilemap.Components = new List<GameComponent>()
+            {
+                new Transform(tilemap),
+                tileLayer,
+                layerCollider
             };
 
             currentScene.GameObjects = new List<GameObject>()
@@ -193,7 +251,7 @@ namespace LDG
             // Draw scene
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
-            foreach(var gameObject in currentScene.GameObjects)
+            foreach(var gameObject in currentScene.GameObjects.OrderByDescending(x=> x.DrawPriority))
             {
                 gameObject.Components.ForEach((x) =>
                 {
