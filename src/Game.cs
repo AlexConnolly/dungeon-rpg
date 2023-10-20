@@ -3,6 +3,7 @@ using LDG.Components.Camera;
 using LDG.Components.Character;
 using LDG.Components.Collision;
 using LDG.Components.Sprite;
+using LDG.Components.Tile;
 using LDG.Sprite;
 using LDG.UI;
 using Microsoft.Xna.Framework;
@@ -121,10 +122,45 @@ namespace LDG
                 }
             };
 
+            Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Tiles/world");
+
+            var tileFrames = SpriteFrame.GetFramesFromSheet(tileSheet, new Vector2(16, 16));
+
+            var tilemap = new GameObject(currentScene);
+
+            tilemap.Components = new List<GameComponent>()
+            {
+                new Transform(tilemap),
+                new Tilemap(tilemap)
+                {
+                    Layers = new List<TilemapLayer>()
+                    {
+                        new TilemapLayer()
+                        {
+                            Tiles = new List<TilemapItem>()
+                            {
+                                new TilemapItem()
+                                {
+                                    Location = new Point(1, 1),
+                                    Frame = tileFrames[0]
+                                },
+                                new TilemapItem()
+                                {
+                                    Location = new Point(2, 2),
+                                    Frame = tileFrames[0]
+                                }
+                            }
+                        }
+                    },
+                    TileSize = new Point(32, 32)
+                }
+            };
+
             currentScene.GameObjects = new List<GameObject>()
             {
                 gameObject,
-                npc
+                npc,
+                tilemap
             };
 
             // TODO: use this.Content to load your game content here
@@ -155,7 +191,7 @@ namespace LDG
             GraphicsDevice.Clear(Color.Green);
 
             // Draw scene
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
             foreach(var gameObject in currentScene.GameObjects)
             {
@@ -168,14 +204,14 @@ namespace LDG
             _spriteBatch.End();
 
             // Draw UI
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
             UIManager.Draw();
 
             _spriteBatch.End();
 
             // Draw debugs
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
             foreach (var gameObject in currentScene.GameObjects)
             {

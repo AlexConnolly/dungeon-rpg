@@ -41,7 +41,6 @@ namespace LDG
 
         public bool TryGetComponent<T>(out T obj) where T : GameComponent
         {
-
             foreach (var component in Components)
             {
                 if (component is T)

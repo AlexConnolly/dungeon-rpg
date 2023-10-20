@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LDG.Sprite
@@ -32,6 +33,21 @@ namespace LDG.Sprite
                     return new Vector2(this.source.Value.Width, this.source.Value.Height);
                 }
             }
+        }
+
+        public static List<SpriteFrame> GetFramesFromSheet(Texture2D texture, Vector2 resolution)
+        {
+            var result = new List<SpriteFrame>();
+
+            for (int y = 0; y < texture.Height; y += (int)resolution.Y)
+            {
+                for (int x = 0; x < texture.Width; x += (int)resolution.X)
+                {
+                    result.Add(new SpriteFrame(texture, new Rectangle(x, y, (int)resolution.X, (int)resolution.Y)));
+                }
+            }
+
+            return result;
         }
 
         public static List<List<SpriteFrame>> GetRowsFromSheet(Texture2D texture, Vector2 resolution, bool directionIsY = false)
@@ -69,9 +85,17 @@ namespace LDG.Sprite
             return result;
         }
 
-        public void Draw(SpriteBatch batch, Vector2 position)
+        public void Draw(SpriteBatch batch, Vector2 position, Point? drawSize = null)
         {
-            batch.Draw(this.texture, position, this.source, Color.White);
+            Rectangle destination = new Rectangle((int)position.X, (int)position.Y, (int)Size.X, (int)Size.Y);
+
+            if(drawSize != null)
+            {
+                destination.Width = drawSize.Value.X;
+                destination.Height = drawSize.Value.Y;
+            }
+
+            batch.Draw(this.texture, destination, this.source, Color.White);
         }
     }
 }
