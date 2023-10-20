@@ -31,7 +31,8 @@ namespace LDG.UI
                 Color = new Color(137, 118, 37),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Middle,
-                Text = "Button Text"
+                Text = "Button Text",
+                Font = UIManager.Style.ButtonFont
             });
         }
 

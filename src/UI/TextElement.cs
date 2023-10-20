@@ -22,14 +22,16 @@ namespace LDG.UI
 
         public required Color Color { get; set; }
 
+        public required FontConfig Font { get; set; }
+
         public override Vector2 ContentDimensions()
         {
-            return UIManager.Style.TextFont.Font.MeasureString(this.Text);
+            return Font.Font.MeasureString(this.Text);
         }
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            spriteBatch.DrawString(UIManager.Style.TextFont.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Color);
+            spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Color);
         }
     }
 }

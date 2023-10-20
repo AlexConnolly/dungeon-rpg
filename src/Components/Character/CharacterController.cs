@@ -64,7 +64,8 @@ namespace LDG.Components.Character
                     Color = new Color(137, 118, 37),
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Middle,
-                    Text = "Message box"
+                    Text = "Message box",
+                    Font = UIManager.Style.HeaderFont
                 });
 
                 group.Text(new TextElement(group, new Rectangle(0, 70, group.Settings.Position.Width, 40))
@@ -72,7 +73,8 @@ namespace LDG.Components.Character
                     Color = new Color(137, 118, 37),
                     HorizontalAlignment = HorizontalAlignment.Left,
                     VerticalAlignment = VerticalAlignment.Middle,
-                    Text = "Text can be centered, or even aligned to the left"
+                    Text = "Text can be centered, or even aligned to the left",
+                    Font = UIManager.Style.TextFont
                 });
 
                 group.Button(new ButtonElement(group, new Rectangle(10, 10, 140, 40))
