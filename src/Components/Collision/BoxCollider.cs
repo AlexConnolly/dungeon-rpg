@@ -27,7 +27,7 @@ namespace LDG.Components.Collision
 
         public override void DrawDebug(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawSquare(this.WorldRectangle, Color.Black, null, 0);
+            spriteBatch.DrawSquare(new Rectangle(LDG.Camera.WorldPositionToCameraPoint(new Vector2(WorldRectangle.Location.X, WorldRectangle.Location.Y)), WorldRectangle.Size), Color.GreenYellow, null, 0);
         }
 
         public override bool Intersects(Rectangle source)

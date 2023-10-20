@@ -23,6 +23,8 @@ namespace LDG
 
         private Scene currentScene = new Scene();
 
+        private bool isDebugMode = false;
+
         public LDGGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -240,6 +242,13 @@ namespace LDG
                 });
             }
 
+            var keyboardState = Keyboard.GetState();
+
+            if(keyboardState.IsKeyDown(Keys.Tab))
+            {
+                isDebugMode = !isDebugMode;
+            }
+
             // Base updates
             base.Update(gameTime);
         }
@@ -269,17 +278,20 @@ namespace LDG
             _spriteBatch.End();
 
             // Draw debugs
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
-
-            foreach (var gameObject in currentScene.GameObjects)
+            if(isDebugMode)
             {
-                gameObject.Components.ForEach((x) =>
-                {
-                    //x.DrawDebug(_spriteBatch);
-                });
-            }
+                _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
-            _spriteBatch.End();
+                foreach (var gameObject in currentScene.GameObjects)
+                {
+                    gameObject.Components.ForEach((x) =>
+                    {
+                        x.DrawDebug(_spriteBatch);
+                    });
+                }
+
+                _spriteBatch.End();
+            }
 
 
             // TODO: Add your drawing code here

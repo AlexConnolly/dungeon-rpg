@@ -54,6 +54,8 @@ namespace LDG.Components.Character
                 actor.IsMoving = true;
             }
 
+            return;
+
             using (var group = UIGroup.BeginGroup(new UIGroupSettings()
             {
                 Position = new Rectangle(10, Screen.Resolution.Y - 190, Screen.Resolution.X - 20, 180)
