@@ -10,6 +10,10 @@ namespace LDG.UI
 {
     public class TextElement : UIElement
     {
+        public TextElement(UIGroup group, Rectangle position) : base(group, position)
+        {
+        }
+
         public int Size { get; set; } = 12;
 
         public required string Text { get; set; }
@@ -23,9 +27,9 @@ namespace LDG.UI
             return UIManager.LargeFont.MeasureString(this.Text);
         }
 
-        public override void Draw(Vector2 offset, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            spriteBatch.DrawString(UIManager.LargeFont, this.Text, new Vector2(offset.X + this.Position.X, offset.Y + this.Position.Y), this.Color);
+            spriteBatch.DrawString(UIManager.LargeFont, this.Text, this.GlobalPosition, this.Color);
         }
     }
 }

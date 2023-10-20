@@ -173,7 +173,7 @@ namespace LDG
             {
                 gameObject.Components.ForEach((x) =>
                 {
-                    x.DrawDebug(_spriteBatch);
+                    //x.DrawDebug(_spriteBatch);
                 });
             }
 

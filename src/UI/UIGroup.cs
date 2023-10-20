@@ -13,8 +13,8 @@ namespace LDG.UI
     {
         public readonly UIGroupSettings Settings;
 
-        private Color BackgroundColor = new Color(255, 224, 163);
-        private Color BorderColor = new Color(214, 170, 82);
+        public Color BackgroundColor = new Color(255, 224, 163);
+        public Color BorderColor = new Color(214, 170, 82);
 
         private List<UIElement> _elements = new List<UIElement>();
 
@@ -46,21 +46,26 @@ namespace LDG.UI
         {
             spriteBatch.DrawSquare(this.Settings.Position, BackgroundColor, BorderColor, 4);
 
-            Vector2 offset = new Vector2(this.Settings.Position.X, this.Settings.Position.Y);
-
-            foreach(var element in _elements)
+            foreach (var element in _elements)
             {
-                Vector2 alignmentOffset = element.CalculateAlignmentOffset();
-
-
-                // Calculate offset based on 
-                element.Draw(offset + alignmentOffset, spriteBatch);
+                element.Draw(spriteBatch, this);
             }
         }
 
-        public void Text(TextElement options)
+        private void AddElement(UIElement element)
         {
-            _elements.Add(options);
+            _elements.Add(element);
+            element.Initialize();
+        }
+
+        public void Text(TextElement element)
+        {
+            AddElement(element);
+        }
+
+        public void Button(ButtonElement element)
+        {
+            AddElement(element);
         }
     }
 }

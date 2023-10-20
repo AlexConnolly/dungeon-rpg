@@ -24,14 +24,35 @@ namespace LDG.UI
 
     public abstract class UIElement
     {
-        public abstract void Draw(Vector2 offset, SpriteBatch spriteBatch);
+        public UIGroup Group { get; private set; }
+
+        public UIElement(UIGroup group, Rectangle position)
+        {
+            this.Group = group;
+            this.Position = position;
+        }
+
+        public Vector2 GlobalPosition
+        {
+            get
+            {
+                // Calculate the global position based on the element's local position and its group's position
+                return new Vector2(Position.X + Group.Settings.Position.X, Position.Y + Group.Settings.Position.Y) + CalculateAlignmentOffset();
+            }
+        }
+
+        public abstract void Draw(SpriteBatch spriteBatch, UIGroup group);
         public abstract Vector2 ContentDimensions();
+
+        public virtual void Initialize()
+        {
+
+        }
 
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Left;
         public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Top;
 
         public abstract Rectangle Position { get; set; }
-
 
         private int GetXOffset(int contentWidth)
         {

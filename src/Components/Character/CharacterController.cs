@@ -59,22 +59,26 @@ namespace LDG.Components.Character
                 Position = new Rectangle(10, 10, 400, 180)
             }))
             {
-                group.Text(new TextElement()
+                group.Text(new TextElement(group, new Rectangle(0, 0, group.Settings.Position.Width, 40))
                 {
                     Color = new Color(137, 118, 37),
-                    Position = new Rectangle(0, 0, group.Settings.Position.Width, 40),
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Middle,
                     Text = "Message box"
                 });
 
-                group.Text(new TextElement()
+                group.Text(new TextElement(group, new Rectangle(0, 70, group.Settings.Position.Width, 40))
                 {
                     Color = new Color(137, 118, 37),
-                    Position = new Rectangle(0, 70, group.Settings.Position.Width, 40),
                     HorizontalAlignment = HorizontalAlignment.Left,
                     VerticalAlignment = VerticalAlignment.Middle,
                     Text = "Text can be centered, or even aligned to the left"
+                });
+
+                group.Button(new ButtonElement(group, new Rectangle(10, 10, 140, 40))
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Middle
                 });
             }
         }

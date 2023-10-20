@@ -1,0 +1,43 @@
+﻿using LDG.Extensions;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LDG.UI
+{
+    public class ButtonElement : UIElement
+    {
+        public override Rectangle Position { get; set; }
+
+        public string Text { get; set; }
+
+        public override Vector2 ContentDimensions()
+        {
+            return new Vector2(Position.Width, Position.Height);
+        }
+
+        public ButtonElement(UIGroup group, Rectangle position) : base(group, position)
+        {
+        }
+
+        public override void Initialize()
+        {
+            Group.Text(new TextElement(this.Group, new Rectangle( Position.X, Position.Y, Position.Width, Position.Height))
+            {
+                Color = new Color(137, 118, 37),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Middle,
+                Text = "A button"
+            });
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, UIGroup group)
+        {
+            spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), group.BackgroundColor, group.BorderColor, 2);
+        }
+    }
+}
