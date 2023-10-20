@@ -40,14 +40,20 @@ namespace LDG.Components.NPC
 
         public override void DrawDebug(SpriteBatch spriteBatch)
         {
+            Collider collider = this.GameObject.GetComponent<BoxCollider>();
+
+            var range = collider.GetCollisionRectangles()[0];
+
+            int size = Math.Max(range.Width, range.Height);
+
             if(CollisionRectangles == null)
             {
-                CollisionRectangles = new PathFinder(GetCollisionRectangles()).FindPath(new Vector2(150, 650), this.GetComponent<Collider>().GetCollisionRectangles()[0]);
+                CollisionRectangles = new PathFinder(GetCollisionRectangles()).FindPath(new Vector2(150, 650), this.GetComponent<Collider>().GetCollisionRectangles()[0], size);
             }
 
             foreach(var node in CollisionRectangles)
             {
-                spriteBatch.DrawSquare(new Rectangle(LDG.Camera.WorldPositionToCameraPoint(new Vector2(node.X, node.Y)), new Point(10, 10)), Color.GreenYellow, null, 0);
+                spriteBatch.DrawSquare(new Rectangle(LDG.Camera.WorldPositionToCameraPoint(new Vector2(node.X, node.Y)), new Point(5, 5)), Color.Red, null, 0);
             }
         }
     }
