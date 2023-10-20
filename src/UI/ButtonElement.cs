@@ -31,13 +31,19 @@ namespace LDG.UI
                 Color = new Color(137, 118, 37),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Middle,
-                Text = "A button"
+                Text = "Button Text"
             });
         }
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), group.BackgroundColor, group.BorderColor, 2);
+            if(IsMouseOver())
+            {
+                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), Color.White, group.BorderColor, 2);
+            } else
+            {
+                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), group.BackgroundColor, group.BorderColor, 2);
+            }
         }
     }
 }

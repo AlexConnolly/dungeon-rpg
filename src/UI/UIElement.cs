@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LDG.Extensions;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +34,12 @@ namespace LDG.UI
             this.Position = position;
         }
 
-        public Vector2 GlobalPosition
+        public Point GlobalPosition
         {
             get
             {
                 // Calculate the global position based on the element's local position and its group's position
-                return new Vector2(Position.X + Group.Settings.Position.X, Position.Y + Group.Settings.Position.Y) + CalculateAlignmentOffset();
+                return new Point(Position.X + Group.Settings.Position.X, Position.Y + Group.Settings.Position.Y) + CalculateAlignmentOffset();
             }
         }
 
@@ -47,6 +49,13 @@ namespace LDG.UI
         public virtual void Initialize()
         {
 
+        }
+
+        public bool IsMouseOver()
+        {
+            Point position = Mouse.GetState().Position;
+
+            return position.IsIn(new Rectangle(this.GlobalPosition, this.Position.Size));
         }
 
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Left;
@@ -88,14 +97,14 @@ namespace LDG.UI
             return 0;
         }
 
-        public Vector2 CalculateAlignmentOffset()
+        public Point CalculateAlignmentOffset()
         {
             Vector2 contentSize = ContentDimensions();
 
             int x = int.Parse(contentSize.X.ToString());
             int y = int.Parse(contentSize.Y.ToString());
 
-            return new Vector2(GetXOffset(x), GetYOffset(y));
+            return new Point(GetXOffset(x), GetYOffset(y));
         }
     }
 }

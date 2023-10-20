@@ -29,7 +29,7 @@ namespace LDG.UI
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            spriteBatch.DrawString(UIManager.LargeFont, this.Text, this.GlobalPosition, this.Color);
+            spriteBatch.DrawString(UIManager.LargeFont, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Color);
         }
     }
 }
