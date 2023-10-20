@@ -92,6 +92,10 @@ namespace LDG
 
             var npc = new GameObject(currentScene);
 
+            Texture2D chickenSheet = Content.Load<Texture2D>("Graphics/Sprites/chicken");
+
+            var chickenRows = SpriteFrame.GetRowsFromSheet(chickenSheet, new Vector2(32, 32), false);
+
             npc.Components = new List<GameComponent>()
             {
                 new BoxCollider(npc)
@@ -105,7 +109,8 @@ namespace LDG
                 new Actor(npc)
                 {
                     Direction = Direction.Right,
-                    MovementSpeed = 20
+                    MovementSpeed = 20,
+                    IsMoving = true
                 },
                 new SpriteRenderer(npc)
                 {
@@ -118,10 +123,10 @@ namespace LDG
                 new SpriteMovementAnimator(npc)
                 {
                     FramesPerSecond = 10,
-                    DownFrames = rows[0],
-                    LeftFrames = rows[1],
-                    UpFrames = rows[2],
-                    RightFrames = rows[3]
+                    DownFrames = chickenRows[2],
+                    LeftFrames = chickenRows[3],
+                    UpFrames = chickenRows[0],
+                    RightFrames = chickenRows[1]
                 }
             };
 
