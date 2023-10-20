@@ -61,7 +61,7 @@ namespace LDG
                 {
                     Bounds = new Vector2()
                     {
-                        X = 10,
+                        X = 20,
                         Y = 20
                     }
                 },
