@@ -69,7 +69,7 @@ namespace LDG
                 new Actor(gameObject)
                 {
                     Direction = Direction.Up,
-                    MovementSpeed = 60
+                    MovementSpeed = 85
                 },
                 new SpriteRenderer(gameObject)
                 {
