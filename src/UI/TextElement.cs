@@ -20,8 +20,6 @@ namespace LDG.UI
 
         public override Rectangle Position { get; set; }
 
-        public required Color Color { get; set; }
-
         public required FontConfig Font { get; set; }
 
         public override Vector2 ContentDimensions()
@@ -31,7 +29,13 @@ namespace LDG.UI
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Color);
+            spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Font.Color);
+
+            if(this.Font.Shadow != null)
+            {
+                spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y) + this.Font.Shadow.Offset, this.Font.Shadow.Color);
+
+            }
         }
     }
 }

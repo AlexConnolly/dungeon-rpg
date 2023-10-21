@@ -28,7 +28,6 @@ namespace LDG.UI
         {
             Group.Text(new TextElement(this.Group, new Rectangle( Position.X, Position.Y, Position.Width, Position.Height))
             {
-                Color = new Color(137, 118, 37),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Middle,
                 Text = this.Text,

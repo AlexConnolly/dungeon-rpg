@@ -2,6 +2,7 @@
 using LDG.Components.Camera;
 using LDG.Components.Character;
 using LDG.Components.Collision;
+using LDG.Components.HUD;
 using LDG.Components.NPC;
 using LDG.Components.Sprite;
 using LDG.Components.Tile;
@@ -88,7 +89,8 @@ namespace LDG
                     UpFrames = rows[2],
                     RightFrames = rows[3]
                 },
-                new MainCameraFollow(gameObject)
+                new MainCameraFollow(gameObject),
+                new ItemBar(gameObject)
             };
 
             var npc = new GameObject(currentScene);

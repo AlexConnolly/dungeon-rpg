@@ -29,7 +29,11 @@ namespace LDG.UI
             var defaultFont = new FontConfig()
             {
                 Font = Content.Load<SpriteFont>("Fonts/Large"),
-                Color = Color.Black
+                Color = Color.White,
+                Shadow = new FontShadowConfig()
+                {
+                    Color = Color.Black
+                }
             };
 
             UIManager.Style = new UIStyle()

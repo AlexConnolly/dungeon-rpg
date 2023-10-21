@@ -12,6 +12,14 @@ namespace LDG.UI
     {
         public SpriteFont Font { get; set; }
         public Color Color { get; set; }
+
+        public FontShadowConfig? Shadow { get; set; }
+    }
+
+    public class FontShadowConfig
+    {
+        public Color Color { get; set; } = Color.Black;
+        public Vector2 Offset { get; set; } = new Vector2(1, 1);
     }
 
     public class UIStyle
