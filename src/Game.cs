@@ -130,6 +130,9 @@ namespace LDG
                     RightFrames = chickenRows[1]
                 }, 
                 new NPCMover(npc)
+                {
+                    Target = gameObject
+                }
             };
 
             Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Tiles/world");
@@ -171,7 +174,7 @@ namespace LDG
                     tileLayer.Layers[0].Tiles.Add(new TilemapItem()
                     {
                         Location = new Point(x, y),
-                        Frame = tileFrames[12]
+                        Frame = tileFrames[64]
                     });
                 }
             }
@@ -204,7 +207,7 @@ namespace LDG
                         tileLayer.Layers[1].Tiles.Add(new TilemapItem()
                         {
                             Location = new Point(x, y),
-                            Frame = tileFrames[31]
+                            Frame = tileFrames[38]
                         });
                     }
                 }
