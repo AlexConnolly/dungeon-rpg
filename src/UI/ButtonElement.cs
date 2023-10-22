@@ -11,9 +11,9 @@ namespace LDG.UI
 {
     public class ButtonElement : UIElement
     {
-        public override Rectangle Position { get; set; }
-
         public string Text { get; set; }
+
+        public bool ForceHover { get; set; } = false;
 
         public override Vector2 ContentDimensions()
         {
@@ -37,7 +37,7 @@ namespace LDG.UI
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            if(IsMouseOver())
+            if(IsMouseOver() || ForceHover)
             {
                 spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), Color.White, UIManager.Style.BorderColor, 2);
             } else

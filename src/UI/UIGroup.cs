@@ -1,4 +1,5 @@
 ﻿using LDG.Extensions;
+using LDG.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,7 +13,6 @@ namespace LDG.UI
     public class UIGroup : IDisposable
     {
         public readonly UIGroupSettings Settings;
-
 
         private List<UIElement> _elements = new List<UIElement>();
 
@@ -42,7 +42,8 @@ namespace LDG.UI
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawSquare(this.Settings.Position, UIManager.Style.BackgroundColor, UIManager.Style.BorderColor, 4);
+            if(Settings.ShowBox)
+                spriteBatch.DrawSquare(this.Settings.Position, UIManager.Style.BackgroundColor, UIManager.Style.BorderColor, 4);
 
             foreach (var element in _elements)
             {
@@ -64,6 +65,24 @@ namespace LDG.UI
         public void Button(ButtonElement element)
         {
             AddElement(element);
+        }
+
+        public void Image(SpriteFrame frame, Rectangle destination)
+        {
+            AddElement(new SpriteElement(this, destination)
+            {
+                Frame = frame
+            });
+        }
+
+        public void Square(Point location, Point size, Color background, Color border, int borderSize = 0)
+        {
+            AddElement(new SquareElement(this, new Rectangle(location, size))
+            {
+                Color = background,
+                Border = border,
+                BorderSize = borderSize
+            });
         }
     }
 }

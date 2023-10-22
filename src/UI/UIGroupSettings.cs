@@ -10,5 +10,7 @@ namespace LDG.UI
     public class UIGroupSettings
     {
         public Rectangle Position { get; set; }
+
+        public bool ShowBox { get; set; } = true;
     }
 }

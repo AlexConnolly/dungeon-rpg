@@ -61,7 +61,7 @@ namespace LDG.UI
         public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Left;
         public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Top;
 
-        public abstract Rectangle Position { get; set; }
+        public Rectangle Position { get; set; }
 
         private int GetXOffset(int contentWidth)
         {

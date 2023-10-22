@@ -14,11 +14,7 @@ namespace LDG.UI
         {
         }
 
-        public int Size { get; set; } = 12;
-
         public required string Text { get; set; }
-
-        public override Rectangle Position { get; set; }
 
         public required FontConfig Font { get; set; }
 
@@ -34,7 +30,6 @@ namespace LDG.UI
             if(this.Font.Shadow != null)
             {
                 spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y) + this.Font.Shadow.Offset, this.Font.Shadow.Color);
-
             }
         }
     }
