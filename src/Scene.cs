@@ -19,7 +19,8 @@ namespace LDG
             {
                 var objectComponents = gameObject.GetComponent<T>();
 
-                components.Add(objectComponents);
+                if(objectComponents != null)
+                    components.Add(objectComponents);
             }
 
             return components;

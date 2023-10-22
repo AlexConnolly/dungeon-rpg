@@ -1,4 +1,7 @@
-﻿using LDG.Extensions;
+﻿using LDG.Components.Collision;
+using LDG.Components.Tile;
+using LDG.Extensions;
+using LDG.Sprite;
 using LDG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -70,34 +73,53 @@ namespace LDG.Components.HUD
             // Get player component
             var actor = GetComponent<Actor>();
 
-            Vector2 position = Vector2.Zero;
+            // Get tilemap
+            var tilemap = GameObject.Scene.GetAllComponentsOfType<Tilemap>()[0];
+            var collider = GetComponent<BoxCollider>();
+
+            Vector2 facingDirection = Vector2.Zero;
 
             switch (actor.Direction)
             {
                 case Direction.Up:
-                    position = new Vector2(0, -1);
+                    facingDirection = new Vector2(0, -1);
                     break;
 
                 case Direction.Down:
-                    position = new Vector2(0, 1);
+                    facingDirection = new Vector2(0, 1);
                     break;
 
                 case Direction.Left:
-                    position = new Vector2(-1, 0);
+                    facingDirection = new Vector2(-1, 0);
                     break;
 
                 case Direction.Right:
-                    position = new Vector2(1, 0);
+                    facingDirection = new Vector2(1, 0);
                     break;
             }
 
+            Vector2 tilePosition = tilemap.WorldPositionToTileStart(this.Transform.Position + (collider.Bounds * (facingDirection) + (tilemap.TileSize.ToVector2() * facingDirection)));
+
             using (var group = UIGroup.BeginGroup(new UIGroupSettings()
             {
-                Position = new Rectangle(LDG.Camera.WorldPositionToCameraPoint(this.Transform.Position) - new Point(24, 24), new Point(48, 48)),
+                Position = new Rectangle(LDG.Camera.WorldPositionToCameraPoint(tilePosition), tilemap.TileSize),
                 ShowBox = false
             }))
             {
+                group.Square(Point.Zero, group.Settings.Position.Size, Color.Blue.SetOpacity(0.15f), Color.CadetBlue.SetOpacity(0.3f), 2);
+            }
 
+            if(Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                // TODO: Set an item here to show that it works
+
+                // TODO: We need to determine whether there is something on this tile first before placing... can't just allow random placement (eg. What if there is an NPC etc)
+
+                //Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Tiles/world");
+
+                //var tileFrames = SpriteFrame.GetFramesFromSheet(tileSheet, new Vector2(16, 16));
+
+                //tilemap.SetTileAtLocation(1, tilePosition, new LDG.Sprite.SpriteFrame());
             }
         }
     }
