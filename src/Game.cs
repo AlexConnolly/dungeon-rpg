@@ -106,8 +106,7 @@ namespace LDG
                 new Actor(npc)
                 {
                     Direction = Direction.Right,
-                    MovementSpeed = 20,
-                    IsMoving = true
+                    MovementSpeed = 20
                 },
                 new SpriteRenderer(npc)
                 {

@@ -116,7 +116,7 @@ namespace LDG.Components.HUD
 
             if(Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                tilemap.SetTileAtLocation(1, tilemap.WorldPositionToTilePosition(tilePosition), null);
+                tilemap.SetTileAtLocation(1, tilemap.WorldPositionToTilePosition(tilePosition), SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0"));
             }
         }
     }
