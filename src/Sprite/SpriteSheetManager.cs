@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,11 @@ namespace LDG.Sprite
     public class Spritesheet
     {
         private Dictionary<string, SpriteFrame> Frames { get; set; }
+
+        public Spritesheet(Dictionary<string, SpriteFrame> frames)
+        {
+            Frames = frames;
+        }
 
         public SpriteFrame GetByKey(string key)
         {
@@ -33,6 +39,35 @@ namespace LDG.Sprite
             }
 
             return returns;
+        }
+
+        public static Spritesheet FromAnimatedSheet(Texture2D texture, bool isYDirection, int leftIndex, int rightIndex, int upIndex, int downIndex, Point size)
+        {
+            var getFramesFromSheet = SpriteFrame.GetRowsFromSheet(texture, size.ToVector2(), isYDirection);
+
+            Dictionary<string, SpriteFrame> frames = new Dictionary<string, SpriteFrame>();
+
+            for(int x = 0; x < getFramesFromSheet[leftIndex].Count; x++)
+            {
+                frames.Add("LEFT_" + x, getFramesFromSheet[leftIndex][x]);
+            }
+
+            for (int x = 0; x < getFramesFromSheet[rightIndex].Count; x++)
+            {
+                frames.Add("RIGHT_" + x, getFramesFromSheet[rightIndex][x]);
+            }
+
+            for (int x = 0; x < getFramesFromSheet[upIndex].Count; x++)
+            {
+                frames.Add("UP_" + x, getFramesFromSheet[upIndex][x]);
+            }
+
+            for (int x = 0; x < getFramesFromSheet[downIndex].Count; x++)
+            {
+                frames.Add("DOWN_" + x, getFramesFromSheet[downIndex][x]);
+            }
+
+            return new Spritesheet(frames);
         }
     }
 
@@ -60,11 +95,8 @@ namespace LDG.Sprite
 
         public static void Load(ContentManager content)
         {
-            // Scan folder for spritesheets (.json format)
-
-            // Load sheets (load sheet .json and the relevant texture through content)
-
-            // ???
+            _sheets.Add("character_chicken", Spritesheet.FromAnimatedSheet(content.Load<Texture2D>("Graphics/Sprites/Characters/chicken"), false, 3, 1, 0, 2, new Point(32, 32)));
+            _sheets.Add("character_george", Spritesheet.FromAnimatedSheet(content.Load<Texture2D>("Graphics/Sprites/Characters/george"), true, 1, 3, 2, 0, new Point(48, 48)));
         }
         
         public static Spritesheet GetSheetByName(string name)

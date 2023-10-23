@@ -10,19 +10,26 @@ namespace LDG.Components.Sprite
 {
     internal class SpriteMovementAnimator : GameComponent
     {
-        public SpriteMovementAnimator(GameObject gameObject) : base(gameObject)
-        {
+        private readonly Spritesheet _sheet;
 
+        public SpriteMovementAnimator(GameObject gameObject, Spritesheet sheet) : base(gameObject)
+        {
+            this._sheet = sheet;
+
+            this.LeftFrames = sheet.GetByStartsWith("LEFT");
+            this.RightFrames = sheet.GetByStartsWith("RIGHT");
+            this.UpFrames = sheet.GetByStartsWith("UP");
+            this.DownFrames = sheet.GetByStartsWith("DOWN");
         }
 
         public float FramesPerSecond { get; set; }
 
-        public List<SpriteFrame> LeftFrames { get; set; }
+        private List<SpriteFrame> LeftFrames { get; set; }
 
-        public List<SpriteFrame> RightFrames { get; set; }
-        public List<SpriteFrame> UpFrames { get; set; }
+        private List<SpriteFrame> RightFrames { get; set; }
+        private List<SpriteFrame> UpFrames { get; set; }
 
-        public List<SpriteFrame> DownFrames { get; set; }
+        private List<SpriteFrame> DownFrames { get; set; }
 
         private float TimeSinceLastFrame = 0;
         private int currentFrameIndex = 0;

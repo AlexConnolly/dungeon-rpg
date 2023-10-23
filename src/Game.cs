@@ -50,12 +50,11 @@ namespace LDG
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             UIManager.Load(_spriteBatch, Content);
+            SpriteSheetManager.Load(Content);
 
             var gameObject = new GameObject(currentScene);
 
-            Texture2D sheet = Content.Load<Texture2D>("Graphics/Sprites/george");
-
-            var rows = SpriteFrame.GetRowsFromSheet(sheet, new Vector2(48, 48), true);
+            var georgeSheet = SpriteSheetManager.GetSheetByName("character_george");
 
             gameObject.Components = new List<GameComponent>()
             {
@@ -81,13 +80,9 @@ namespace LDG
                     Position = new Vector2(120, 20)
                 },
                 new CharacterController(gameObject),
-                new SpriteMovementAnimator(gameObject)
+                new SpriteMovementAnimator(gameObject, georgeSheet)
                 {
-                    FramesPerSecond = 10,
-                    DownFrames = rows[0],
-                    LeftFrames = rows[1],
-                    UpFrames = rows[2],
-                    RightFrames = rows[3]
+                    FramesPerSecond = 10
                 },
                 new MainCameraFollow(gameObject),
                 new ItemBar(gameObject)
@@ -95,9 +90,7 @@ namespace LDG
 
             var npc = new GameObject(currentScene);
 
-            Texture2D chickenSheet = Content.Load<Texture2D>("Graphics/Sprites/chicken");
-
-            var chickenRows = SpriteFrame.GetRowsFromSheet(chickenSheet, new Vector2(32, 32), false);
+            var chickenFrames = SpriteSheetManager.GetSheetByName("character_chicken");
 
             npc.Components = new List<GameComponent>()
             {
@@ -123,13 +116,9 @@ namespace LDG
                 {
                     Position = new Vector2(20, 20)
                 },
-                new SpriteMovementAnimator(npc)
+                new SpriteMovementAnimator(npc, chickenFrames)
                 {
-                    FramesPerSecond = 10,
-                    DownFrames = chickenRows[2],
-                    LeftFrames = chickenRows[3],
-                    UpFrames = chickenRows[0],
-                    RightFrames = chickenRows[1]
+                    FramesPerSecond = 10
                 }, 
                 new NPCMover(npc)
                 {
@@ -137,7 +126,7 @@ namespace LDG
                 }
             };
 
-            Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Tiles/world");
+            Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Sprites/Tiles/world");
 
             var tileFrames = SpriteFrame.GetFramesFromSheet(tileSheet, new Vector2(16, 16));
 

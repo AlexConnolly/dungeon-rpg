@@ -20,7 +20,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Large.spritefont
 
-#begin Graphics/Sprites/chicken.png
+#begin Graphics/Sprites/Characters/chicken.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -30,9 +30,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Sprites/chicken.png
+/build:Graphics/Sprites/Characters/chicken.png
 
-#begin Graphics/Sprites/george.png
+#begin Graphics/Sprites/Characters/george.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -42,9 +42,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Sprites/george.png
+/build:Graphics/Sprites/Characters/george.png
 
-#begin Graphics/Tiles/world.png
+#begin Graphics/Sprites/Tiles/world.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -54,5 +54,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Graphics/Tiles/world.png
+/build:Graphics/Sprites/Tiles/world.png
 
