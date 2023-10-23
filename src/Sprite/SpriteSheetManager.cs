@@ -19,6 +19,21 @@ namespace LDG.Sprite
 
             return null;
         }
+
+        public List<SpriteFrame> GetByStartsWith(string startsWith)
+        {
+            var returns = new List<SpriteFrame>();
+
+            foreach(var key in Frames.Keys)
+            {
+                if(key.StartsWith(startsWith, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    returns.Add(Frames[key]);
+                }
+            }
+
+            return returns;
+        }
     }
 
     public class SpritesheetItem
