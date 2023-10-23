@@ -85,7 +85,8 @@ namespace LDG
                     FramesPerSecond = 10
                 },
                 new MainCameraFollow(gameObject),
-                new ItemBar(gameObject)
+                new ItemBar(gameObject),
+                new HealthBar(gameObject)
             };
 
             var npc = new GameObject(currentScene);
@@ -120,10 +121,10 @@ namespace LDG
                 {
                     FramesPerSecond = 10
                 }, 
-                new NPCMover(npc)
-                {
-                    Target = gameObject
-                }
+                //new NPCMover(npc)
+                //{
+                //    Target = gameObject
+                //}
             };
 
             Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Sprites/Tiles/world");
@@ -158,9 +159,9 @@ namespace LDG
                     TileSize = new Point(32, 32)
                 };
 
-            for(int x = -10; x < 10; x++)
+            for(int x = -100; x < 100; x++)
             {
-                for(int y = -10; y < 10; y++)
+                for(int y = -100; y < 100; y++)
                 {
                     tileLayer.Layers[0].Tiles.Add(new TilemapItem()
                     {
@@ -170,9 +171,9 @@ namespace LDG
                 }
             }
 
-            for(int x = -10; x < 10; x++)
+            for(int x = -100; x < 100; x++)
             {
-                for(int y = -10; y < 10; y++)
+                for(int y = -100; y < 100; y++)
                 {
                     bool yes = Random.Shared.Next(1, 100) < 8;
 
@@ -187,9 +188,9 @@ namespace LDG
                 }
             }
 
-            for (int x = -10; x < 10; x++)
+            for (int x = -100; x < 100; x++)
             {
-                for (int y = -10; y < 10; y++)
+                for (int y = -100; y < 100; y++)
                 {
                     bool yes = Random.Shared.Next(1, 100) < 8;
 
@@ -204,9 +205,9 @@ namespace LDG
                 }
             }
 
-            for (int x = -10; x < 10; x++)
+            for (int x = -100; x < 100; x++)
             {
-                for (int y = -10; y < 10; y++)
+                for (int y = -100; y < 100; y++)
                 {
                     bool yes = Random.Shared.Next(1, 100) < 8;
 
@@ -221,9 +222,9 @@ namespace LDG
                 }
             }
 
-            for (int x = -10; x < 10; x++)
+            for (int x = -100; x < 100; x++)
             {
-                for (int y = -10; y < 10; y++)
+                for (int y = -100; y < 100; y++)
                 {
                     bool yes = Random.Shared.Next(1, 100) < 2;
 
