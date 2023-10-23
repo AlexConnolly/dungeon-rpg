@@ -127,9 +127,7 @@ namespace LDG
                 //}
             };
 
-            Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Sprites/Tiles/world");
-
-            var tileFrames = SpriteFrame.GetFramesFromSheet(tileSheet, new Vector2(16, 16));
+            var worldTiles = SpriteSheetManager.GetSheetByName("tiles_world");
 
             var tilemap = new GameObject(currentScene)
             {
@@ -166,7 +164,7 @@ namespace LDG
                     tileLayer.Layers[0].Tiles.Add(new TilemapItem()
                     {
                         Location = new Point(x, y),
-                        Frame = tileFrames[64]
+                        Frame = worldTiles.GetByKey("64")
                     });
                 }
             }
@@ -182,7 +180,7 @@ namespace LDG
                         tileLayer.Layers[1].Tiles.Add(new TilemapItem()
                         {
                             Location = new Point(x, y),
-                            Frame = tileFrames[30]
+                            Frame = worldTiles.GetByKey("30")
                         });
                     }
                 }
@@ -199,7 +197,7 @@ namespace LDG
                         tileLayer.Layers[0].Tiles.Add(new TilemapItem()
                         {
                             Location = new Point(x, y),
-                            Frame = tileFrames[12]
+                            Frame = worldTiles.GetByKey("12")
                         });
                     }
                 }
@@ -216,7 +214,7 @@ namespace LDG
                         tileLayer.Layers[0].Tiles.Add(new TilemapItem()
                         {
                             Location = new Point(x, y),
-                            Frame = tileFrames[20]
+                            Frame = worldTiles.GetByKey("20")
                         });
                     }
                 }
@@ -233,7 +231,7 @@ namespace LDG
                         tileLayer.Layers[1].Tiles.Add(new TilemapItem()
                         {
                             Location = new Point(x, y),
-                            Frame = tileFrames[38]
+                            Frame = worldTiles.GetByKey("38")
                         });
                     }
                 }

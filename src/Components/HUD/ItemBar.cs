@@ -60,7 +60,12 @@ namespace LDG.Components.HUD
                     group.Button(new ButtonElement(group, new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
                     {
                         Text = "",
-                        ForceHover = x == CurrentIndex
+                        ForceHover = x == CurrentIndex,
+                        Image = new ButtonImage()
+                        {
+                            Size = new Vector2(24, 24),
+                            Image = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0")
+                        }
                     });
 
                     if(x == CurrentIndex)
