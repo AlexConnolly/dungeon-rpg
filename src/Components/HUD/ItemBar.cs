@@ -111,14 +111,6 @@ namespace LDG.Components.HUD
 
             if(Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                // TODO: Set an item here to show that it works
-
-                // TODO: We need to determine whether there is something on this tile first before placing... can't just allow random placement (eg. What if there is an NPC etc)
-
-                //Texture2D tileSheet = Content.Load<Texture2D>("Graphics/Tiles/world");
-
-                //var tileFrames = SpriteFrame.GetFramesFromSheet(tileSheet, new Vector2(16, 16));
-
                 tilemap.SetTileAtLocation(1, tilemap.WorldPositionToTilePosition(tilePosition), null);
             }
         }
