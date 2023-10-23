@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/FX/Characters/stepdirt_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/FX/Characters/stepdirt_1.wav
+
 #begin Fonts/Large.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

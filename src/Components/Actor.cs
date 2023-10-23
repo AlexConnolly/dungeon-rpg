@@ -1,4 +1,5 @@
-﻿using LDG.Components.Sprite;
+﻿using LDG.Components.Audio;
+using LDG.Components.Sprite;
 using LDG.Extensions;
 using Microsoft.Xna.Framework;
 using System;
@@ -11,11 +12,39 @@ namespace LDG.Components
 {
     internal class Actor : GameComponent
     {
-        public Actor(GameObject gameObject) : base(gameObject) { }
+        private readonly AudioSource audioSource;
+        public Actor(GameObject gameObject, AudioSource movementAudio) : base(gameObject) {
+            this.audioSource = movementAudio;
+        }
 
         public Direction Direction { get; set; } = Direction.Up;
 
-        public bool IsMoving { get; set; }
+        private bool moving = false;
+
+        public bool IsMoving {
+            get
+            {
+                return this.moving;
+            }
+
+            set
+            {
+                // Don't set the value if it's the same as before
+                if (value == this.moving)
+                    return;
+
+                this.moving = value;
+
+                if(this.moving)
+                {
+                    this.audioSource.Start();
+                    this.audioSource.Loop();
+                } else
+                {
+                    this.audioSource.Stop();
+                }
+            }
+        }
 
         public float MovementSpeed { get; set; } = 20.0f;
 

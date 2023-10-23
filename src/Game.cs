@@ -1,4 +1,6 @@
-﻿using LDG.Components;
+﻿using LDG.Audio;
+using LDG.Components;
+using LDG.Components.Audio;
 using LDG.Components.Camera;
 using LDG.Components.Character;
 using LDG.Components.Collision;
@@ -51,6 +53,7 @@ namespace LDG
 
             UIManager.Load(_spriteBatch, Content);
             SpriteSheetManager.Load(Content);
+            AudioManager.Load(Content);
 
             var gameObject = new GameObject(currentScene);
 
@@ -65,11 +68,6 @@ namespace LDG
                         X = 20,
                         Y = 20
                     }
-                },
-                new Actor(gameObject)
-                {
-                    Direction = Direction.Up,
-                    MovementSpeed = 85
                 },
                 new SpriteRenderer(gameObject)
                 {
@@ -86,8 +84,17 @@ namespace LDG
                 },
                 new MainCameraFollow(gameObject),
                 new ItemBar(gameObject),
-                new HealthBar(gameObject)
+                new HealthBar(gameObject),
+                new AudioSource(gameObject, AudioManager.GetSound("character_footsteps"))
             };
+
+            gameObject.Components.Add(
+                new Actor(gameObject, gameObject.GetComponent<AudioSource>())
+                {
+                    Direction = Direction.Up,
+                    MovementSpeed = 85
+                }
+            );
 
             var npc = new GameObject(currentScene);
 
@@ -103,11 +110,6 @@ namespace LDG
                         Y = 20
                     }
                 },
-                new Actor(npc)
-                {
-                    Direction = Direction.Right,
-                    MovementSpeed = 20
-                },
                 new SpriteRenderer(npc)
                 {
 
@@ -120,11 +122,15 @@ namespace LDG
                 {
                     FramesPerSecond = 10
                 }, 
-                //new NPCMover(npc)
-                //{
-                //    Target = gameObject
-                //}
+                new AudioSource(npc, AudioManager.GetSound("character_footsteps"))
             };
+
+            npc.Components.Add(
+                new Actor(npc, npc.GetComponent<AudioSource>())
+                {
+                    Direction = Direction.Right,
+                    MovementSpeed = 20
+                });
 
             var worldTiles = SpriteSheetManager.GetSheetByName("tiles_world");
 
