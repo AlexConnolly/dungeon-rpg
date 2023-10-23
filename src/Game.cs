@@ -191,6 +191,40 @@ namespace LDG
             {
                 for (int y = -10; y < 10; y++)
                 {
+                    bool yes = Random.Shared.Next(1, 100) < 8;
+
+                    if (yes)
+                    {
+                        tileLayer.Layers[0].Tiles.Add(new TilemapItem()
+                        {
+                            Location = new Point(x, y),
+                            Frame = tileFrames[12]
+                        });
+                    }
+                }
+            }
+
+            for (int x = -10; x < 10; x++)
+            {
+                for (int y = -10; y < 10; y++)
+                {
+                    bool yes = Random.Shared.Next(1, 100) < 8;
+
+                    if (yes)
+                    {
+                        tileLayer.Layers[0].Tiles.Add(new TilemapItem()
+                        {
+                            Location = new Point(x, y),
+                            Frame = tileFrames[20]
+                        });
+                    }
+                }
+            }
+
+            for (int x = -10; x < 10; x++)
+            {
+                for (int y = -10; y < 10; y++)
+                {
                     bool yes = Random.Shared.Next(1, 100) < 2;
 
                     if (yes)
@@ -223,8 +257,6 @@ namespace LDG
                 npc,
                 tilemap
             };
-
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
