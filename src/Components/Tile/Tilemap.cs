@@ -59,12 +59,23 @@ namespace LDG.Components.Tile
             return TilePositionToWorldPosition(new Point((int)Math.Floor(x), (int)Math.Floor(y)));
         }
 
+        public Point WorldPositionToTilePosition(Vector2 position)
+        {
+            float x = (position.X - this.Transform.Position.X) / TileSize.X;
+            float y = (position.Y - this.Transform.Position.Y) / TileSize.Y;
+
+            return new Point((int)Math.Floor(x), (int)Math.Floor(y));
+        }
+
         public void SetTileAtLocation(int layer, Point location, SpriteFrame frame)
         {
             // Find if it and remove it
             this.Layers[layer].Tiles.RemoveAll(x => x.Location == location);
 
             // Place it
+            if (frame == null)
+                return;
+
             this.Layers[layer].Tiles.Add(new TilemapItem()
             {
                 Location = location,

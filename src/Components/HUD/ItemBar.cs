@@ -119,7 +119,7 @@ namespace LDG.Components.HUD
 
                 //var tileFrames = SpriteFrame.GetFramesFromSheet(tileSheet, new Vector2(16, 16));
 
-                //tilemap.SetTileAtLocation(1, tilePosition, new LDG.Sprite.SpriteFrame());
+                tilemap.SetTileAtLocation(1, tilemap.WorldPositionToTilePosition(tilePosition), null);
             }
         }
     }
