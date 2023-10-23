@@ -12,9 +12,9 @@ namespace LDG.Components.HUD
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Point size = new Point(340, 30);
+            Point size = new Point(280, 20);
 
-            int x = (Screen.Resolution.X / 2) - (size.X / 2);
+            int x = 10;
             int y = 10;
 
             using(var group = UIGroup.BeginGroup(new UIGroupSettings()
@@ -23,6 +23,14 @@ namespace LDG.Components.HUD
             }))
             {
                 group.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkRed, Color.IndianRed, 2);
+            }
+
+            using (var group = UIGroup.BeginGroup(new UIGroupSettings()
+            {
+                Position = new Rectangle(new Point(x, y + (size.Y + 10)), size)
+            }))
+            {
+                group.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkBlue, Color.CornflowerBlue, 2);
             }
         }
     }

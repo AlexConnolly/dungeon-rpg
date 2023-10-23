@@ -41,6 +41,20 @@ namespace LDG.Sprite
             return returns;
         }
 
+        public static Spritesheet FromSheet(Texture2D texture, Point size)
+        {
+            var frames = SpriteFrame.GetFramesFromSheet(texture, size.ToVector2());
+
+            Dictionary<string, SpriteFrame> keyedFrames = new Dictionary<string, SpriteFrame>();
+
+            for(int x = 0; x < frames.Count; x++)
+            {
+                keyedFrames.Add(x.ToString(), frames[x]);
+            }
+
+            return new Spritesheet(keyedFrames);
+        }
+
         public static Spritesheet FromAnimatedSheet(Texture2D texture, bool isYDirection, int leftIndex, int rightIndex, int upIndex, int downIndex, Point size)
         {
             var getFramesFromSheet = SpriteFrame.GetRowsFromSheet(texture, size.ToVector2(), isYDirection);
