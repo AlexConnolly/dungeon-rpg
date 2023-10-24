@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,15 @@ namespace LDG
     {
 
         private List<GameObject> _gameObjects = new List<GameObject>();
+
+        public static Scene CurrentScene { 
+            get
+            {
+                return _currentScene;
+            }        
+        }
+
+        private static Scene _currentScene = null;
 
         public IEnumerable<GameObject> GameObjects
         {
@@ -28,6 +38,13 @@ namespace LDG
             this._gameObjects.Add(gameObject);
 
             return gameObject;
+        }
+
+        public static Scene SetScene(Scene scene)
+        {
+            Scene._currentScene = scene;
+
+            return scene;
         }
 
         public List<T> GetAllComponentsOfType<T>() where T : GameComponent

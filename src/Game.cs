@@ -73,7 +73,7 @@ namespace LDG
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Green);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Draw scene
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
@@ -110,7 +110,6 @@ namespace LDG
 
                 _spriteBatch.End();
             }
-
 
             // TODO: Add your drawing code here
 
