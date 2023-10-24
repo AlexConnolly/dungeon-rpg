@@ -27,15 +27,10 @@ namespace LDG.Components.Audio
 
         public void Loop()
         {
-            if(!IsPlaying())
-            {
-                this.Start();
-            }
-
-            this.instance.IsLooped = true;
+            this.Start(true);
         }
 
-        public void Start()
+        public void Start(bool loop = false)
         {
             if(instance != null)
             {
@@ -43,13 +38,17 @@ namespace LDG.Components.Audio
             }
 
             instance = _sound.CreateInstance();
+            instance.IsLooped = loop;
             instance.Play();
         }
 
         public void Stop()
         {
-            instance.Stop();
-            instance = null;
+            if(instance != null)
+            {
+                instance.Stop();
+                instance = null;
+            }
         }
 
         private CharacterController character;
@@ -63,13 +62,13 @@ namespace LDG.Components.Audio
 
             if(this.instance != null)
             {
-                const float MaximumListenRange = 20f;
+                const float MaximumListenRange = 300f;
 
                 var distance = Math.Abs(Vector2.Distance(this.Transform.Position, character.Transform.Position));
 
                 if (distance > MaximumListenRange)
                 {
-                    this.instance.Volume = 0;
+                    this.instance.Volume = 0.1f;
                 }
                 else
                 {

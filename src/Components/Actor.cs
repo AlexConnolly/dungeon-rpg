@@ -29,16 +29,14 @@ namespace LDG.Components
 
             set
             {
-                // Don't set the value if it's the same as before
-                if (value == this.moving)
-                    return;
-
                 this.moving = value;
 
-                if(this.moving)
+                if(value)
                 {
-                    this.audioSource.Start();
-                    this.audioSource.Loop();
+                    if(!this.audioSource.IsPlaying())
+                    {
+                        this.audioSource.Start(true);
+                    }
                 } else
                 {
                     this.audioSource.Stop();
@@ -75,7 +73,8 @@ namespace LDG.Components
             // Handle movement
             Vector2 move = (Velocity * time.Delta);
 
-            this.Transform.Translate(move);
+            if(move != Vector2.Zero)
+                this.Transform.Translate(move);
         }
     }
 }

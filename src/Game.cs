@@ -129,7 +129,8 @@ namespace LDG
                 new Actor(npc, npc.GetComponent<AudioSource>())
                 {
                     Direction = Direction.Right,
-                    MovementSpeed = 20
+                    MovementSpeed = 20,
+                    IsMoving = true
                 });
 
             var worldTiles = SpriteSheetManager.GetSheetByName("tiles_world");
