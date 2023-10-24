@@ -33,6 +33,11 @@ namespace LDG
             }
         }
 
+        public virtual void Initialize()
+        {
+
+        }
+
         public GameObject AddGameobject(GameObject gameObject)
         {
             this._gameObjects.Add(gameObject);
@@ -40,8 +45,10 @@ namespace LDG
             return gameObject;
         }
 
-        public static Scene SetScene(Scene scene)
+        public static Scene LoadScene(Scene scene)
         {
+            scene.Initialize();
+
             Scene._currentScene = scene;
 
             return scene;

@@ -13,8 +13,6 @@ namespace LDG
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Scene currentScene = new Scene();
-
         private bool isDebugMode = false;
 
         public LDGGame()
@@ -52,7 +50,7 @@ namespace LDG
             UIManager.Update(timeFrame);
 
             // Update the scene
-            foreach (var gameObject in currentScene.GameObjects)
+            foreach (var gameObject in Scene.CurrentScene.GameObjects)
             {
                 gameObject.Components.ForEach((x) =>
                 {
@@ -78,7 +76,7 @@ namespace LDG
             // Draw scene
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
-            foreach(var gameObject in currentScene.GameObjects.OrderByDescending(x=> x.DrawPriority))
+            foreach(var gameObject in Scene.CurrentScene.GameObjects.OrderByDescending(x=> x.DrawPriority))
             {
                 gameObject.Components.ForEach((x) =>
                 {
@@ -100,7 +98,7 @@ namespace LDG
             {
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
-                foreach (var gameObject in currentScene.GameObjects)
+                foreach (var gameObject in Scene.CurrentScene.GameObjects)
                 {
                     gameObject.Components.ForEach((x) =>
                     {
