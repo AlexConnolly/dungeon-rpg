@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using LDG.Components.Character;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +50,38 @@ namespace LDG.Components.Audio
         {
             instance.Stop();
             instance = null;
+        }
+
+        private CharacterController character;
+
+        public override void Update(TimeFrame time)
+        {
+            if(character == null)
+            {
+                character = GameObject.Scene.GetAllComponentsOfType<CharacterController>()[0];
+            }
+
+            if(this.instance != null)
+            {
+                const float MaximumListenRange = 20f;
+
+                var distance = Math.Abs(Vector2.Distance(this.Transform.Position, character.Transform.Position));
+
+                if (distance > MaximumListenRange)
+                {
+                    this.instance.Volume = 0;
+                }
+                else
+                {
+                    // Calculate volume 
+                    float rangeLeft = MaximumListenRange - distance;
+
+                    float percentage = rangeLeft / MaximumListenRange;
+
+                    // Set volume 
+                    this.instance.Volume = percentage;
+                }
+            }
         }
     }
 }

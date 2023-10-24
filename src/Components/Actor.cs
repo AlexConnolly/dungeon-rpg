@@ -47,16 +47,26 @@ namespace LDG.Components
         }
 
         public float MovementSpeed { get; set; } = 20.0f;
+        private float currentSpeed = 0.0f; // Current speed of the object
+        private float accelerationRate = 0.25f; // Determines the rate of acceleration towards max speed
 
-        public Vector2 Velocity {
+        private Vector2 Velocity
+        {
             get
             {
                 Vector2 velocity = Vector2.Zero;
 
                 if (IsMoving)
+                {
                     velocity = Vector2Extensions.FromDirection(this.Direction);
+                    currentSpeed = MathHelper.Lerp(currentSpeed, MovementSpeed, accelerationRate); // Lerp towards the desired MovementSpeed using MathHelper
+                }
+                else
+                {
+                    currentSpeed = 0.0f; // Reset the current speed if not moving
+                }
 
-                return velocity * this.MovementSpeed;
+                return velocity * currentSpeed; // Use currentSpeed here instead of MovementSpeed
             }
         }
 
