@@ -1,11 +1,12 @@
 ﻿using LDG.UI;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace LDG.Scenes
 {
     public class DemoScene : Scene
     {
-        public override Color ClearColor => Color.DarkSlateBlue;
+        public override Color ClearColor => Color.DarkSlateGray;
 
         public override void Initialize()
         {
@@ -19,6 +20,15 @@ namespace LDG.Scenes
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Middle,
                 Text = "Loading..."
+            });
+
+            group.Button(new ButtonElement(new Rectangle((Screen.Resolution.X / 2 - (100)), (Screen.Resolution.Y / 2) + 40, 200, 40))
+            {
+                Text = "Click me",
+                OnClick = () =>
+                {
+                    Console.WriteLine("Test");
+                }
             });
 
             group.Settings.ShowBox = false;

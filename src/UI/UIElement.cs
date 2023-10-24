@@ -43,6 +43,12 @@ namespace LDG.UI
         }
 
         public abstract void Draw(SpriteBatch spriteBatch, UIGroup group);
+
+        public virtual void Update(TimeFrame time)
+        {
+
+        }
+
         public abstract Vector2 ContentDimensions();
 
         public virtual void Initialize()

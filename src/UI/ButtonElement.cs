@@ -2,6 +2,7 @@
 using LDG.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,9 @@ namespace LDG.UI
     {
         public string Text { get; set; }
 
-        public bool ForceHover { get; set; } = false;
-
         public ButtonImage Image { get; set; }
+
+        public Action OnClick { get; set; }
 
         public override Vector2 ContentDimensions()
         {
@@ -44,9 +45,35 @@ namespace LDG.UI
             });
         }
 
+        private bool pressedInside = false;
+
+        public override void Update(TimeFrame time)
+        {
+            if(IsMouseOver())
+            {
+                if(Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    pressedInside = true;
+
+                    return;
+                }
+
+                if(Mouse.GetState().LeftButton == ButtonState.Released)
+                {
+                    if(pressedInside)
+                    {
+                        if(this.OnClick != null)
+                            this.OnClick();
+                    }
+                }
+            }
+
+            pressedInside = false;
+        }
+
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            if(IsMouseOver() || ForceHover)
+            if(IsMouseOver())
             {
                 spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), Color.White, UIManager.Style.BorderColor, 2);
             } else

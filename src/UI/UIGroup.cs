@@ -32,6 +32,14 @@ namespace LDG.UI
             }
         }
 
+        public override void Update(TimeFrame time)
+        {
+            foreach(var element in _elements)
+            {
+                element.Update(time);
+            }
+        }
+
         private void AddElement(UIElement element)
         {
             element.Group = this;
