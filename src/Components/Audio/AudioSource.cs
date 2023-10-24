@@ -1,4 +1,5 @@
 ﻿using LDG.Components.Character;
+using LDG.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
@@ -62,7 +63,7 @@ namespace LDG.Components.Audio
 
             if(this.instance != null)
             {
-                const float MaximumListenRange = 300f;
+                const float MaximumListenRange = 250f;
 
                 var distance = Math.Abs(Vector2.Distance(this.Transform.Position, character.Transform.Position));
 
@@ -78,7 +79,7 @@ namespace LDG.Components.Audio
                     float percentage = rangeLeft / MaximumListenRange;
 
                     // Set volume 
-                    this.instance.Volume = percentage;
+                    this.instance.Volume = LDGMathHelpers.LogFade(0.1f, 1, percentage);
                 }
             }
         }
