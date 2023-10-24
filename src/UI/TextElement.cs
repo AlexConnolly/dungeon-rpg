@@ -10,7 +10,7 @@ namespace LDG.UI
 {
     public class TextElement : UIElement
     {
-        public TextElement(UIGroup group, Rectangle position) : base(group, position)
+        public TextElement(Rectangle position) : base(position)
         {
         }
 

@@ -50,30 +50,30 @@ namespace LDG.Components.HUD
         {
             Vector2 size = new Vector2(460, 60);
 
-            using (var group = UIGroup.BeginGroup(new UIGroupSettings()
-            {
-                Position = new Rectangle((int)(Screen.Resolution.X / 2) - (int)(size.X / 2), (int)Screen.Resolution.Y - (int)(size.Y) - 10, (int)size.X, (int)size.Y)
-            }))
-            {
-               for(int x = 0; x < 9; x++)
-                {
-                    group.Button(new ButtonElement(group, new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
-                    {
-                        Text = "",
-                        ForceHover = x == CurrentIndex,
-                        Image = new ButtonImage()
-                        {
-                            Size = new Vector2(24, 24),
-                            Image = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0")
-                        }
-                    });
+            //using (var group = UIGroup.BeginGroup(new UIGroupSettings()
+            //{
+            //    Position = new Rectangle((int)(Screen.Resolution.X / 2) - (int)(size.X / 2), (int)Screen.Resolution.Y - (int)(size.Y) - 10, (int)size.X, (int)size.Y)
+            //}))
+            //{
+            //   for(int x = 0; x < 9; x++)
+            //    {
+            //        group.Button(new ButtonElement(group, new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
+            //        {
+            //            Text = "",
+            //            ForceHover = x == CurrentIndex,
+            //            Image = new ButtonImage()
+            //            {
+            //                Size = new Vector2(24, 24),
+            //                Image = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0")
+            //            }
+            //        });
 
-                    if(x == CurrentIndex)
-                    {
-                        group.Square(new Point(10 + (x * 50), 10), new Point(40, 40), Color.Transparent, Color.Red, 4);
-                    }
-                }
-            }
+            //        if(x == CurrentIndex)
+            //        {
+            //            group.Square(new Point(10 + (x * 50), 10), new Point(40, 40), Color.Transparent, Color.Red, 4);
+            //        }
+            //    }
+            //}
 
             // Get player component
             var actor = GetComponent<Actor>();
@@ -105,14 +105,14 @@ namespace LDG.Components.HUD
 
             Vector2 tilePosition = tilemap.WorldPositionToTileStart(this.Transform.Position + (collider.Bounds * (facingDirection) + (tilemap.TileSize.ToVector2() * facingDirection)));
 
-            using (var group = UIGroup.BeginGroup(new UIGroupSettings()
-            {
-                Position = new Rectangle(LDG.Camera.WorldPositionToCameraPoint(tilePosition), tilemap.TileSize),
-                ShowBox = false
-            }))
-            {
-                group.Square(Point.Zero, group.Settings.Position.Size, Color.Blue.SetOpacity(0.15f), Color.CadetBlue.SetOpacity(0.3f), 2);
-            }
+            //using (var group = UIGroup.BeginGroup(new UIGroupSettings()
+            //{
+            //    Position = new Rectangle(LDG.Camera.WorldPositionToCameraPoint(tilePosition), tilemap.TileSize),
+            //    ShowBox = false
+            //}))
+            //{
+            //    group.Square(Point.Zero, group.Settings.Position.Size, Color.Blue.SetOpacity(0.15f), Color.CadetBlue.SetOpacity(0.3f), 2);
+            //}
 
             if(Keyboard.GetState().IsKeyDown(Keys.E))
             {

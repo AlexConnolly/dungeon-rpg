@@ -29,13 +29,13 @@ namespace LDG.UI
             return new Vector2(Position.Width, Position.Height);
         }
 
-        public ButtonElement(UIGroup group, Rectangle position) : base(group, position)
+        public ButtonElement(Rectangle position) : base(position)
         {
         }
 
         public override void Initialize()
         {
-            Group.Text(new TextElement(this.Group, new Rectangle( Position.X, Position.Y, Position.Width, Position.Height))
+            Group.Text(new TextElement(new Rectangle( Position.X, Position.Y, Position.Width, Position.Height))
             {
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Middle,

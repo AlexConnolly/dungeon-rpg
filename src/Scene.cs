@@ -38,15 +38,19 @@ namespace LDG
 
         }
 
-        public GameObject AddGameobject(GameObject gameObject)
+        public GameObject AddGameObject()
         {
+            var gameObject = new GameObject(this);
+
             this._gameObjects.Add(gameObject);
 
             return gameObject;
         }
 
-        public static Scene LoadScene(Scene scene)
+        public static T LoadScene<T>() where T : Scene
         {
+            var scene = Activator.CreateInstance<T>();
+
             scene.Initialize();
 
             Scene._currentScene = scene;

@@ -26,11 +26,10 @@ namespace LDG.UI
 
     public abstract class UIElement
     {
-        public UIGroup Group { get; private set; }
+        public UIGroup Group { get; internal set; }
 
-        public UIElement(UIGroup group, Rectangle position)
+        public UIElement(Rectangle position)
         {
-            this.Group = group;
             this.Position = position;
         }
 

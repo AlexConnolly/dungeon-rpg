@@ -1,4 +1,5 @@
 ﻿using LDG.Audio;
+using LDG.Scenes;
 using LDG.Sprite;
 using LDG.UI;
 using Microsoft.Xna.Framework;
@@ -40,6 +41,8 @@ namespace LDG
             UIManager.Load(_spriteBatch, Content);
             SpriteSheetManager.Load(Content);
             AudioManager.Load(Content);
+
+            Scene.LoadScene<DemoScene>();
         }
 
         protected override void Update(GameTime gameTime)

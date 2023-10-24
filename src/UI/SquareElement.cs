@@ -11,7 +11,7 @@ namespace LDG.UI
 {
     public class SquareElement : UIElement
     {
-        public SquareElement(UIGroup group, Rectangle position) : base(group, position)
+        public SquareElement(Rectangle position) : base(position)
         {
         }
 

@@ -11,7 +11,7 @@ namespace LDG.UI
 {
     public class SpriteElement : UIElement
     {
-        public SpriteElement(UIGroup group, Rectangle position) : base(group, position)
+        public SpriteElement(Rectangle position) : base(position)
         {
             this.Position = position;
         }

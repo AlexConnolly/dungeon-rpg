@@ -10,37 +10,18 @@ using System.Threading.Tasks;
 
 namespace LDG.UI
 {
-    public class UIGroup : IDisposable
+    public class UIGroup : GameComponent
     {
-        public readonly UIGroupSettings Settings;
+        public UIGroupSettings Settings { get; set; } = new UIGroupSettings() { Position = new Rectangle(10, 10, 200, 40), ShowBox = true };
 
         private List<UIElement> _elements = new List<UIElement>();
 
         public UIGroup()
         {
-            throw new Exception("Do not create a UIGroup directly. Call BeginGroup.");
-        }
-
-        private UIGroup(UIGroupSettings settings)
-        {
-            this.Settings = settings;
-        }
-
-        public static UIGroup BeginGroup(UIGroupSettings settings)
-        {
-            var newGroup = new UIGroup(settings);
-
-            UIManager.RegisterGroup(newGroup);
-
-            return newGroup;
-        }
-
-        public void Dispose()
-        {
 
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if(Settings.ShowBox)
                 spriteBatch.DrawSquare(this.Settings.Position, UIManager.Style.BackgroundColor, UIManager.Style.BorderColor, 4);
@@ -53,6 +34,7 @@ namespace LDG.UI
 
         private void AddElement(UIElement element)
         {
+            element.Group = this;
             _elements.Add(element);
             element.Initialize();
         }
@@ -69,7 +51,7 @@ namespace LDG.UI
 
         public void Image(SpriteFrame frame, Rectangle destination)
         {
-            AddElement(new SpriteElement(this, destination)
+            AddElement(new SpriteElement(destination)
             {
                 Frame = frame
             });
@@ -77,7 +59,7 @@ namespace LDG.UI
 
         public void Square(Point location, Point size, Color background, Color border, int borderSize = 0)
         {
-            AddElement(new SquareElement(this, new Rectangle(location, size))
+            AddElement(new SquareElement(new Rectangle(location, size))
             {
                 Color = background,
                 Border = border,
