@@ -15,6 +15,7 @@ namespace Client.Factories
             var obj = scene.AddGameObject();
 
             var itemBar = obj.AddComponent<ItemBar>();
+            var healthBar = obj.AddComponent<HealthBar>();
 
             return obj;
         }
