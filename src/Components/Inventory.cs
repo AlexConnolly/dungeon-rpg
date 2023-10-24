@@ -9,7 +9,7 @@ namespace LDG.Components
 {
     public class Inventory : GameComponent
     {
-        public Inventory(GameObject gameObject) : base(gameObject)
+        public Inventory(GameObject gameObject)
         {
 
         }

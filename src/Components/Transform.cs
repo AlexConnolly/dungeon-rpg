@@ -10,7 +10,7 @@ namespace LDG.Components
 {
     public class Transform : GameComponent
     {
-        public Transform(GameObject gameObject) : base(gameObject)
+        public Transform()
         {
         }
 

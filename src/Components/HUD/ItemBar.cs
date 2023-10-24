@@ -11,7 +11,7 @@ namespace LDG.Components.HUD
 {
     public class ItemBar : GameComponent
     {
-        public ItemBar(GameObject gameObject) : base(gameObject)
+        public ItemBar(GameObject gameObject)
         {
         }
 

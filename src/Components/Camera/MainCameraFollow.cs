@@ -10,7 +10,7 @@ namespace LDG.Components.Camera
 {
     public class MainCameraFollow : GameComponent
     {
-        public MainCameraFollow(GameObject gameObject) : base(gameObject)
+        public MainCameraFollow()
         {
         }
 

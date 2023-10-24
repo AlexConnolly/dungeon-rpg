@@ -22,7 +22,7 @@ namespace LDG.Components.Tile
 
     public class Tilemap : GameComponent
     {
-        public Tilemap(GameObject gameObject) : base(gameObject)
+        public Tilemap()
         {
         }
 

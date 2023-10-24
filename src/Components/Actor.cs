@@ -13,7 +13,7 @@ namespace LDG.Components
     internal class Actor : GameComponent
     {
         private readonly AudioSource audioSource;
-        public Actor(GameObject gameObject, AudioSource movementAudio) : base(gameObject) {
+        public Actor(GameObject gameObject, AudioSource movementAudio) {
             this.audioSource = movementAudio;
         }
 

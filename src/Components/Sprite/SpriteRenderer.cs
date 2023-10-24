@@ -11,7 +11,7 @@ namespace LDG.Components.Sprite
 {
     internal class SpriteRenderer : GameComponent
     {
-        public SpriteRenderer(GameObject gameObject) : base(gameObject)
+        public SpriteRenderer()
         {
         }
 

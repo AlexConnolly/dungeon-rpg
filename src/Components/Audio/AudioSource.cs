@@ -16,7 +16,7 @@ namespace LDG.Components.Audio
 
         private SoundEffectInstance instance;
 
-        public AudioSource(GameObject gameObject, SoundEffect sound) : base(gameObject)
+        public AudioSource(GameObject gameObject, SoundEffect sound)
         {
             this._sound = sound;
         }

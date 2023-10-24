@@ -12,7 +12,7 @@ namespace LDG.Components.Collision
 {
     public class TileLayerCollider : Collider
     {
-        public TileLayerCollider(GameObject gameObject) : base(gameObject)
+        public TileLayerCollider()
         {
         }
 

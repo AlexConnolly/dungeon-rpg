@@ -9,7 +9,7 @@ namespace LDG.Components.Collision
 {
     public abstract class Collider : GameComponent
     {
-        protected Collider(GameObject gameObject) : base(gameObject)
+        protected Collider()
         {
         }
 

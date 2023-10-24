@@ -11,7 +11,7 @@ namespace LDG.Components.Collision
 {
     internal class BoxCollider : Collider
     {
-        public BoxCollider(GameObject gameObject) : base(gameObject)
+        public BoxCollider()
         {
         }
 

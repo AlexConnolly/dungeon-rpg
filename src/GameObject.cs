@@ -31,6 +31,19 @@ namespace LDG
             }
         }
 
+        public T AddComponent<T>() where T : GameComponent
+        {
+            var component = Activator.CreateInstance<T>();
+
+            component.GameObject = this;
+
+            this.Components.Add(component);
+
+            component.Initialize();
+
+            return component;
+        }
+
         public T GetComponent<T>() where T : GameComponent
         {
             foreach(var component in Components)

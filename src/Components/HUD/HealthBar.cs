@@ -6,8 +6,9 @@ namespace LDG.Components.HUD
 {
     public class HealthBar : GameComponent
     {
-        public HealthBar(GameObject gameObject) : base(gameObject)
+        public HealthBar()
         {
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)

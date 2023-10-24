@@ -11,12 +11,6 @@ namespace LDG
 {
     public abstract class GameComponent
     {
-        private readonly GameObject _gameObject;
-
-        public GameComponent(GameObject gameObject)
-        {
-            this._gameObject = gameObject;
-        }
 
         public virtual void Update(TimeFrame time)
         {
@@ -47,7 +41,7 @@ namespace LDG
 
         public T GetComponent<T>() where T : GameComponent
         {
-            foreach (var component in _gameObject.Components)
+            foreach (var component in GameObject.Components)
             {
                 if (component is T)
                 {
@@ -58,11 +52,8 @@ namespace LDG
             return null;
         }
 
-        public GameObject GameObject { 
-            get
-            {
-                return _gameObject;
-            }
+        public GameObject GameObject {
+            get; internal set;
         }
     }
 }

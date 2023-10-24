@@ -12,7 +12,7 @@ namespace LDG.Components.NPC
 {
     public class NPCMover : GameComponent
     {
-        public NPCMover(GameObject gameObject) : base(gameObject)
+        public NPCMover()
         {
 
         }
