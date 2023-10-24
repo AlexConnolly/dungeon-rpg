@@ -1,4 +1,5 @@
 ﻿using LDG.Components.Collision;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,8 @@ namespace LDG
         {
 
         }
+
+        public virtual Color ClearColor { get; } = Color.CornflowerBlue;
 
         public GameObject AddGameObject()
         {
