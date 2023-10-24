@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LDG.Components.Collision
 {
-    internal class BoxCollider : Collider
+    public class BoxCollider : Collider
     {
         public BoxCollider()
         {

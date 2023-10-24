@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LDG.Components
 {
-    internal class Actor : GameComponent
+    public class Actor : GameComponent
     {
         private readonly AudioSource audioSource;
         public Actor(GameObject gameObject, AudioSource movementAudio) {

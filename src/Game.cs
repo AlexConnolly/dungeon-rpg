@@ -16,7 +16,9 @@ namespace LDG
 
         private bool isDebugMode = false;
 
-        public LDGGame()
+        private Scene startScene;
+
+        public LDGGame(Scene startScene = null)
         {
             _graphics = new GraphicsDeviceManager(this);
 
@@ -27,6 +29,8 @@ namespace LDG
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            this.startScene = startScene;
         }
 
         protected override void Initialize()
@@ -42,7 +46,13 @@ namespace LDG
             SpriteSheetManager.Load(Content);
             AudioManager.Load(Content);
 
-            Scene.LoadScene<DemoScene>();
+            if(this.startScene != null)
+            {
+                Scene.SetScene(this.startScene);
+            } else
+            {
+                Scene.LoadScene<DemoScene>();
+            }
         }
 
         protected override void Update(GameTime gameTime)

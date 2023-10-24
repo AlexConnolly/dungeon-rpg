@@ -61,6 +61,15 @@ namespace LDG
             return scene;
         }
 
+        public static Scene SetScene(Scene scene)
+        {
+            scene.Initialize();
+
+            Scene._currentScene = scene;
+
+            return scene;
+        }
+
         public List<T> GetAllComponentsOfType<T>() where T : GameComponent
         {
             var components = new List<T>();

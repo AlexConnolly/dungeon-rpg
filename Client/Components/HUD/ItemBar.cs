@@ -3,15 +3,17 @@ using LDG.Components.Tile;
 using LDG.Extensions;
 using LDG.Sprite;
 using LDG.UI;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using LDG;
+using Microsoft.Xna.Framework;
+using LDG.Components;
 
-namespace LDG.Components.HUD
+namespace Client.Components.HUD
 {
-    public class ItemBar : GameComponent
+    public class ItemBar : LDG.GameComponent
     {
-        public ItemBar(GameObject gameObject)
+        public ItemBar()
         {
         }
 
@@ -19,20 +21,50 @@ namespace LDG.Components.HUD
 
         private int scrollValue = Mouse.GetState().ScrollWheelValue;
 
+        private UIGroup group;
+
+        private SquareElement selectionSquare;
+
+        public override void Initialize()
+        {
+            this.group = this.GameObject.AddComponent<UIGroup>();
+
+            Vector2 size = new Vector2(460, 60);
+
+            this.group.Settings = new UIGroupSettings()
+            {
+                Position = new Rectangle((int)(Screen.Resolution.X / 2) - (int)(size.X / 2), (int)Screen.Resolution.Y - (int)(size.Y) - 10, (int)size.X, (int)size.Y)
+            };
+
+            for (int x = 0; x < 9; x++)
+            {
+                group.Button(new ButtonElement(new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
+                {
+                    Text = "",
+                    Image = new ButtonImage()
+                    {
+                        Size = new Vector2(24, 24),
+                        Image = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0")
+                    }
+                });
+            }
+
+            selectionSquare = group.Square(new Point(10 + (CurrentIndex * 50), 10), new Point(40, 40), Color.Transparent, Color.Red, 4);
+        }
         public override void Update(TimeFrame time)
         {
             int newScroll = Mouse.GetState().ScrollWheelValue;
+
+            int startValue = CurrentIndex;
 
             if(newScroll < scrollValue)
             {
                 CurrentIndex++;
             }
-
             if (newScroll > scrollValue)
             {
                 CurrentIndex--;
             }
-
             if (CurrentIndex < 0)
             {
                 CurrentIndex = 8;
@@ -44,36 +76,15 @@ namespace LDG.Components.HUD
             }
 
             scrollValue = newScroll;
+
+            // Set selection square position
+            if(startValue != CurrentIndex)
+                selectionSquare.Position = new Rectangle(new Point(10 + (CurrentIndex * 50), 10), selectionSquare.Position.Size);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 size = new Vector2(460, 60);
-
-            //using (var group = UIGroup.BeginGroup(new UIGroupSettings()
-            //{
-            //    Position = new Rectangle((int)(Screen.Resolution.X / 2) - (int)(size.X / 2), (int)Screen.Resolution.Y - (int)(size.Y) - 10, (int)size.X, (int)size.Y)
-            //}))
-            //{
-            //   for(int x = 0; x < 9; x++)
-            //    {
-            //        group.Button(new ButtonElement(group, new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
-            //        {
-            //            Text = "",
-            //            ForceHover = x == CurrentIndex,
-            //            Image = new ButtonImage()
-            //            {
-            //                Size = new Vector2(24, 24),
-            //                Image = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0")
-            //            }
-            //        });
-
-            //        if(x == CurrentIndex)
-            //        {
-            //            group.Square(new Point(10 + (x * 50), 10), new Point(40, 40), Color.Transparent, Color.Red, 4);
-            //        }
-            //    }
-            //}
+            return;
 
             // Get player component
             var actor = GetComponent<Actor>();
@@ -114,7 +125,7 @@ namespace LDG.Components.HUD
             //    group.Square(Point.Zero, group.Settings.Position.Size, Color.Blue.SetOpacity(0.15f), Color.CadetBlue.SetOpacity(0.3f), 2);
             //}
 
-            if(Keyboard.GetState().IsKeyDown(Keys.E))
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
                 tilemap.SetTileAtLocation(1, tilemap.WorldPositionToTilePosition(tilePosition), SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0"));
             }

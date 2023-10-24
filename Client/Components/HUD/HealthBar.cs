@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace LDG.Components.HUD
+namespace Client.Components.HUD
 {
-    public class HealthBar : GameComponent
+    public class HealthBar : LDG.GameComponent
     {
         public HealthBar()
         {

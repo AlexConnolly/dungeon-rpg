@@ -65,14 +65,18 @@ namespace LDG.UI
             });
         }
 
-        public void Square(Point location, Point size, Color background, Color border, int borderSize = 0)
+        public SquareElement Square(Point location, Point size, Color background, Color border, int borderSize = 0)
         {
-            AddElement(new SquareElement(new Rectangle(location, size))
+            var element = new SquareElement(new Rectangle(location, size))
             {
                 Color = background,
                 Border = border,
                 BorderSize = borderSize
-            });
+            };
+
+            AddElement(element);
+
+            return element;
         }
     }
 }
