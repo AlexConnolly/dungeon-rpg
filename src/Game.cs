@@ -85,7 +85,8 @@ namespace LDG
                 new MainCameraFollow(gameObject),
                 new ItemBar(gameObject),
                 new HealthBar(gameObject),
-                new AudioSource(gameObject, AudioManager.GetSound("character_footsteps"))
+                new AudioSource(gameObject, AudioManager.GetSound("character_footsteps")),
+                new Inventory(gameObject)
             };
 
             gameObject.Components.Add(
@@ -256,12 +257,9 @@ namespace LDG
                 layerCollider
             };
 
-            currentScene.GameObjects = new List<GameObject>()
-            {
-                gameObject,
-                npc,
-                tilemap
-            };
+            currentScene.AddGameobject(gameObject);
+            currentScene.AddGameobject(npc);
+            currentScene.AddGameobject(tilemap);
         }
 
         protected override void Update(GameTime gameTime)

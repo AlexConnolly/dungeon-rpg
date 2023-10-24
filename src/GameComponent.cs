@@ -23,6 +23,11 @@ namespace LDG
 
         }
 
+        public virtual void Initialize()
+        {
+
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
 

@@ -9,13 +9,32 @@ namespace LDG
 {
     public class Scene
     {
-        public List<GameObject> GameObjects { get; set; }
+
+        private List<GameObject> _gameObjects = new List<GameObject>();
+
+        public IEnumerable<GameObject> GameObjects
+        {
+            get
+            {
+                foreach(var obj in this._gameObjects)
+                {
+                    yield return obj;
+                }
+            }
+        }
+
+        public GameObject AddGameobject(GameObject gameObject)
+        {
+            this._gameObjects.Add(gameObject);
+
+            return gameObject;
+        }
 
         public List<T> GetAllComponentsOfType<T>() where T : GameComponent
         {
             var components = new List<T>();
 
-            foreach(var gameObject in GameObjects)
+            foreach(var gameObject in _gameObjects)
             {
                 var objectComponents = gameObject.GetComponent<T>();
 
