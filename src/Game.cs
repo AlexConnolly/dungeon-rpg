@@ -1,21 +1,9 @@
 ﻿using LDG.Audio;
-using LDG.Components;
-using LDG.Components.Audio;
-using LDG.Components.Camera;
-using LDG.Components.Character;
-using LDG.Components.Collision;
-using LDG.Components.HUD;
-using LDG.Components.NPC;
-using LDG.Components.Sprite;
-using LDG.Components.Tile;
 using LDG.Sprite;
 using LDG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace LDG
