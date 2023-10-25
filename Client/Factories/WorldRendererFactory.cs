@@ -53,7 +53,7 @@ namespace Client.Factories
                     tilemap.Layers[0].Tiles.Add(new TilemapItem()
                     {
                         Location = new Point(x, y),
-                        Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("11")
+                        Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("64")
                     });
                 }
             }
