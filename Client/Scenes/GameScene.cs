@@ -19,8 +19,8 @@ namespace Client.Scenes
 
         public override void Initialize()
         {
-            // Create UI
-            UIFactory.CreateGameUI(this);
+            // Create world
+            WorldRendererFactory.CreateWorldRenderer(this);
 
             // Create player
             PlayerFactory.CreatePlayer(this, new CreatePlayerRequest()
@@ -45,6 +45,8 @@ namespace Client.Scenes
                 StartPosition = Vector2.Zero
             });
 
+            // Create UI
+            UIFactory.CreateGameUI(this);
         }
     }
 }

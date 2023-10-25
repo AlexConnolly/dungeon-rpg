@@ -1,5 +1,6 @@
 ﻿using LDG;
 using LDG.Components;
+using LDG.Components.Camera;
 using LDG.Components.Collision;
 using LDG.Components.Sprite;
 using LDG.Sprite;
@@ -38,6 +39,8 @@ namespace Client.Factories
             var collider = gameObject.AddComponent<BoxCollider>();
 
             collider.Bounds = request.CollisionBounds;
+
+            gameObject.AddComponent<MainCameraFollow>();
 
             var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 
