@@ -40,8 +40,6 @@ namespace Client.Factories
 
             collider.Bounds = request.CollisionBounds;
 
-            gameObject.AddComponent<MainCameraFollow>();
-
             var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 
             var spriteAnimator = gameObject.AddComponent<SpriteMovementAnimator>();

@@ -1,4 +1,5 @@
 ﻿using LDG;
+using LDG.Components.Camera;
 using LDG.Components.Character;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Client.Factories
             var character = CharacterFactory.CreateCharacter(scene, request.CreateCharacterRequest);
 
             character.AddComponent<CharacterController>();
+            character.AddComponent<MainCameraFollow>();
 
             character.Tag = "Player";
 
