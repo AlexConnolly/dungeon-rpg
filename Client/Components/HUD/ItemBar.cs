@@ -38,13 +38,27 @@ namespace Client.Components.HUD
 
             for (int x = 0; x < 9; x++)
             {
+                Items.Item item = null;
+
+                if(Items.Inventory.Items.Count >= x + 1)
+                {
+                    item = Items.Inventory.Items[x];
+                }
+
                 group.Button(new ButtonElement(new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
                 {
                     Text = "",
                     Image = new ButtonImage()
                     {
                         Size = new Vector2(24, 24),
-                        Image = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0")
+                        Image = item != null ? item.SpriteFrame : null
+                    },
+                    OnClick = () =>
+                    {
+                        if(item != null)
+                        {
+                            item.Use();
+                        }
                     }
                 });
             }

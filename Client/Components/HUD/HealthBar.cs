@@ -22,7 +22,6 @@ namespace Client.Components.HUD
             int x = 10;
             int y = 10;
 
-
             var healthGroup = this.GameObject.AddComponent<UIGroup>();
 
             healthGroup.Settings.Position = new Rectangle(new Point(x, y), size);

@@ -26,7 +26,8 @@ namespace LDG.Particles
             currentSize = CalculateCurrentSize(percentageComplete);
             currentOpacity = GetValueBetween(Config.StartOpacity, Config.EndOpacity, percentageComplete);
 
-            this.Position += (this.Config.MovementStrategy.GetRelativeTargetDirection(this.Position) * (time.Delta * currentSpeed));
+            if(this.Config.MovementStrategy != null)
+                this.Position += (this.Config.MovementStrategy.GetRelativeTargetDirection(this.Position) * (time.Delta * currentSpeed));
 
             return percentageComplete >= 1.0f;
         }

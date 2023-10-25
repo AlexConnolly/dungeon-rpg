@@ -81,7 +81,7 @@ namespace LDG.UI
                 spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), UIManager.Style.BackgroundColor, UIManager.Style.BorderColor, 2);
             }
 
-            if(Image != null)
+            if(Image != null && Image.Image != null)
             {
                 Vector2 drawPosition = GlobalPosition.ToVector2();
 

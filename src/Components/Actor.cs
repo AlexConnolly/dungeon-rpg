@@ -1,4 +1,5 @@
 ﻿using LDG.Components.Audio;
+using LDG.Components.Particles;
 using LDG.Components.Sprite;
 using LDG.Extensions;
 using Microsoft.Xna.Framework;
@@ -13,6 +14,7 @@ namespace LDG.Components
     public class Actor : GameComponent
     {
         public AudioSource WalkingAudio { get; set; }
+        public ParticleEngine WalkingParticles { get; set; }
 
         public Actor() {
 
@@ -44,6 +46,20 @@ namespace LDG.Components
                     else
                     {
                         this.WalkingAudio.Stop();
+                    }
+                }
+
+                if(this.WalkingParticles != null)
+                {
+                    if(value)
+                    {
+                        if(!this.WalkingParticles.Enabled)
+                        {
+                            this.WalkingParticles.Enabled = true;
+                        }
+                    } else
+                    {
+                        this.WalkingParticles.Enabled = false;
                     }
                 }
             }
@@ -79,7 +95,9 @@ namespace LDG.Components
             Vector2 move = (Velocity * time.Delta);
 
             if(move != Vector2.Zero)
+            {
                 this.Transform.Translate(move);
+            }
         }
     }
 }

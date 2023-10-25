@@ -14,6 +14,8 @@ namespace LDG.Components.Particles
 
         private List<ParticleInstance> _particles = new List<ParticleInstance>();
 
+        public bool Enabled { get; set; } = true;
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             foreach(var particle in _particles)
@@ -40,13 +42,16 @@ namespace LDG.Components.Particles
         public override void Update(TimeFrame time)
         {
             // Determine next emission
-            timeUntilNextEmit -= time.Delta;
-
-            if(timeUntilNextEmit <= 0)
+            if(Enabled)
             {
-                this._particles.Add(Emit());
+                timeUntilNextEmit -= time.Delta;
 
-                timeUntilNextEmit = 1.0f / this.Config.ParticlesPerSecond;
+                if (timeUntilNextEmit <= 0)
+                {
+                    this._particles.Add(Emit());
+
+                    timeUntilNextEmit = 1.0f / this.Config.ParticlesPerSecond;
+                }
             }
 
             // Update all
