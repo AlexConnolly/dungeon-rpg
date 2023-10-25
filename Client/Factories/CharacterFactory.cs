@@ -21,6 +21,8 @@ namespace Client.Factories
         public required int MovementFPS { get; set; } = 10;
 
         public required Spritesheet MovementSheet { get; set; }
+
+        public required Vector2 StartPosition { get; set; } = Vector2.Zero;
     }
 
     public class CharacterFactory
@@ -44,6 +46,8 @@ namespace Client.Factories
             spriteAnimator.FramesPerSecond = request.MovementFPS;
 
             spriteAnimator.Sheet = request.MovementSheet;
+
+            gameObject.GetComponent<Transform>().Position = request.StartPosition;
 
             return gameObject;
         }
