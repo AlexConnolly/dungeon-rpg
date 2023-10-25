@@ -13,7 +13,7 @@ namespace Client.Scenes
 {
     public class GameScene : Scene
     {
-        public override Color ClearColor => Color.ForestGreen;
+        public override Color ClearColor => Color.Snow;
 
         public GameScene()
         {

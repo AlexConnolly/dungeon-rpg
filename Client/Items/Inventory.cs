@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.Items.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace Client.Items
 {
     public static class Inventory
     {
-        public static List<Item> Items { get; set; } = new List<Item>();
+        public static List<Item> Items { get; set; } = new List<Item>()
+        {
+            new StoneSword()
+        };
     }
 }

@@ -50,6 +50,18 @@
 /processorParam:TextureFormat=Color
 /build:Graphics/Sprites/Characters/george.png
 
+#begin Graphics/Sprites/Items/items.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Graphics/Sprites/Items/items.png
+
 #begin Graphics/Sprites/Tiles/world.png
 /importer:TextureImporter
 /processor:TextureProcessor
