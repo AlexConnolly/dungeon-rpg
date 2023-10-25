@@ -1,5 +1,7 @@
 ﻿using LDG;
+using LDG.Audio;
 using LDG.Components;
+using LDG.Components.Audio;
 using LDG.Components.Camera;
 using LDG.Components.Collision;
 using LDG.Components.Sprite;
@@ -32,7 +34,13 @@ namespace Client.Factories
         {
             var gameObject = scene.AddGameObject();
 
+            var walkingAudio = gameObject.AddComponent<AudioSource>();
+
+            walkingAudio.Sound = AudioManager.GetSound("character_footsteps");
+
             var actor = gameObject.AddComponent<Actor>();
+
+            actor.WalkingAudio = walkingAudio;
 
             actor.MovementSpeed = request.MovementSpeed;
 

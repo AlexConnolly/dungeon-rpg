@@ -43,7 +43,7 @@ namespace Client.Factories
                     TimeToLive = 5,
                     Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("29")
                 },
-                ParticlesPerSecond = 100,
+                ParticlesPerSecond = 500,
                 EmissionArea = new Rectangle(0, 0, Screen.Resolution.X, Screen.Resolution.Y)
             };
 

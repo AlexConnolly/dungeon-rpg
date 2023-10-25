@@ -12,13 +12,13 @@ namespace LDG.Components.Audio
 {
     public class AudioSource : GameComponent
     {
-        private readonly SoundEffect _sound;
-
         private SoundEffectInstance instance;
 
-        public AudioSource(GameObject gameObject, SoundEffect sound)
+        public SoundEffect Sound { get; set; }
+
+        public AudioSource()
         {
-            this._sound = sound;
+
         }
 
         public bool IsPlaying()
@@ -38,7 +38,7 @@ namespace LDG.Components.Audio
                 this.Stop();
             }
 
-            instance = _sound.CreateInstance();
+            instance = Sound.CreateInstance();
             instance.IsLooped = loop;
             instance.Play();
         }
