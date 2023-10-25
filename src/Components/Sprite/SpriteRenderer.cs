@@ -30,7 +30,7 @@ namespace LDG.Components.Sprite
             Vector2 drawPosition = currentPosition - (sizing / 2);
 
             // Draw the sprite
-            Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2());
+            Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2(), Color.White);
 
             base.Draw(spriteBatch);
         }

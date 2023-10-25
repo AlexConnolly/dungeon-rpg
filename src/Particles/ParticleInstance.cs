@@ -27,7 +27,7 @@ namespace LDG.Particles
             currentOpacity = GetValueBetween(Config.StartOpacity, Config.EndOpacity, percentageComplete);
 
             if(this.Config.MovementStrategy != null)
-                this.Position += (this.Config.MovementStrategy.GetRelativeTargetDirection(this.Position) * (time.Delta * currentSpeed));
+                this.Position += (this.Config.MovementStrategy.GetRelativeTargetDirection(this.Position, time) * (time.Delta * currentSpeed));
 
             return percentageComplete >= 1.0f;
         }
@@ -63,7 +63,7 @@ namespace LDG.Particles
         {
             Vector2 drawPosition = this.Position;
 
-            this.Config.Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2(), new Point((int)this.currentSize, (int)this.currentSize), this.currentOpacity);
+            this.Config.Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2(), this.Config.Color, new Point((int)this.currentSize, (int)this.currentSize), this.currentOpacity);
         }
     }
 }

@@ -113,6 +113,7 @@ namespace LDG.Sprite
             _sheets.Add("characters_george", Spritesheet.FromAnimatedSheet(content.Load<Texture2D>("Graphics/Sprites/Characters/george"), true, 1, 3, 2, 0, new Point(48, 48)));
             _sheets.Add("tiles_world", Spritesheet.FromSheet(content.Load<Texture2D>("Graphics/Sprites/Tiles/world"), new Point(16, 16)));
             _sheets.Add("items", Spritesheet.FromSheet(content.Load<Texture2D>("Graphics/Sprites/Tiles/world"), new Point(16, 16)));
+            _sheets.Add("particles_smoke", Spritesheet.FromSheet(content.Load<Texture2D>("Graphics/Sprites/Particles/smoke1"), new Point(16, 16)));
         }
         
         public static Spritesheet GetSheetByName(string name)

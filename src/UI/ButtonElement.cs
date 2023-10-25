@@ -91,7 +91,7 @@ namespace LDG.UI
                 drawPosition.X -= (Image.Size.X / 2);
                 drawPosition.Y -= (Image.Size.Y / 2);
 
-                Image.Image.Draw(spriteBatch, drawPosition, Image.Size.ToPoint());
+                Image.Image.Draw(spriteBatch, drawPosition, Color.White, Image.Size.ToPoint());
             }
         }
     }

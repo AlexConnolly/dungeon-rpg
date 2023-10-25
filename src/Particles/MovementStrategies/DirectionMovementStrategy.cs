@@ -11,7 +11,7 @@ namespace LDG.Particles.MovementStrategies
     {
         public required Vector2 RelativeDirection { get; set; }
 
-        public override Vector2 GetRelativeTargetDirection(Vector2 currentPosition)
+        public override Vector2 GetRelativeTargetDirection(Vector2 currentPosition, TimeFrame time)
         {
             return this.RelativeDirection;
         }

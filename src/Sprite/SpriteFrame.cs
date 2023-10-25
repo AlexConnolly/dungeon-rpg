@@ -86,7 +86,7 @@ namespace LDG.Sprite
             return result;
         }
 
-        public void Draw(SpriteBatch batch, Vector2 position, Point? drawSize = null, float opacity = 1)
+        public void Draw(SpriteBatch batch, Vector2 position,Color color, Point? drawSize = null, float opacity = 1)
         {
             Rectangle destination = new Rectangle((int)position.X, (int)position.Y, (int)Size.X, (int)Size.Y);
 
@@ -96,7 +96,7 @@ namespace LDG.Sprite
                 destination.Height = drawSize.Value.Y;
             }
 
-            batch.Draw(this.texture, destination, this.source, Color.White.SetOpacity(opacity));
+            batch.Draw(this.texture, destination, this.source, color.SetOpacity(opacity));
         }
     }
 }

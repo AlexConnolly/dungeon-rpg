@@ -68,7 +68,7 @@ namespace Client.Factories
 
             var actor = gameObject.AddComponent<Actor>();
 
-            actor.WalkingAudio = walkingAudio;
+            //actor.WalkingAudio = walkingAudio;
             actor.WalkingParticles = walkingParticles;
 
             actor.MovementSpeed = request.MovementSpeed;

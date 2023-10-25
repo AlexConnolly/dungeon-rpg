@@ -42,7 +42,7 @@ namespace LDG.Components.Tile
 
                     var cameraPosition = LDG.Camera.WorldPositionToCameraPoint(location.ToVector2());
 
-                    tile.Frame.Draw(spriteBatch, cameraPosition.ToVector2(), TileSize);
+                    tile.Frame.Draw(spriteBatch, cameraPosition.ToVector2(), Color.White, TileSize);
                 }
             }
         }

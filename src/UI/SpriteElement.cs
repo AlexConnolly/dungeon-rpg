@@ -25,7 +25,7 @@ namespace LDG.UI
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
-            this.Frame.Draw(spriteBatch, this.GlobalPosition.ToVector2(), this.Position.Size);
+            this.Frame.Draw(spriteBatch, this.GlobalPosition.ToVector2(), Color.White, this.Position.Size);
         }
     }
 }
