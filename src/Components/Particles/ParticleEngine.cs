@@ -16,12 +16,23 @@ namespace LDG.Components.Particles
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            foreach(var particle in _particles)
+            {
+                particle.Draw(spriteBatch);
+            }
         }
 
         private ParticleInstance Emit()
         {
+            var particle = new ParticleInstance() { Config = this.Config.ParticleConfig };
 
+            // Pick random place to spawn
+            float randomX = Random.Shared.Next(-(this.Config.EmissionArea.Width / 2), this.Config.EmissionArea.Width / 2);
+            float randomY = Random.Shared.Next(-(this.Config.EmissionArea.Height / 2), this.Config.EmissionArea.Height / 2);
+
+            particle.Position = this.Transform.Position + new Microsoft.Xna.Framework.Vector2(randomX, randomY);
+
+            return particle;
         }
 
         private float timeUntilNextEmit = 0;
@@ -36,6 +47,22 @@ namespace LDG.Components.Particles
                 this._particles.Add(Emit());
 
                 timeUntilNextEmit = 1.0f / this.Config.ParticlesPerSecond;
+            }
+
+            // Update all
+            List<ParticleInstance> toDelete = new List<ParticleInstance>();
+
+            foreach(var particle in _particles)
+            {
+                if(particle.Update(time))
+                {
+                    toDelete.Add(particle);
+                }
+            }
+
+            foreach(var particle in toDelete)
+            {
+                _particles.Remove(particle);
             }
         }
     }

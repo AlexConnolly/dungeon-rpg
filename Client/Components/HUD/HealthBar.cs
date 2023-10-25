@@ -26,14 +26,12 @@ namespace Client.Components.HUD
             var healthGroup = this.GameObject.AddComponent<UIGroup>();
 
             healthGroup.Settings.Position = new Rectangle(new Point(x, y), size);
-            healthGroup.Settings.ShowBox = false;
 
             this.healthBar = healthGroup.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkRed, Color.IndianRed, 2);
 
             var manaGroup = this.GameObject.AddComponent<UIGroup>();
 
             manaGroup.Settings.Position = new Rectangle(new Point(x, y + (size.Y + 10)), size);
-            manaGroup.Settings.ShowBox = false;
 
             this.manaBar = manaGroup.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkBlue, Color.CornflowerBlue, 2);
         }

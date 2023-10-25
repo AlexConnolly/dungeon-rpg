@@ -13,6 +13,8 @@ namespace Client.Scenes
 {
     public class GameScene : Scene
     {
+        public override Color ClearColor => Color.White;
+
         public GameScene()
         {
 
@@ -35,23 +37,6 @@ namespace Client.Scenes
                     StartPosition = new Microsoft.Xna.Framework.Vector2(-100, 10)
                 }
             });
-
-            // Create chicken
-            for(int x = 0; x < 30; x++)
-            {
-                int bounds = 500;
-
-                var character = CharacterFactory.CreateCharacter(this, new CreateCharacterRequest()
-                {
-                    CollisionBounds = new Microsoft.Xna.Framework.Vector2(40, 20),
-                    MovementFPS = 10,
-                    MovementSheet = SpriteSheetManager.GetSheetByName("characters_chicken"),
-                    MovementSpeed = 30,
-                    StartPosition = new Vector2(Random.Shared.Next(-bounds, bounds), Random.Shared.Next(-bounds, bounds))
-                });
-
-                character.GetComponent<Actor>().IsMoving = true;
-            }
             
 
             // Create UI

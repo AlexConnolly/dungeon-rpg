@@ -44,17 +44,41 @@ namespace Client.Factories
             collider.Layer = tilemap.Layers[2];
 
             // Draw some grass just to show it works
-            int grassSize = 10;
+            int grassSize = 200;
 
             for(int x = -grassSize; x < grassSize; x++)
             {
                 for(int y = -grassSize; y < grassSize; y++)
                 {
-                    tilemap.Layers[0].Tiles.Add(new TilemapItem()
+                    bool shouldPlace = Random.Shared.Next(0, 100) < 5;
+
+                    if(shouldPlace)
                     {
-                        Location = new Point(x, y),
-                        Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("64")
-                    });
+                        tilemap.Layers[1].Tiles.Add(new TilemapItem()
+                        {
+                            Location = new Point(x, y),
+                            Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("58")
+                        });
+                    }
+                    
+                }
+            }
+
+            for (int x = -grassSize; x < grassSize; x++)
+            {
+                for (int y = -grassSize; y < grassSize; y++)
+                {
+                    bool shouldPlace = Random.Shared.Next(0, 100) < 10;
+
+                    if (shouldPlace)
+                    {
+                        tilemap.Layers[2].Tiles.Add(new TilemapItem()
+                        {
+                            Location = new Point(x, y),
+                            Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("30")
+                        });
+                    }
+
                 }
             }
 

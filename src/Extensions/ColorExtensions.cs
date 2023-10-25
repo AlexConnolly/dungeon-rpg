@@ -11,7 +11,7 @@ namespace LDG.Extensions
     {
         public static Color SetOpacity(this Color color, float opacity)
         {
-            return new Color(color, opacity);
+            return new Color(color.R, color.G, color.B, (byte)(opacity * 255));
         }
     }
 }
