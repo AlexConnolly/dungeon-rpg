@@ -1,4 +1,5 @@
-﻿using LDG.Components.Collision;
+﻿using LDG.Components;
+using LDG.Components.Collision;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,8 @@ namespace LDG
         public GameObject AddGameObject()
         {
             var gameObject = new GameObject(this);
+
+            gameObject.AddComponent<Transform>();
 
             this._gameObjects.Add(gameObject);
 

@@ -12,9 +12,10 @@ namespace LDG.Components
 {
     public class Actor : GameComponent
     {
-        private readonly AudioSource audioSource;
-        public Actor(GameObject gameObject, AudioSource movementAudio) {
-            this.audioSource = movementAudio;
+        public AudioSource WalkingAudio { get; set; }
+
+        public Actor() {
+
         }
 
         public Direction Direction { get; set; } = Direction.Up;
@@ -31,15 +32,19 @@ namespace LDG.Components
             {
                 this.moving = value;
 
-                if(value)
+                if(this.WalkingAudio != null)
                 {
-                    if(!this.audioSource.IsPlaying())
+                    if (value)
                     {
-                        this.audioSource.Start(true);
+                        if (!this.WalkingAudio.IsPlaying())
+                        {
+                            this.WalkingAudio.Start(true);
+                        }
                     }
-                } else
-                {
-                    this.audioSource.Stop();
+                    else
+                    {
+                        this.WalkingAudio.Stop();
+                    }
                 }
             }
         }

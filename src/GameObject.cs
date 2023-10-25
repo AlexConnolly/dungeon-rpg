@@ -21,6 +21,8 @@ namespace LDG
         /// </summary>
         public int DrawPriority { get; set; } = 0;
 
+        public string Tag { get; set; }
+
         public List<GameComponent> Components { get; set; } = new List<GameComponent>();
 
         public Scene Scene

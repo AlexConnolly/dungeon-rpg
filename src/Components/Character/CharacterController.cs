@@ -11,7 +11,7 @@ namespace LDG.Components.Character
 {
     public class CharacterController : GameComponent
     {
-        public CharacterController(GameObject gameObject)
+        public CharacterController()
         {
         }
 

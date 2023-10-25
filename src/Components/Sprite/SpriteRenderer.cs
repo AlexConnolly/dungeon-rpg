@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LDG.Components.Sprite
 {
-    internal class SpriteRenderer : GameComponent
+    public class SpriteRenderer : GameComponent
     {
         public SpriteRenderer()
         {

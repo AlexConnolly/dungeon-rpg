@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LDG.Components.Sprite
 {
-    internal class SpriteMovementAnimator : GameComponent
+    public class SpriteMovementAnimator : GameComponent
     {
         private Spritesheet _sheet;
 
