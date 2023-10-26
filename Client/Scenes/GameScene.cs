@@ -51,7 +51,7 @@ namespace Client.Scenes
                     StartPosition = new Microsoft.Xna.Framework.Vector2(Random.Shared.Next(-1000, 1000), Random.Shared.Next(-1000, 1000))
                 });
 
-                chicken.GetComponent<Actor>().IsMoving = true;
+                //chicken.GetComponent<Actor>().IsMoving = true;
             }
 
             var particleObject = this.AddGameObject();

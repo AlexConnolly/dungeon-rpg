@@ -40,10 +40,10 @@ namespace LDG.Components.Collision
 
         public override bool Intersects(Rectangle source)
         {
-            return !(source.X > WorldRectangle.X + WorldRectangle.Width ||
-                     source.X + source.Width < WorldRectangle.X ||
-                     source.Y > WorldRectangle.Y + WorldRectangle.Height ||
-                     source.Y + source.Height < WorldRectangle.Y);
+            return !(source.Right < WorldRectangle.X ||
+                     source.X > WorldRectangle.Right ||
+                     source.Bottom < WorldRectangle.Y ||
+                     source.Y > WorldRectangle.Bottom);
         }
     }
 }

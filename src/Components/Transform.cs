@@ -18,27 +18,21 @@ namespace LDG.Components
 
         private bool CanMoveToPosition(Vector2 position)
         {
-            BoxCollider collider;
-
-            if (!this.GameObject.TryGetComponent<BoxCollider>(out collider))
+            if (!this.GameObject.TryGetComponent<BoxCollider>(out BoxCollider collider))
                 return true;
 
-            float xStart = position.X - (collider.Bounds.X / 2);
-            float yStart = position.Y - (collider.Bounds.Y / 2);
+            float halfWidth = collider.Bounds.X / 2;
+            float halfHeight = collider.Bounds.Y / 2;
 
-            foreach(var gameObject in this.GameObject.Scene.GameObjects)
+            Rectangle targetRect = new Rectangle((int)(position.X - halfWidth), (int)(position.Y - halfHeight), (int)collider.Bounds.X, (int)collider.Bounds.Y);
+
+            foreach (var gameObject in this.GameObject.Scene.GameObjects)
             {
                 if (gameObject == this.GameObject)
                     continue;
 
-                if(gameObject.TryGetComponent<Collider>(out var other))
-                {
-                    // Check whether the object intersects
-                    if(other.Intersects(new Rectangle((int)xStart, (int)yStart, (int)collider.Bounds.X, (int)collider.Bounds.Y)))
-                    {
-                        return false;
-                    }
-                }
+                if (gameObject.TryGetComponent<Collider>(out Collider otherCollider) && otherCollider.Intersects(targetRect))
+                    return false;
             }
 
             return true;

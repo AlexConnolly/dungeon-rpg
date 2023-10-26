@@ -22,14 +22,12 @@ namespace LDG.Components.Collision
 
         public override bool Intersects(Rectangle rectangle)
         {
-            foreach(var tile in Layer.Tiles)
+            foreach (var tile in Layer.Tiles)
             {
-                var tileRect = new Rectangle(tile.Location.X * TileSize.X, tile.Location.Y * TileSize.Y, TileSize.X, TileSize.Y);
+                Rectangle tileRect = new Rectangle(tile.Location.X * TileSize.X, tile.Location.Y * TileSize.Y, TileSize.X, TileSize.Y);
 
-                if(rectangle.Intersects(tileRect))
-                {
+                if (rectangle.Intersects(tileRect))
                     return true;
-                }
             }
 
             return false;
