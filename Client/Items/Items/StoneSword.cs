@@ -22,14 +22,14 @@ namespace Client.Items.Items
             }
         }
 
-        public override void Use()
+        public override void Use(Actor consumer)
         {
-            var player = Scene.CurrentScene.GetGameObjectWithTag("Player");
-
-            var playerTransform = player.GetComponent<Transform>();
-            var actor = player.GetComponent<Actor>();
-
-            Inventory.Items.Add(new StoneSword());
+            foreach(var other in consumer.ReachZone.IntersectingObjects)
+            {
+                if(other != consumer.GameObject) {
+                    consumer.GameObject.Scene.RemoveObject(other);
+                }
+            }
         }
     }
 }

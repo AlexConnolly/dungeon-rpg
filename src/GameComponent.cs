@@ -17,6 +17,14 @@ namespace LDG
 
         }
 
+        /// <summary>
+        /// Late update purposesly has no timeframe to make sure you do not do anything time-based
+        /// </summary>
+        public virtual void LateUpdate()
+        {
+
+        }
+
         public virtual void Initialize()
         {
 

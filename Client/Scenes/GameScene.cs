@@ -40,7 +40,7 @@ namespace Client.Scenes
                 }
             });
 
-            for(int x = 0; x < 50; x++)
+            for(int x = 0; x < 1; x++)
             {
                 var chicken = CharacterFactory.CreateCharacter(this, new CreateCharacterRequest()
                 {
@@ -48,7 +48,7 @@ namespace Client.Scenes
                     MovementFPS = 10,
                     MovementSheet = SpriteSheetManager.GetSheetByName("characters_chicken"),
                     MovementSpeed = 35,
-                    StartPosition = new Microsoft.Xna.Framework.Vector2(Random.Shared.Next(-1000, 1000), Random.Shared.Next(-1000, 1000))
+                    StartPosition = new Microsoft.Xna.Framework.Vector2(Random.Shared.Next(-100, 100), Random.Shared.Next(-100, 100))
                 });
 
                 chicken.GetComponent<Actor>().IsMoving = true;

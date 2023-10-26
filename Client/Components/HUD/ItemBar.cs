@@ -28,9 +28,13 @@ namespace Client.Components.HUD
 
         private List<ButtonElement> buttons = new List<ButtonElement>();
 
+        private Actor playerActor;
+
         public override void Initialize()
         {
             this.group = this.GameObject.AddComponent<UIGroup>();
+
+            this.playerActor = this.GameObject.Scene.GetGameObjectWithTag("Player").GetComponent<Actor>();
 
             Vector2 size = new Vector2(460, 60);
 
@@ -121,7 +125,7 @@ namespace Client.Components.HUD
 
                     if (item != null)
                     {
-                        item.Use();
+                        item.Use(this.playerActor);
                     }
                 }
             }

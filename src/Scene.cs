@@ -28,7 +28,10 @@ namespace LDG
         {
             get
             {
-                foreach(var obj in this._gameObjects)
+                // Use to avoid any adjustments to the GOs
+                var tempList = new List<GameObject>(_gameObjects);
+
+                foreach (var obj in tempList)
                 {
                     yield return obj;
                 }
@@ -51,6 +54,12 @@ namespace LDG
             this._gameObjects.Add(gameObject);
 
             return gameObject;
+        }
+
+        public void RemoveObject(GameObject obj)
+        {
+            if (this._gameObjects.Contains(obj))
+                this._gameObjects.Remove(obj);
         }
 
         public GameObject GetGameObjectWithTag(string tag)

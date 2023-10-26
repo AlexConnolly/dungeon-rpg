@@ -14,6 +14,9 @@ namespace LDG.Components
         {
         }
 
+        /// <summary>
+        /// Careful with setting this - it will not trigger triggers or colliders
+        /// </summary>
         public Vector2 Position { get; set; }
 
         private bool CanMoveToPosition(Vector2 position)
@@ -26,16 +29,24 @@ namespace LDG.Components
 
             Rectangle targetRect = new Rectangle((int)(position.X - halfWidth), (int)(position.Y - halfHeight), (int)collider.Bounds.X, (int)collider.Bounds.Y);
 
+            bool result = true;
+
             foreach (var gameObject in this.GameObject.Scene.GameObjects)
             {
                 if (gameObject == this.GameObject)
                     continue;
 
-                if (gameObject.TryGetComponent<Collider>(out Collider otherCollider) && otherCollider.Intersects(targetRect))
-                    return false;
+                if(result)
+                    if (gameObject.TryGetComponent<Collider>(out Collider otherCollider) && otherCollider.Intersects(targetRect))
+                        result =  false;
+
+                if(gameObject.TryGetComponent<BoxTrigger>(out BoxTrigger trigger))
+                {
+                    trigger.CheckTrigger(targetRect, this.GameObject);
+                }
             }
 
-            return true;
+            return result;
         }
 
         public Vector2 Translate(Vector2 movement)

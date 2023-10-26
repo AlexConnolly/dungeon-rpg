@@ -1,10 +1,12 @@
 ﻿using LDG.Components.Audio;
+using LDG.Components.Collision;
 using LDG.Components.Particles;
 using LDG.Components.Sprite;
 using LDG.Extensions;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,25 @@ namespace LDG.Components
     {
         public AudioSource WalkingAudio { get; set; }
         public ParticleEngine WalkingParticles { get; set; }
+
+        public BoxTrigger ReachZone { get; set; }
+
+        private Vector2 _size = Vector2.Zero;
+
+        public Vector2 Size {
+            get
+            {
+                return this._size;
+            }
+
+            set
+            {
+                this._size = value;
+                this.Collider.Bounds = value;
+            }
+        }
+
+        private BoxCollider Collider { get; set; }
 
         public Actor() {
 
@@ -89,8 +110,41 @@ namespace LDG.Components
             }
         }
 
+        public override void Initialize()
+        {
+            this.Collider = this.GameObject.AddComponent<BoxCollider>();
+            this.Collider.Bounds = this.Size;
+        }
+
         public override void Update(TimeFrame time)
         {
+            // Move the reach trigger to face direction
+            Vector2 offset = Vector2.Zero;
+
+            switch(this.Direction)
+            {
+                case Direction.Left:
+                    offset.X = -(this.Size.X / 2);
+                    break;
+
+                case Direction.Right:
+                    offset.X = (this.Size.X / 2);
+                    break;
+
+                case Direction.Up:
+                    offset.Y = (-this.Size.Y / 2);
+                    break;
+
+                case Direction.Down:
+                    offset.Y = (this.Size.Y / 2);
+                    break;
+            }
+
+            this.ReachZone.Bounds = new Microsoft.Xna.Framework.Rectangle(
+                offset.ToPoint(),
+                this.ReachZone.Bounds.Size
+            );
+
             // Handle movement
             Vector2 move = (Velocity * time.Delta);
 

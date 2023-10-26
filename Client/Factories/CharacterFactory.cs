@@ -66,16 +66,19 @@ namespace Client.Factories
 
             var walkingParticles = CreateWalkingParticles(gameObject);
 
+            var reachZone = gameObject.AddComponent<BoxTrigger>();
+
+            reachZone.Bounds = new Rectangle(0, 0, 50, 50);
+
             var actor = gameObject.AddComponent<Actor>();
 
             //actor.WalkingAudio = walkingAudio;
             actor.WalkingParticles = walkingParticles;
+            actor.ReachZone = reachZone;
+
+            actor.Size = request.CollisionBounds;
 
             actor.MovementSpeed = request.MovementSpeed;
-
-            var collider = gameObject.AddComponent<BoxCollider>();
-
-            collider.Bounds = request.CollisionBounds;
 
             var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 

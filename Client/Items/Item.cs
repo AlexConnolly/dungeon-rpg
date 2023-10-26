@@ -1,10 +1,11 @@
-﻿using LDG.Sprite;
+﻿using LDG.Components;
+using LDG.Sprite;
 
 namespace Client.Items
 {
     public abstract class Item
     {
-        public abstract void Use();
+        public abstract void Use(Actor consumer);
 
         public abstract SpriteFrame SpriteFrame { get; }
 

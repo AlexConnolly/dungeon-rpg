@@ -1,6 +1,7 @@
 ﻿using LDG;
 using LDG.Components.Camera;
 using LDG.Components.Character;
+using LDG.Components.Collision;
 using LDG.Components.Particles;
 using LDG.Particles.MovementStrategies;
 using LDG.Sprite;
