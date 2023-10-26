@@ -57,6 +57,9 @@ namespace LDG
         {
             foreach(var obj in this._gameObjects)
             {
+                if (obj.Tag == null)
+                    continue;
+
                 if(obj.Tag.Equals(tag, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return obj;

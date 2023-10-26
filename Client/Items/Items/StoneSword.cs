@@ -29,7 +29,7 @@ namespace Client.Items.Items
             var playerTransform = player.GetComponent<Transform>();
             var actor = player.GetComponent<Actor>();
 
-
+            Inventory.Items.Add(new StoneSword());
         }
     }
 }

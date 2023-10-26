@@ -128,7 +128,7 @@ namespace LDG.Components.Sprite
             }
 
             // Finally set the frame
-            spriteRenderer.Frame = new ;
+            spriteRenderer.Frame = frame;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace LDG
             var timeFrame = new TimeFrame(gameTime);
 
             // Update keyboard
-            Input.Keyboard.Update(timeFrame);
+            Input.KeyboardHelper.Update(timeFrame);
 
             // Update the UI manager
             UIManager.Update(timeFrame);
