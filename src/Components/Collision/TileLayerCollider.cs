@@ -22,9 +22,23 @@ namespace LDG.Components.Collision
 
         public override bool Intersects(Rectangle rectangle)
         {
+            // Calculate potential bounding box of tiles that might intersect
+            int startX = rectangle.X - TileSize.X;
+            int startY = rectangle.Y - TileSize.Y;
+            int endX = rectangle.Right;
+            int endY = rectangle.Bottom;
+
             foreach (var tile in Layer.Tiles)
             {
-                Rectangle tileRect = new Rectangle(tile.Location.X * TileSize.X, tile.Location.Y * TileSize.Y, TileSize.X, TileSize.Y);
+                // Convert tile location to world coordinates
+                int tileX = tile.Location.X * TileSize.X;
+                int tileY = tile.Location.Y * TileSize.Y;
+
+                // Skip tiles outside the potential bounding box
+                if (tileX > endX || tileX + TileSize.X < startX || tileY > endY || tileY + TileSize.Y < startY)
+                    continue;
+
+                Rectangle tileRect = new Rectangle(tileX, tileY, TileSize.X, TileSize.Y);
 
                 if (rectangle.Intersects(tileRect))
                     return true;

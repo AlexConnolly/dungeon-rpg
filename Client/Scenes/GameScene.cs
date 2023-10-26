@@ -40,7 +40,7 @@ namespace Client.Scenes
                 }
             });
 
-            for(int x = 0; x < 10; x++)
+            for(int x = 0; x < 50; x++)
             {
                 var chicken = CharacterFactory.CreateCharacter(this, new CreateCharacterRequest()
                 {
@@ -51,7 +51,7 @@ namespace Client.Scenes
                     StartPosition = new Microsoft.Xna.Framework.Vector2(Random.Shared.Next(-1000, 1000), Random.Shared.Next(-1000, 1000))
                 });
 
-                //chicken.GetComponent<Actor>().IsMoving = true;
+                chicken.GetComponent<Actor>().IsMoving = true;
             }
 
             var particleObject = this.AddGameObject();
@@ -114,7 +114,6 @@ namespace Client.Scenes
                     TimeToLive = 2
                 }
             };
-
 
 
             var particleFire = particleObject.AddComponent<ParticleEngine>();
