@@ -113,7 +113,7 @@ namespace Client.Components.HUD
                 selectionSquare.Position = new Rectangle(new Point(10 + (CurrentIndex * 50), 10), selectionSquare.Position.Size);
 
 
-            if(LDG.Input.Keyboard.WasKeyPressed(Keys.E))
+            if(KeyboardHelper.WasKeyPressed(Keys.E))
             {
                 if (Client.Items.Inventory.Items.Count > this.CurrentIndex)
                 {

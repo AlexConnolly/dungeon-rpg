@@ -9,20 +9,20 @@ using System.Xml.Linq;
 
 namespace LDG.Input
 {
-    public static class Keyboard
+    public static class KeyboardHelper
     {
         private static List<Keys> keysDown = new List<Keys>();
         private static List<Keys> keysPressed = new List<Keys>();
 
         public static bool WasKeyPressed(Keys key)
         {
-            return Keyboard.keysPressed.Contains(key);
+            return KeyboardHelper.keysPressed.Contains(key);
         }
         
         public static void Update(TimeFrame time)
         {
             // A key press will be reset every frame
-            Keyboard.keysPressed = new List<Keys>();
+            KeyboardHelper.keysPressed = new List<Keys>();
 
             var keyboardState = Microsoft.Xna.Framework.Input.Keyboard.GetState();
 
@@ -44,14 +44,14 @@ namespace LDG.Input
             {
                 if(!keysPressed.Contains(key))
                 {
-                    Keyboard.keysPressed.Add(key);
+                    KeyboardHelper.keysPressed.Add(key);
                     toRemove.Add(key);
                 }
             }
 
             foreach(var key in toRemove)
             {
-                Keyboard.keysDown.Remove(key);
+                KeyboardHelper.keysDown.Remove(key);
             }
         }
     }
