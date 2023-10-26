@@ -31,31 +31,6 @@ namespace Client.Factories
 
     public class CharacterFactory
     {
-        private static ParticleEngine CreateWalkingParticles(GameObject gameObject)
-        {
-            var particles = gameObject.AddComponent<ParticleEngine>();
-
-            particles.Config = new LDG.Particles.ParticleEmitterConfig()
-            {
-                EmissionArea = new Rectangle(new Point(0, 20), new Point(20, 10)),
-                ParticleConfig = new LDG.Particles.ParticleConfig()
-                {
-                    MovementStrategy = null,
-                    StartOpacity = 0.8f,
-                    EndOpacity = 0,
-                    StartSize = 5,
-                    EndSize = 5,
-                    StartSpeed = 0,
-                    TimeToLive = 15,
-                    EndSpeed = 0,
-                    Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("58")
-                },
-                ParticlesPerSecond = 5f
-            };
-
-            return particles;
-        }
-
         public static GameObject CreateCharacter(Scene scene, CreateCharacterRequest request)
         {
             var gameObject = scene.AddGameObject();
@@ -64,7 +39,7 @@ namespace Client.Factories
 
             walkingAudio.Sound = AudioManager.GetSound("character_footsteps");
 
-            var walkingParticles = CreateWalkingParticles(gameObject);
+            var walkingParticles = ParticleFactory.AddParticle(gameObject, ParticleType.Footsteps);
 
             var reachZone = gameObject.AddComponent<BoxTrigger>();
 
