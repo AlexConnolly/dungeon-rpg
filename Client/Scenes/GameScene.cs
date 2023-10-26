@@ -55,6 +55,28 @@ namespace Client.Scenes
                 chicken.GetComponent<Actor>().IsMoving = true;
             }
 
+            var gameObject = this.AddGameObject();
+
+            var particles = gameObject.AddComponent<ParticleEngine>();
+
+            particles.Config = new LDG.Particles.ParticleEmitterConfig()
+            {
+                EmissionArea = new Rectangle(0, 0, 20, 20),
+                ParticleConfig = new LDG.Particles.ParticleConfig()
+                {
+                    StartSize = 20,
+                    EndSize = 10,
+                    StartSpeed = 50,
+                    EndSpeed = -50,
+                    TimeToLive = 2,
+                    MovementStrategy = new WeightedRandomMovementStrategy() { RelativeDirection = new Vector2(0, -1), Randomiser = new Vector2(10f, 0.5f)},
+                    Frame = SpriteSheetManager.GetSheetByName("particles_smoke").GetByKey("0"),
+                    Color = Color.Yellow
+                },
+                ParticlesPerSecond = 20,
+                OneShot = true
+            };
+
             // Create UI
             UIFactory.CreateGameUI(this);
         }

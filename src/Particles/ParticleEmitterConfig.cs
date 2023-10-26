@@ -9,5 +9,7 @@ namespace LDG.Particles
         public float ParticlesPerSecond { get; set; }
 
         public ParticleConfig ParticleConfig { get; set; }
+
+        public bool OneShot { get; set; }
     }
 }

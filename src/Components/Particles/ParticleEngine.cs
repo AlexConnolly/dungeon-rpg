@@ -41,16 +41,28 @@ namespace LDG.Components.Particles
 
         public override void Update(TimeFrame time)
         {
+
             // Determine next emission
             if(Enabled)
             {
-                timeUntilNextEmit -= time.Delta;
-
-                if (timeUntilNextEmit <= 0)
+                if (this.Config.OneShot)
                 {
-                    this._particles.Add(Emit());
+                    for (int x = 0; x < this.Config.ParticlesPerSecond; x++)
+                    {
+                        this._particles.Add(Emit());
+                    }
 
-                    timeUntilNextEmit = 1.0f / this.Config.ParticlesPerSecond;
+                    this.Enabled = false;
+                } else
+                {
+                    timeUntilNextEmit -= time.Delta;
+
+                    if (timeUntilNextEmit <= 0)
+                    {
+                        this._particles.Add(Emit());
+
+                        timeUntilNextEmit = 1.0f / this.Config.ParticlesPerSecond;
+                    }
                 }
             }
 

@@ -19,7 +19,7 @@ namespace Client.Items.Items
         {
             get
             {
-                return SpriteSheetManager.GetSheetByName("items").GetByKey("104");
+                return SpriteSheetManager.GetSheetByName("items").GetByKey("105");
             }
         }
 

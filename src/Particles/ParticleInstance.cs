@@ -63,7 +63,13 @@ namespace LDG.Particles
         {
             Vector2 drawPosition = this.Position;
 
-            this.Config.Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2(), this.Config.Color, new Point((int)this.currentSize, (int)this.currentSize), this.currentOpacity);
+            if(this.Config.Frame != null)
+            {
+                this.Config.Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2(), this.Config.Color, new Point((int)this.currentSize, (int)this.currentSize), this.currentOpacity);
+            } else
+            {
+                spriteBatch.DrawSquare(new Rectangle(LDG.Camera.WorldPositionToCameraPoint(drawPosition), new Point((int)this.currentSize, (int)this.currentSize)), Color.Pink, null, 0);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Client.Components.ActorComponents;
+using Client.Items.Items;
 using LDG;
 using LDG.Audio;
 using LDG.Components;
@@ -69,6 +70,8 @@ namespace Client.Factories
             gameObject.GetComponent<Transform>().Position = request.StartPosition;
 
             var hand = gameObject.AddComponent<WieldedItem>();
+
+            new StoneSword().EnterHand(actor);
 
             return gameObject;
         }
