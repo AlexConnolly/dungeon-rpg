@@ -18,7 +18,7 @@ namespace Client.Components.HUD
         {
         }
 
-        private int CurrentIndex = 0;
+        private int CurrentIndex = -1;
 
         private int scrollValue = Mouse.GetState().ScrollWheelValue;
 
@@ -28,13 +28,13 @@ namespace Client.Components.HUD
 
         private List<ButtonElement> buttons = new List<ButtonElement>();
 
-        private Actor playerActor;
+        private LDG.Components.Actor playerActor;
 
         public override void Initialize()
         {
             this.group = this.GameObject.AddComponent<UIGroup>();
 
-            this.playerActor = this.GameObject.Scene.GetGameObjectWithTag("Player").GetComponent<Actor>();
+            this.playerActor = this.GameObject.Scene.GetGameObjectWithTag("Player").GetComponent<LDG.Components.Actor>();
 
             Vector2 size = new Vector2(460, 60);
 
@@ -92,6 +92,11 @@ namespace Client.Components.HUD
 
             int startValue = CurrentIndex;
 
+            if(CurrentIndex == -1)
+            {
+                CurrentIndex = 0;
+            }
+
             if(newScroll < scrollValue)
             {
                 CurrentIndex++;
@@ -114,7 +119,20 @@ namespace Client.Components.HUD
 
             // Set selection square position
             if(startValue != CurrentIndex)
+            {
                 selectionSquare.Position = new Rectangle(new Point(10 + (CurrentIndex * 50), 10), selectionSquare.Position.Size);
+
+                // Leave hand for one item enter hand for the other 
+                if(startValue != -1)
+                {
+                    // Check if we actually had an item
+                    if(startValue + 1 <= Items.Inventory.Items.Count)
+                        Items.Inventory.Items[startValue].LeaveHand(playerActor);
+                }
+
+                if(CurrentIndex + 1 <= Items.Inventory.Items.Count)
+                    Items.Inventory.Items[CurrentIndex].EnterHand(playerActor);
+            }
 
 
             if(KeyboardHelper.WasKeyPressed(Keys.E))
@@ -136,7 +154,7 @@ namespace Client.Components.HUD
             return;
 
             // Get player component
-            var actor = GetComponent<Actor>();
+            var actor = GetComponent<LDG.Components.Actor>();
 
             // Get tilemap
             var tilemap = GameObject.Scene.GetAllComponentsOfType<Tilemap>()[0];

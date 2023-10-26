@@ -1,4 +1,5 @@
-﻿using LDG;
+﻿using Client.Components.Actor;
+using LDG;
 using LDG.Components;
 using LDG.Sprite;
 using System;
@@ -20,6 +21,16 @@ namespace Client.Items.Items
             {
                 return SpriteSheetManager.GetSheetByName("items").GetByKey("104");
             }
+        }
+
+        public override void EnterHand(Actor consumer)
+        {
+            consumer.GameObject.GetComponent<WieldedItem>().Item = this;
+        }
+
+        public override void LeaveHand(Actor consumer)
+        {
+            consumer.GameObject.GetComponent<WieldedItem>().Item = null;
         }
 
         public override void Use(Actor consumer)

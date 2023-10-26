@@ -1,4 +1,5 @@
-﻿using LDG;
+﻿using Client.Components.Actor;
+using LDG;
 using LDG.Audio;
 using LDG.Components;
 using LDG.Components.Audio;
@@ -64,6 +65,8 @@ namespace Client.Factories
             spriteAnimator.Sheet = request.MovementSheet;
 
             gameObject.GetComponent<Transform>().Position = request.StartPosition;
+
+            var hand = gameObject.AddComponent<WieldedItem>();
 
             return gameObject;
         }
