@@ -1,6 +1,6 @@
-﻿using LDG;
+﻿using Client.Components;
+using LDG;
 using LDG.Components.Camera;
-using LDG.Components.Character;
 using LDG.Components.Collision;
 using LDG.Components.Particles;
 using LDG.Particles.MovementStrategies;
@@ -25,7 +25,7 @@ namespace Client.Factories
         {
             var character = CharacterFactory.CreateCharacter(scene, request.CreateCharacterRequest);
 
-            character.AddComponent<CharacterController>();
+            character.AddComponent<PlayerController>();
             character.AddComponent<MainCameraFollow>();
 
             character.Tag = "Player";

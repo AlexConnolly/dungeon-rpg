@@ -1,4 +1,5 @@
-﻿using LDG.Components.Audio;
+﻿using LDG;
+using LDG.Components.Audio;
 using LDG.Components.Collision;
 using LDG.Components.Particles;
 using LDG.Components.Sprite;
@@ -11,78 +12,99 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LDG.Components
+namespace Client.Components.ActorComponents
 {
-    public class Actor : GameComponent
+    public class Actor : LDG.GameComponent
     {
         public AudioSource WalkingAudio { get; set; }
         public ParticleEngine WalkingParticles { get; set; }
+
+        public SpriteMovementAnimator SpriteAnimator { get; set; }
 
         public BoxTrigger ReachZone { get; set; }
 
         private Vector2 _size = Vector2.Zero;
 
-        public Vector2 Size {
+        public Vector2 Size
+        {
             get
             {
-                return this._size;
+                return _size;
             }
 
             set
             {
-                this._size = value;
-                this.Collider.Bounds = value;
+                _size = value;
+                Collider.Bounds = value;
             }
         }
 
         private BoxCollider Collider { get; set; }
 
-        public Actor() {
+        public Actor()
+        {
 
         }
 
-        public Direction Direction { get; set; } = Direction.Up;
-
-        private bool moving = false;
-
-        public bool IsMoving {
+        private Direction _direction = Direction.Up;
+        public Direction Direction
+        {
             get
             {
-                return this.moving;
+                return this._direction;
             }
 
             set
             {
-                this.moving = value;
+                this._direction = value;
+                this.SpriteAnimator.Direction = value;
+            }
+        }
 
-                if(this.WalkingAudio != null)
+        private bool moving = false;
+
+        public bool IsMoving
+        {
+            get
+            {
+                return moving;
+            }
+
+            set
+            {
+                moving = value;
+
+                if (WalkingAudio != null)
                 {
                     if (value)
                     {
-                        if (!this.WalkingAudio.IsPlaying())
+                        if (!WalkingAudio.IsPlaying())
                         {
-                            this.WalkingAudio.Start(true);
+                            WalkingAudio.Start(true);
                         }
                     }
                     else
                     {
-                        this.WalkingAudio.Stop();
+                        WalkingAudio.Stop();
                     }
                 }
 
-                if(this.WalkingParticles != null)
+                if (WalkingParticles != null)
                 {
-                    if(value)
+                    if (value)
                     {
-                        if(!this.WalkingParticles.Enabled)
+                        if (!WalkingParticles.Enabled)
                         {
-                            this.WalkingParticles.Enabled = true;
+                            WalkingParticles.Enabled = true;
                         }
-                    } else
+                    }
+                    else
                     {
-                        this.WalkingParticles.Enabled = false;
+                        WalkingParticles.Enabled = false;
                     }
                 }
+
+                this.SpriteAnimator.IsMoving = value;
             }
         }
 
@@ -98,7 +120,7 @@ namespace LDG.Components
 
                 if (IsMoving)
                 {
-                    velocity = Vector2Extensions.FromDirection(this.Direction);
+                    velocity = Vector2Extensions.FromDirection(Direction);
                     currentSpeed = MathHelper.Lerp(currentSpeed, MovementSpeed, accelerationRate); // Lerp towards the desired MovementSpeed using MathHelper
                 }
                 else
@@ -112,8 +134,8 @@ namespace LDG.Components
 
         public override void Initialize()
         {
-            this.Collider = this.GameObject.AddComponent<BoxCollider>();
-            this.Collider.Bounds = this.Size;
+            Collider = this.GameObject.AddComponent<BoxCollider>();
+            Collider.Bounds = Size;
         }
 
         public override void Update(TimeFrame time)
@@ -121,34 +143,34 @@ namespace LDG.Components
             // Move the reach trigger to face direction
             Vector2 offset = Vector2.Zero;
 
-            switch(this.Direction)
+            switch (Direction)
             {
                 case Direction.Left:
-                    offset.X = -(this.Size.X / 2);
+                    offset.X = -(Size.X / 2);
                     break;
 
                 case Direction.Right:
-                    offset.X = (this.Size.X / 2);
+                    offset.X = Size.X / 2;
                     break;
 
                 case Direction.Up:
-                    offset.Y = (-this.Size.Y / 2);
+                    offset.Y = -Size.Y / 2;
                     break;
 
                 case Direction.Down:
-                    offset.Y = (this.Size.Y / 2);
+                    offset.Y = Size.Y / 2;
                     break;
             }
 
-            this.ReachZone.Bounds = new Microsoft.Xna.Framework.Rectangle(
+            ReachZone.Bounds = new Microsoft.Xna.Framework.Rectangle(
                 offset.ToPoint(),
-                this.ReachZone.Bounds.Size
+                ReachZone.Bounds.Size
             );
 
             // Handle movement
-            Vector2 move = (Velocity * time.Delta);
+            Vector2 move = Velocity * time.Delta;
 
-            if(move != Vector2.Zero)
+            if (move != Vector2.Zero)
             {
                 this.Transform.Translate(move);
             }

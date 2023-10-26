@@ -1,4 +1,6 @@
-﻿using LDG.UI;
+﻿using Client.Components.ActorComponents;
+using LDG;
+using LDG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -7,16 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LDG.Components.Character
+namespace Client.Components
 {
-    public class CharacterController : GameComponent
+    public class PlayerController : LDG.GameComponent
     {
-        public CharacterController()
-        {
-        }
-
         public override void Update(TimeFrame time)
-        {
+        { 
             bool keyPressed = false;
 
             var actor = GetComponent<Actor>();

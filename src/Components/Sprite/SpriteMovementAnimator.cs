@@ -59,20 +59,23 @@ namespace LDG.Components.Sprite
             return next;
         }
 
+        public bool IsMoving { get; set; }
+
+        public Direction Direction { get; set; }
+
         public override void Update(TimeFrame time)
         {
-            var actor = GetComponent<Actor>();
             var spriteRenderer = GetComponent<SpriteRenderer>();
 
             SpriteFrame frame = null;
 
-            if(!actor.IsMoving)
+            if(!IsMoving)
             {
                 TimeSinceLastFrame = 1.0f / FramesPerSecond;
                 currentFrameIndex = 0;
                 
                 // Set the frame to the default frame for the direction
-                switch(actor.Direction)
+                switch(Direction)
                 {
                     case Direction.Up:
                         frame = UpFrames[0];
@@ -98,7 +101,7 @@ namespace LDG.Components.Sprite
                 // We need to change frame
                 List<SpriteFrame> frames = new List<SpriteFrame>();
 
-                switch (actor.Direction)
+                switch (Direction)
                 {
                     case Direction.Up:
                         frames = UpFrames;

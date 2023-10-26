@@ -7,8 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using LDG;
 using Microsoft.Xna.Framework;
-using LDG.Components;
 using LDG.Input;
+using Client.Components.ActorComponents;
 
 namespace Client.Components.HUD
 {
@@ -28,13 +28,13 @@ namespace Client.Components.HUD
 
         private List<ButtonElement> buttons = new List<ButtonElement>();
 
-        private LDG.Components.Actor playerActor;
+        private Actor playerActor;
 
         public override void Initialize()
         {
             this.group = this.GameObject.AddComponent<UIGroup>();
 
-            this.playerActor = this.GameObject.Scene.GetGameObjectWithTag("Player").GetComponent<LDG.Components.Actor>();
+            this.playerActor = this.GameObject.Scene.GetGameObjectWithTag("Player").GetComponent<Actor>();
 
             Vector2 size = new Vector2(460, 60);
 
@@ -134,7 +134,6 @@ namespace Client.Components.HUD
                     Items.Inventory.Items[CurrentIndex].EnterHand(playerActor);
             }
 
-
             if(KeyboardHelper.WasKeyPressed(Keys.E))
             {
                 if (Client.Items.Inventory.Items.Count > this.CurrentIndex)
@@ -154,7 +153,7 @@ namespace Client.Components.HUD
             return;
 
             // Get player component
-            var actor = GetComponent<LDG.Components.Actor>();
+            var actor = GetComponent<Actor>();
 
             // Get tilemap
             var tilemap = GameObject.Scene.GetAllComponentsOfType<Tilemap>()[0];

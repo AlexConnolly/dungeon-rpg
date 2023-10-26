@@ -1,4 +1,4 @@
-﻿using Client.Components.Actor;
+﻿using Client.Components.ActorComponents;
 using LDG;
 using LDG.Audio;
 using LDG.Components;

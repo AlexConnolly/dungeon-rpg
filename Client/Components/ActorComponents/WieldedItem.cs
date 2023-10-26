@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Components.Actor
+namespace Client.Components.ActorComponents
 {
     public class WieldedItem : LDG.GameComponent
     {

@@ -1,4 +1,5 @@
-﻿using LDG.Components;
+﻿using Client.Components.ActorComponents;
+using LDG.Components;
 using LDG.Sprite;
 
 namespace Client.Items

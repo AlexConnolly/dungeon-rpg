@@ -1,4 +1,5 @@
-﻿using Client.Factories;
+﻿using Client.Components.ActorComponents;
+using Client.Factories;
 using LDG;
 using LDG.Components;
 using LDG.Components.Particles;
