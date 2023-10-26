@@ -1,5 +1,4 @@
-﻿using LDG.Components.Character;
-using LDG.Helpers;
+﻿using LDG.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
@@ -52,20 +51,13 @@ namespace LDG.Components.Audio
             }
         }
 
-        private CharacterController character;
-
         public override void Update(TimeFrame time)
         {
-            if(character == null)
-            {
-                character = GameObject.Scene.GetAllComponentsOfType<CharacterController>()[0];
-            }
-
             if(this.instance != null)
             {
                 const float MaximumListenRange = 250f;
 
-                var distance = Math.Abs(Vector2.Distance(this.Transform.Position, character.Transform.Position));
+                var distance = Math.Abs(Vector2.Distance(this.Transform.Position, LDG.Camera.Position));
 
                 if (distance > MaximumListenRange)
                 {

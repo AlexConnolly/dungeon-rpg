@@ -46,6 +46,12 @@ namespace Client.Factories
 
             reachZone.Bounds = new Rectangle(0, 0, 50, 50);
 
+            var spriteAnimator = gameObject.AddComponent<SpriteMovementAnimator>();
+
+            spriteAnimator.FramesPerSecond = request.MovementFPS;
+
+            spriteAnimator.Sheet = request.MovementSheet;
+
             var actor = gameObject.AddComponent<Actor>();
 
             //actor.WalkingAudio = walkingAudio;
@@ -56,13 +62,9 @@ namespace Client.Factories
 
             actor.MovementSpeed = request.MovementSpeed;
 
+            actor.SpriteAnimator = spriteAnimator; 
+
             var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-
-            var spriteAnimator = gameObject.AddComponent<SpriteMovementAnimator>();
-
-            spriteAnimator.FramesPerSecond = request.MovementFPS;
-
-            spriteAnimator.Sheet = request.MovementSheet;
 
             gameObject.GetComponent<Transform>().Position = request.StartPosition;
 
