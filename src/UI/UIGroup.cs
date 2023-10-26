@@ -40,26 +40,28 @@ namespace LDG.UI
             }
         }
 
-        private void AddElement(UIElement element)
+        private UIElement AddElement(UIElement element)
         {
             element.Group = this;
             _elements.Add(element);
             element.Initialize();
+
+            return element;
         }
 
-        public void Text(TextElement element)
+        public TextElement Text(TextElement element)
         {
-            AddElement(element);
+            return (TextElement)AddElement(element);
         }
 
-        public void Button(ButtonElement element)
+        public ButtonElement Button(ButtonElement element)
         {
-            AddElement(element);
+            return (ButtonElement)AddElement(element);
         }
 
-        public void Image(SpriteFrame frame, Rectangle destination)
+        public SpriteElement Image(SpriteFrame frame, Rectangle destination)
         {
-            AddElement(new SpriteElement(destination)
+            return (SpriteElement)AddElement(new SpriteElement(destination)
             {
                 Frame = frame
             });
@@ -74,9 +76,7 @@ namespace LDG.UI
                 BorderSize = borderSize
             };
 
-            AddElement(element);
-
-            return element;
+            return (SquareElement)AddElement(element);
         }
     }
 }
