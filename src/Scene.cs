@@ -53,6 +53,19 @@ namespace LDG
             return gameObject;
         }
 
+        public GameObject GetGameObjectWithTag(string tag)
+        {
+            foreach(var obj in this._gameObjects)
+            {
+                if(obj.Tag.Equals(tag, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return obj;
+                }
+            }
+
+            return null;
+        }
+
         public static T LoadScene<T>() where T : Scene
         {
             var scene = Activator.CreateInstance<T>();

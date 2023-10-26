@@ -15,7 +15,7 @@ namespace Client.Scenes
 {
     public class GameScene : Scene
     {
-        public override Color ClearColor => Color.Green;
+        public override Color ClearColor => Color.Snow;
 
         public GameScene()
         {
@@ -60,7 +60,7 @@ namespace Client.Scenes
 
             particleEngine.Config = new LDG.Particles.ParticleEmitterConfig()
             {
-                EmissionArea = new Rectangle(0, 0, 50, 20),
+                EmissionArea = new Rectangle(0, -50, 50, 20),
                 ParticlesPerSecond = 10,
                 ParticleConfig = new LDG.Particles.ParticleConfig()
                 {
@@ -89,7 +89,7 @@ namespace Client.Scenes
 
             particleSparks.Config = new LDG.Particles.ParticleEmitterConfig()
             {
-                EmissionArea = new Rectangle(0, 0, 20, 2),
+                EmissionArea = new Rectangle(0, -5, 20, 2),
                 ParticlesPerSecond = 30,
                 ParticleConfig = new LDG.Particles.ParticleConfig()
                 {

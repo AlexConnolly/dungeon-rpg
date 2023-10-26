@@ -29,23 +29,23 @@ namespace Client.Factories
 
             character.Tag = "Player";
 
-            var particleEngine = character.AddComponent<ParticleEngine>();
+            //var particleEngine = character.AddComponent<ParticleEngine>();
 
-            particleEngine.Config = new LDG.Particles.ParticleEmitterConfig()
-            {
-                ParticleConfig = new LDG.Particles.ParticleConfig()
-                {
-                    MovementStrategy = new DirectionMovementStrategy() { RelativeDirection = new Vector2(1, 2) },
-                    StartSize = 10,
-                    EndSize = 10,
-                    StartSpeed = 20,
-                    EndSpeed = 100,
-                    TimeToLive = 5,
-                    Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("29")
-                },
-                ParticlesPerSecond = 50,
-                EmissionArea = new Rectangle(0, 0, Screen.Resolution.X, Screen.Resolution.Y)
-            };
+            //particleEngine.Config = new LDG.Particles.ParticleEmitterConfig()
+            //{
+            //    ParticleConfig = new LDG.Particles.ParticleConfig()
+            //    {
+            //        MovementStrategy = new DirectionMovementStrategy() { RelativeDirection = new Vector2(1, 2) },
+            //        StartSize = 10,
+            //        EndSize = 10,
+            //        StartSpeed = 20,
+            //        EndSpeed = 100,
+            //        TimeToLive = 5,
+            //        Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("29")
+            //    },
+            //    ParticlesPerSecond = 50,
+            //    EmissionArea = new Rectangle(0, 0, Screen.Resolution.X, Screen.Resolution.Y)
+            //};
 
             return character;
         }

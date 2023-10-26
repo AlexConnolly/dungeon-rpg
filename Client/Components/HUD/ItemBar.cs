@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using LDG;
 using Microsoft.Xna.Framework;
 using LDG.Components;
+using LDG.Input;
 
 namespace Client.Components.HUD
 {
@@ -24,6 +25,8 @@ namespace Client.Components.HUD
         private UIGroup group;
 
         private SquareElement selectionSquare;
+
+        private List<ButtonElement> buttons = new List<ButtonElement>();
 
         public override void Initialize()
         {
@@ -45,7 +48,7 @@ namespace Client.Components.HUD
                     item = Items.Inventory.Items[x];
                 }
 
-                group.Button(new ButtonElement(new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
+                buttons.Add(group.Button(new ButtonElement(new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
                 {
                     Text = "",
                     Image = new ButtonImage()
@@ -55,18 +58,32 @@ namespace Client.Components.HUD
                     },
                     OnClick = () =>
                     {
-                        if(item != null)
-                        {
-                            item.Use();
-                        }
+
                     }
-                });
+                }));
             }
 
             selectionSquare = group.Square(new Point(10 + (CurrentIndex * 50), 10), new Point(40, 40), Color.Transparent, Color.Red, 4);
         }
         public override void Update(TimeFrame time)
         {
+            for (int x = 0; x < 9; x++)
+            {
+                Items.Item item = null;
+
+                if (Items.Inventory.Items.Count >= x + 1)
+                {
+                    item = Items.Inventory.Items[x];
+
+                    buttons[x].Image = new ButtonImage()
+                    {
+                        Size = new Vector2(24, 24),
+                        Image = item != null ? item.SpriteFrame : null
+                    };
+                }
+
+            }
+            
             int newScroll = Mouse.GetState().ScrollWheelValue;
 
             int startValue = CurrentIndex;
@@ -94,6 +111,20 @@ namespace Client.Components.HUD
             // Set selection square position
             if(startValue != CurrentIndex)
                 selectionSquare.Position = new Rectangle(new Point(10 + (CurrentIndex * 50), 10), selectionSquare.Position.Size);
+
+
+            if(LDG.Input.Keyboard.WasKeyPressed(Keys.E))
+            {
+                if (Client.Items.Inventory.Items.Count > this.CurrentIndex)
+                {
+                    var item = Items.Inventory.Items[this.CurrentIndex];
+
+                    if (item != null)
+                    {
+                        item.Use();
+                    }
+                }
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -139,10 +170,10 @@ namespace Client.Components.HUD
             //    group.Square(Point.Zero, group.Settings.Position.Size, Color.Blue.SetOpacity(0.15f), Color.CadetBlue.SetOpacity(0.3f), 2);
             //}
 
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
-            {
-                tilemap.SetTileAtLocation(1, tilemap.WorldPositionToTilePosition(tilePosition), SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0"));
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.E))
+            //{
+            //    tilemap.SetTileAtLocation(1, tilemap.WorldPositionToTilePosition(tilePosition), SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("0"));
+            //}
         }
     }
 }

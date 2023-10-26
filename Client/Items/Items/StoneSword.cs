@@ -1,4 +1,6 @@
-﻿using LDG.Sprite;
+﻿using LDG;
+using LDG.Components;
+using LDG.Sprite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,11 @@ namespace Client.Items.Items
 
         public override void Use()
         {
+            var player = Scene.CurrentScene.GetGameObjectWithTag("Player");
+
+            var playerTransform = player.GetComponent<Transform>();
+            var actor = player.GetComponent<Actor>();
+
 
         }
     }
