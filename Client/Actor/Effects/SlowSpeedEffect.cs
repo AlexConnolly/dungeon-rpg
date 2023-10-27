@@ -19,7 +19,7 @@ namespace Client.Actor.Effects
             return new MortalActorStats()
             {
                 Health = current.Health,
-                MovementSpeed = (initial.MovementSpeed - (initial.MovementSpeed) / (Percentage / 100))
+                MovementSpeed = (initial.MovementSpeed - ((initial.MovementSpeed) * (Percentage / 100)))
             };
         }
     }
