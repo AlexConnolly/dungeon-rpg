@@ -50,9 +50,9 @@ namespace LDG.Components.Collision
             this.WorldRectangle = new Rectangle((int)this.Transform.Position.X - (int)(Bounds.Width / 2) + (Bounds.X), (int)this.Transform.Position.Y - (int)(Bounds.Height / 2) + Bounds.Y, (int)Bounds.Width, (int)Bounds.Height);
 
             // Check whether intersecting objects were still intersecting
-            var toRemove = this.IntersectingObjects.Where(x => !this.IsTriggering(x.GetComponent<BoxCollider>().WorldRectangle));
+            var toRemove = this.IntersectingObjects.Where(x => !this.IsTriggering(x.GetComponent<BoxCollider>().WorldRectangle)).ToList();
 
-            toRemove.Select(x => this.IntersectingObjects.Remove(x));
+            toRemove.ForEach(x => this.IntersectingObjects.Remove(x));
         }
 
         public override void DrawDebug(SpriteBatch spriteBatch)

@@ -1,4 +1,5 @@
 ﻿using Client.Actor;
+using Client.Actor.Effects;
 using LDG;
 using LDG.Components;
 using LDG.Sprite;
@@ -38,7 +39,14 @@ namespace Client.Items.Items
             foreach(var other in consumer.ReachZone.IntersectingObjects)
             {
                 if(other != consumer.GameObject) {
-                    consumer.GameObject.Scene.RemoveObject(other);
+                    if(other.TryGetComponent<MortalActor>(out MortalActor actor))
+                    {
+                        actor.AddDebuff(new ActiveEffect()
+                        {
+                            Effect = new SlowSpeedEffect(),
+                            Time = 5.0f
+                        });
+                    }
                 }
             }
         }

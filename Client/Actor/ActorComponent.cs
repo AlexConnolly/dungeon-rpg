@@ -112,7 +112,8 @@ namespace Client.Actor
             }
         }
 
-        public float MovementSpeed { get; set; } = 20.0f;
+        public virtual float MovementSpeed { get; set; } = 20.0f;
+
         private float currentSpeed = 0.0f; // Current speed of the object
         private float accelerationRate = 0.25f; // Determines the rate of acceleration towards max speed
 

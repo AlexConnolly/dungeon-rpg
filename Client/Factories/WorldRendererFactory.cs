@@ -43,6 +43,8 @@ namespace Client.Factories
             collider.TileSize = tileSize;
             collider.Layer = tilemap.Layers[2];
 
+            return gameObject;
+
             // Draw some grass just to show it works
             int grassSize = 200;
 

@@ -51,7 +51,10 @@ namespace LDG.Components
 
                 if(myTrigger != null && otherCollider != null)
                 {
-                    myTrigger.CheckTrigger(otherCollider.GetCollisionRectangles()[0], gameObject);
+                    var rectangles = otherCollider.GetCollisionRectangles();
+
+                    if(rectangles.Count != 0)
+                        myTrigger.CheckTrigger(rectangles[0], gameObject);
                 }
             }
 
