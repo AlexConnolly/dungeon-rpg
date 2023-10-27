@@ -25,7 +25,7 @@ namespace Client.Actor
         public required MortalActorEffect Effect { get; set; }
     }
 
-    public class MortalActor : ActorComponent
+    public class MortalActorComponent : ActorComponent
     {
         private List<ActiveEffect> _debuffs = new List<ActiveEffect>();
         private List<ActiveEffect> _buffs = new List<ActiveEffect>();
@@ -60,17 +60,38 @@ namespace Client.Actor
             }
         }
 
+        private float actualHealth { get; set; }
+        private float maximumHealth { get; set; }
+
+        public float CurrentHealth
+        {
+            get
+            {
+                return this.actualHealth;
+            }
+
+            set
+            {
+                this.maximumHealth = value; 
+            }
+        }
+
+        public void DealDamage(float baseAmount)
+        {
+            this.actualHealth -= baseAmount;
+        }
+
         public override void Update(TimeFrame time)
         {
             var debuffedStats = new MortalActorStats()
             {
-                Health = 100,
+                Health = this.actualHealth,
                 MovementSpeed = this.maximumMovementSpeed
             };
 
             var baseStats = new MortalActorStats()
             {
-                Health = 100,
+                Health = this.actualHealth,
                 MovementSpeed = this.maximumMovementSpeed
             };
 

@@ -39,7 +39,7 @@ namespace Client.Items.Items
             foreach(var other in consumer.ReachZone.IntersectingObjects)
             {
                 if(other != consumer.GameObject) {
-                    if(other.TryGetComponent<MortalActor>(out MortalActor actor))
+                    if(other.TryGetComponent<MortalActorComponent>(out MortalActorComponent actor))
                     {
                         actor.AddDebuff(new ActiveEffect()
                         {
