@@ -1,5 +1,6 @@
 ﻿using Client.Actor;
 using Client.Actor.MortalActor;
+using Client.HUD;
 using Client.Items.Items;
 using LDG;
 using LDG.Audio;
@@ -48,8 +49,6 @@ namespace Client.Factories
 
             reachZone.Bounds = new Rectangle(0, 0, 50, 50);
 
-            var actorHealthBar = gameObject.AddComponent<ActorHealthBar>();
-
             var spriteAnimator = gameObject.AddComponent<SpriteMovementAnimator>();
 
             spriteAnimator.FramesPerSecond = request.MovementFPS;
@@ -70,14 +69,17 @@ namespace Client.Factories
 
             var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 
+            var healthBar = gameObject.AddComponent<ActorHealthBar>();
+
+            healthBar.Actor = actor;
+
             gameObject.GetComponent<Transform>().Position = request.StartPosition;
 
             var hand = gameObject.AddComponent<WieldedItem>();
 
-            new StoneSword().EnterHand(actor);
+            new StoneSword().EnterHand((Actor.ActorComponent)actor);
 
             return gameObject;
         }
     }
 }
-

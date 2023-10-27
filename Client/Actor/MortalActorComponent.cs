@@ -76,6 +76,14 @@ namespace Client.Actor
             }
         }
 
+        public float MaximumHealth
+        {
+            get
+            {
+                return this.maximumHealth;
+            }
+        }
+
         public void DealDamage(float baseAmount)
         {
             this.actualHealth -= baseAmount;
