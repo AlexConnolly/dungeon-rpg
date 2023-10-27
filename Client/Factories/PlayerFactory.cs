@@ -1,5 +1,4 @@
-﻿using Client.Components;
-using LDG;
+﻿using LDG;
 using LDG.Components.Camera;
 using LDG.Components.Collision;
 using LDG.Components.Particles;

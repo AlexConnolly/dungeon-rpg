@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Client.Components.HUD
+namespace Client.HUD
 {
     public class HealthBar : LDG.GameComponent
     {
@@ -22,17 +22,17 @@ namespace Client.Components.HUD
             int x = 10;
             int y = 10;
 
-            var healthGroup = this.GameObject.AddComponent<UIGroup>();
+            var healthGroup = GameObject.AddComponent<UIGroup>();
 
             healthGroup.Settings.Position = new Rectangle(new Point(x, y), size);
 
-            this.healthBar = healthGroup.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkRed, Color.IndianRed, 2);
+            healthBar = healthGroup.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkRed, Color.IndianRed, 2);
 
-            var manaGroup = this.GameObject.AddComponent<UIGroup>();
+            var manaGroup = GameObject.AddComponent<UIGroup>();
 
-            manaGroup.Settings.Position = new Rectangle(new Point(x, y + (size.Y + 10)), size);
+            manaGroup.Settings.Position = new Rectangle(new Point(x, y + size.Y + 10), size);
 
-            this.manaBar = manaGroup.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkBlue, Color.CornflowerBlue, 2);
+            manaBar = manaGroup.Square(Point.Zero + new Point(4, 4), size - new Point(8, 8), Color.DarkBlue, Color.CornflowerBlue, 2);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

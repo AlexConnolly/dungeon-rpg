@@ -1,4 +1,4 @@
-﻿using Client.Components.ActorComponents;
+﻿using Client.Actor;
 using LDG;
 using LDG.UI;
 using Microsoft.Xna.Framework;
@@ -9,15 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Components
+namespace Client
 {
     public class PlayerController : LDG.GameComponent
     {
         public override void Update(TimeFrame time)
-        { 
+        {
             bool keyPressed = false;
 
-            var actor = GetComponent<Actor>();
+            var actor = GetComponent<ActorComponent>();
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {

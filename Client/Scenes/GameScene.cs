@@ -1,5 +1,4 @@
-﻿using Client.Components.ActorComponents;
-using Client.Factories;
+﻿using Client.Factories;
 using LDG;
 using LDG.Components;
 using LDG.Components.Particles;
@@ -51,8 +50,6 @@ namespace Client.Scenes
                     MovementSpeed = 35,
                     StartPosition = new Microsoft.Xna.Framework.Vector2(Random.Shared.Next(-100, 100), Random.Shared.Next(-100, 100))
                 });
-
-                chicken.GetComponent<Actor>().IsMoving = true;
             }
 
             var gameObject = this.AddGameObject();

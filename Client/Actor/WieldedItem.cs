@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Components.ActorComponents
+namespace Client.Actor
 {
     public class WieldedItem : LDG.GameComponent
     {
@@ -18,7 +18,7 @@ namespace Client.Components.ActorComponents
             if (Item == null)
                 return;
 
-            Item.SpriteFrame.Draw(spriteBatch, Camera.WorldPositionToCameraPoint(this.Transform.Position).ToVector2(), Color.White, new Point(16, 16), 1);
+            Item.SpriteFrame.Draw(spriteBatch, Camera.WorldPositionToCameraPoint(Transform.Position).ToVector2(), Color.White, new Point(32, 32), 1);
         }
     }
 }

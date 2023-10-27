@@ -12,9 +12,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Components.ActorComponents
+namespace Client.Actor
 {
-    public class Actor : LDG.GameComponent
+    public class ActorComponent : LDG.GameComponent
     {
         public AudioSource WalkingAudio { get; set; }
         public ParticleEngine WalkingParticles { get; set; }
@@ -35,13 +35,17 @@ namespace Client.Components.ActorComponents
             set
             {
                 _size = value;
-                Collider.Bounds = value;
+
+                if(Collider != null)
+                {
+                    Collider.Bounds = value;
+                }
             }
         }
 
         private BoxCollider Collider { get; set; }
 
-        public Actor()
+        public ActorComponent()
         {
 
         }
@@ -51,13 +55,13 @@ namespace Client.Components.ActorComponents
         {
             get
             {
-                return this._direction;
+                return _direction;
             }
 
             set
             {
-                this._direction = value;
-                this.SpriteAnimator.Direction = value;
+                _direction = value;
+                SpriteAnimator.Direction = value;
             }
         }
 
@@ -104,7 +108,7 @@ namespace Client.Components.ActorComponents
                     }
                 }
 
-                this.SpriteAnimator.IsMoving = value;
+                SpriteAnimator.IsMoving = value;
             }
         }
 
@@ -134,7 +138,7 @@ namespace Client.Components.ActorComponents
 
         public override void Initialize()
         {
-            Collider = this.GameObject.AddComponent<BoxCollider>();
+            Collider = GameObject.AddComponent<BoxCollider>();
             Collider.Bounds = Size;
         }
 
@@ -172,7 +176,7 @@ namespace Client.Components.ActorComponents
 
             if (move != Vector2.Zero)
             {
-                this.Transform.Translate(move);
+                Transform.Translate(move);
             }
         }
     }

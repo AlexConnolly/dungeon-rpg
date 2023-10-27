@@ -1,4 +1,4 @@
-﻿using Client.Components.ActorComponents;
+﻿using Client.Actor;
 using Client.Items.Items;
 using LDG;
 using LDG.Audio;
@@ -53,7 +53,7 @@ namespace Client.Factories
 
             spriteAnimator.Sheet = request.MovementSheet;
 
-            var actor = gameObject.AddComponent<Actor>();
+            var actor = gameObject.AddComponent<Actor.MortalActor>();
 
             //actor.WalkingAudio = walkingAudio;
             actor.WalkingParticles = walkingParticles;
@@ -71,7 +71,7 @@ namespace Client.Factories
 
             var hand = gameObject.AddComponent<WieldedItem>();
 
-            new StoneSword().EnterHand(actor);
+            new StoneSword().EnterHand((Actor.ActorComponent)actor);
 
             return gameObject;
         }

@@ -1,16 +1,14 @@
 ﻿using LDG.Components.Collision;
 using LDG.Components.Tile;
-using LDG.Extensions;
-using LDG.Sprite;
 using LDG.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using LDG;
 using Microsoft.Xna.Framework;
 using LDG.Input;
-using Client.Components.ActorComponents;
+using Client.Actor;
 
-namespace Client.Components.HUD
+namespace Client.HUD
 {
     public class ItemBar : LDG.GameComponent
     {
@@ -28,31 +26,31 @@ namespace Client.Components.HUD
 
         private List<ButtonElement> buttons = new List<ButtonElement>();
 
-        private Actor playerActor;
+        private ActorComponent playerActor;
 
         public override void Initialize()
         {
-            this.group = this.GameObject.AddComponent<UIGroup>();
+            group = GameObject.AddComponent<UIGroup>();
 
-            this.playerActor = this.GameObject.Scene.GetGameObjectWithTag("Player").GetComponent<Actor>();
+            playerActor = GameObject.Scene.GetGameObjectWithTag("Player").GetComponent<ActorComponent>();
 
             Vector2 size = new Vector2(460, 60);
 
-            this.group.Settings = new UIGroupSettings()
+            group.Settings = new UIGroupSettings()
             {
-                Position = new Rectangle((int)(Screen.Resolution.X / 2) - (int)(size.X / 2), (int)Screen.Resolution.Y - (int)(size.Y) - 10, (int)size.X, (int)size.Y)
+                Position = new Rectangle(Screen.Resolution.X / 2 - (int)(size.X / 2), Screen.Resolution.Y - (int)size.Y - 10, (int)size.X, (int)size.Y)
             };
 
             for (int x = 0; x < 9; x++)
             {
                 Items.Item item = null;
 
-                if(Items.Inventory.Items.Count >= x + 1)
+                if (Items.Inventory.Items.Count >= x + 1)
                 {
                     item = Items.Inventory.Items[x];
                 }
 
-                buttons.Add(group.Button(new ButtonElement(new Rectangle(new Point(10 + (x * 50), 10), new Point(40, 40)))
+                buttons.Add(group.Button(new ButtonElement(new Rectangle(new Point(10 + x * 50, 10), new Point(40, 40)))
                 {
                     Text = "",
                     Image = new ButtonImage()
@@ -67,7 +65,7 @@ namespace Client.Components.HUD
                 }));
             }
 
-            selectionSquare = group.Square(new Point(10 + (CurrentIndex * 50), 10), new Point(40, 40), Color.Transparent, Color.Red, 4);
+            selectionSquare = group.Square(new Point(10 + CurrentIndex * 50, 10), new Point(40, 40), Color.Transparent, Color.Red, 4);
         }
         public override void Update(TimeFrame time)
         {
@@ -87,17 +85,17 @@ namespace Client.Components.HUD
                 }
 
             }
-            
+
             int newScroll = Mouse.GetState().ScrollWheelValue;
 
             int startValue = CurrentIndex;
 
-            if(CurrentIndex == -1)
+            if (CurrentIndex == -1)
             {
                 CurrentIndex = 0;
             }
 
-            if(newScroll < scrollValue)
+            if (newScroll < scrollValue)
             {
                 CurrentIndex++;
             }
@@ -108,9 +106,9 @@ namespace Client.Components.HUD
             if (CurrentIndex < 0)
             {
                 CurrentIndex = 8;
-            } 
+            }
 
-            if(CurrentIndex > 8)
+            if (CurrentIndex > 8)
             {
                 CurrentIndex = 0;
             }
@@ -118,31 +116,31 @@ namespace Client.Components.HUD
             scrollValue = newScroll;
 
             // Set selection square position
-            if(startValue != CurrentIndex)
+            if (startValue != CurrentIndex)
             {
-                selectionSquare.Position = new Rectangle(new Point(10 + (CurrentIndex * 50), 10), selectionSquare.Position.Size);
+                selectionSquare.Position = new Rectangle(new Point(10 + CurrentIndex * 50, 10), selectionSquare.Position.Size);
 
                 // Leave hand for one item enter hand for the other 
-                if(startValue != -1)
+                if (startValue != -1)
                 {
                     // Check if we actually had an item
-                    if(startValue + 1 <= Items.Inventory.Items.Count)
+                    if (startValue + 1 <= Items.Inventory.Items.Count)
                         Items.Inventory.Items[startValue].LeaveHand(playerActor);
                 }
 
-                if(CurrentIndex + 1 <= Items.Inventory.Items.Count)
+                if (CurrentIndex + 1 <= Items.Inventory.Items.Count)
                     Items.Inventory.Items[CurrentIndex].EnterHand(playerActor);
             }
 
-            if(KeyboardHelper.WasKeyPressed(Keys.E))
+            if (KeyboardHelper.WasKeyPressed(Keys.E))
             {
-                if (Client.Items.Inventory.Items.Count > this.CurrentIndex)
+                if (Items.Inventory.Items.Count > CurrentIndex)
                 {
-                    var item = Items.Inventory.Items[this.CurrentIndex];
+                    var item = Items.Inventory.Items[CurrentIndex];
 
                     if (item != null)
                     {
-                        item.Use(this.playerActor);
+                        item.Use(playerActor);
                     }
                 }
             }
@@ -153,7 +151,7 @@ namespace Client.Components.HUD
             return;
 
             // Get player component
-            var actor = GetComponent<Actor>();
+            var actor = GetComponent<ActorComponent>();
 
             // Get tilemap
             var tilemap = GameObject.Scene.GetAllComponentsOfType<Tilemap>()[0];
@@ -180,7 +178,7 @@ namespace Client.Components.HUD
                     break;
             }
 
-            Vector2 tilePosition = tilemap.WorldPositionToTileStart(this.Transform.Position + (collider.Bounds * (facingDirection) + (tilemap.TileSize.ToVector2() * facingDirection)));
+            Vector2 tilePosition = tilemap.WorldPositionToTileStart(Transform.Position + (collider.Bounds * facingDirection + tilemap.TileSize.ToVector2() * facingDirection));
 
             //using (var group = UIGroup.BeginGroup(new UIGroupSettings()
             //{

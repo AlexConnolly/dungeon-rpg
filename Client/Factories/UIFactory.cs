@@ -1,4 +1,4 @@
-﻿using Client.Components.HUD;
+﻿using Client.HUD;
 using LDG;
 using System;
 using System.Collections.Generic;

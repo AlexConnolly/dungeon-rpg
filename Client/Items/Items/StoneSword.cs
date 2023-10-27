@@ -1,4 +1,4 @@
-﻿using Client.Components.ActorComponents;
+﻿using Client.Actor;
 using LDG;
 using LDG.Components;
 using LDG.Sprite;
@@ -23,17 +23,17 @@ namespace Client.Items.Items
             }
         }
 
-        public override void EnterHand(Actor consumer)
+        public override void EnterHand(ActorComponent consumer)
         {
             consumer.GameObject.GetComponent<WieldedItem>().Item = this;
         }
 
-        public override void LeaveHand(Actor consumer)
+        public override void LeaveHand(ActorComponent consumer)
         {
             consumer.GameObject.GetComponent<WieldedItem>().Item = null;
         }
 
-        public override void Use(Actor consumer)
+        public override void Use(ActorComponent consumer)
         {
             foreach(var other in consumer.ReachZone.IntersectingObjects)
             {
