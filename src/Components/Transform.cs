@@ -31,18 +31,27 @@ namespace LDG.Components
 
             bool result = true;
 
+            this.GameObject.TryGetComponent<BoxTrigger>(out BoxTrigger myTrigger);
+
             foreach (var gameObject in this.GameObject.Scene.GameObjects)
             {
                 if (gameObject == this.GameObject)
                     continue;
 
+                Collider otherCollider = null;
+
                 if(result)
-                    if (gameObject.TryGetComponent<Collider>(out Collider otherCollider) && otherCollider.Intersects(targetRect))
+                    if (gameObject.TryGetComponent<Collider>(out otherCollider) && otherCollider.Intersects(targetRect))
                         result =  false;
 
                 if(gameObject.TryGetComponent<BoxTrigger>(out BoxTrigger trigger))
                 {
                     trigger.CheckTrigger(targetRect, this.GameObject);
+                }
+
+                if(myTrigger != null && otherCollider != null)
+                {
+                    myTrigger.CheckTrigger(otherCollider.GetCollisionRectangles()[0], gameObject);
                 }
             }
 
