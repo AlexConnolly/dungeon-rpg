@@ -43,12 +43,64 @@ namespace Client.Factories
             collider.TileSize = tileSize;
             collider.Layer = tilemap.Layers[2];
 
-            return gameObject;
-
             // Draw some grass just to show it works
             int grassSize = 200;
 
-            for(int x = -grassSize; x < grassSize; x++)
+            for (int x = -grassSize; x < grassSize; x++)
+            {
+                for (int y = -grassSize; y < grassSize; y++)
+                {
+                    tilemap.Layers[1].Tiles.Add(new TilemapItem()
+                    {
+                        Location = new Point(x, y),
+                        Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("64")
+                    });
+                }
+            }
+
+            for (int x = -grassSize; x < grassSize; x++)
+            {
+                for (int y = -grassSize; y < grassSize; y++)
+                {
+                    bool shouldPlace = Random.Shared.Next(0, 100) < 15;
+
+                    if (shouldPlace)
+                    {
+                        tilemap.Layers[1].Tiles.Add(new TilemapItem()
+                        {
+                            Location = new Point(x, y),
+                            Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("12")
+                        });
+                    }
+
+                }
+            }
+
+            tilemap.Layers[2].Tiles.Add(new TilemapItem()
+            {
+                Location = new Point(1, 1),
+                Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("16")
+            });
+
+            tilemap.Layers[2].Tiles.Add(new TilemapItem()
+            {
+                Location = new Point(2, 1),
+                Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("16")
+            });
+
+            tilemap.Layers[2].Tiles.Add(new TilemapItem()
+            {
+                Location = new Point(3, 1),
+                Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("16")
+            });
+
+            tilemap.Layers[2].Tiles.Add(new TilemapItem()
+            {
+                Location = new Point(4, 1),
+                Frame = SpriteSheetManager.GetSheetByName("tiles_world").GetByKey("16")
+            });
+
+            for (int x = -grassSize; x < grassSize; x++)
             {
                 for(int y = -grassSize; y < grassSize; y++)
                 {

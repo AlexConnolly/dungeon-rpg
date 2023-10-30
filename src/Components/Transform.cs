@@ -49,11 +49,11 @@ namespace LDG.Components
                     trigger.CheckTrigger(targetRect, this.GameObject);
                 }
 
-                if(myTrigger != null && otherCollider != null)
+                if(myTrigger != null && otherCollider != null && otherCollider is BoxCollider)
                 {
                     var rectangles = otherCollider.GetCollisionRectangles();
 
-                    if(rectangles.Count != 0)
+                    if(rectangles.Count != 0 && otherCollider != null)
                         myTrigger.CheckTrigger(rectangles[0], gameObject);
                 }
             }

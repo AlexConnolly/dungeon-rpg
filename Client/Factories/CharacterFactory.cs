@@ -84,8 +84,6 @@ namespace Client.Factories
 
             var hand = gameObject.AddComponent<WieldedItem>();
 
-            new StoneSword().EnterHand((Actor.ActorComponent)actor);
-
             return gameObject;
         }
     }

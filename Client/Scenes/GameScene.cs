@@ -58,8 +58,6 @@ namespace Client.Scenes
 
                     }
                 });
-
-                chicken.GetComponent<Actor.ActorComponent>().IsMoving = true;
             }
 
             var gameObject = this.AddGameObject();

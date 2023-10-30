@@ -1,4 +1,6 @@
-﻿using LDG;
+﻿using Client.Actor;
+using Client.Items.Items;
+using LDG;
 using LDG.Components.Camera;
 using LDG.Components.Collision;
 using LDG.Components.Particles;
@@ -8,6 +10,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +29,8 @@ namespace Client.Factories
 
             character.AddComponent<PlayerController>();
             character.AddComponent<MainCameraFollow>();
+
+            new StoneSword().EnterHand((Actor.ActorComponent)character.GetComponent<ActorComponent>());
 
             character.Tag = "Player";
 

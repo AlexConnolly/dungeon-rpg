@@ -60,7 +60,7 @@ namespace Client.Actor.MortalActor
                 this.group.Enabled = false;
             }
 
-            this.group.Settings.Position = new Rectangle(Camera.WorldPositionToCameraPoint(this.Transform.Position + new Vector2(-this.Actor.Size.X, -this.Actor.Size.Y)), this.size.ToPoint());
+            this.group.Settings.Position = new Rectangle(Camera.WorldPositionToCameraPoint(this.Transform.Position + new Vector2(-(this.Actor.Size.X / 2) - 30, -this.Actor.Size.Y - 10)), this.size.ToPoint());
 
             int width = (int)((this.Actor.CurrentHealth / this.Actor.MaximumHealth) * 100);
 
