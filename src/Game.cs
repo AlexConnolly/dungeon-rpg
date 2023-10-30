@@ -70,7 +70,8 @@ namespace LDG
             {
                 gameObject.Components.ForEach((x) =>
                 {
-                    x.Update(timeFrame);
+                    if(x.Enabled)
+                        x.Update(timeFrame);
                 });
             }
 
@@ -96,7 +97,8 @@ namespace LDG
             {
                 gameObject.Components.ForEach((x) =>
                 {
-                    x.Draw(_spriteBatch);
+                    if(x.Enabled)
+                        x.Draw(_spriteBatch);
                 });
             }
 

@@ -16,7 +16,6 @@ namespace Client.HUD
 
         public override void Initialize()
         {
-
             Point size = new Point(280, 20);
 
             int x = 10;

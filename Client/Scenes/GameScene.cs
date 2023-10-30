@@ -36,7 +36,11 @@ namespace Client.Scenes
                     MovementFPS = 10,
                     MovementSheet = SpriteSheetManager.GetSheetByName("characters_george"),
                     MovementSpeed = 75,
-                    StartPosition = new Microsoft.Xna.Framework.Vector2(-100, 10)
+                    StartPosition = new Microsoft.Xna.Framework.Vector2(-100, 10),
+                    OnDeath = () =>
+                    {
+
+                    }
                 }
             });
 
@@ -48,7 +52,11 @@ namespace Client.Scenes
                     MovementFPS = 10,
                     MovementSheet = SpriteSheetManager.GetSheetByName("characters_chicken"),
                     MovementSpeed = 35,
-                    StartPosition = new Microsoft.Xna.Framework.Vector2(Random.Shared.Next(-1000, 1000), Random.Shared.Next(-1000, 1000))
+                    StartPosition = new Microsoft.Xna.Framework.Vector2(Random.Shared.Next(-1000, 1000), Random.Shared.Next(-1000, 1000)),
+                    OnDeath = () =>
+                    {
+
+                    }
                 });
 
                 chicken.GetComponent<Actor.ActorComponent>().IsMoving = true;

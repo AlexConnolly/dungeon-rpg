@@ -46,6 +46,8 @@ namespace Client.Items.Items
                             Effect = new SlowSpeedEffect(),
                             Time = 5.0f
                         });
+
+                        actor.DealDamage(10);
                     }
                 }
             }

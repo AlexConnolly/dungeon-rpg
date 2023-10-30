@@ -19,6 +19,11 @@ namespace Client.Actor.MortalActor
 
         private SquareElement square;
 
+        private float showTimeRemaining = 0;
+        private float previousHealth = -1;
+
+        private float timeToHide = 6f;
+
         public override void Initialize()
         {
             this.group = GameObject.AddComponent<UIGroup>();
@@ -34,9 +39,34 @@ namespace Client.Actor.MortalActor
 
         public override void Update(TimeFrame time)
         {
+            float currentHealth = this.Actor.CurrentHealth;
+
+            if(previousHealth != -1 && currentHealth != previousHealth)
+            {
+                // Set timer
+                if(showTimeRemaining <= 0)
+                {
+                    showTimeRemaining = timeToHide;
+                }
+            }
+
+            if(showTimeRemaining > 0)
+            {
+                showTimeRemaining -= time.Delta;
+
+                this.group.Enabled = true;
+            } else
+            {
+                this.group.Enabled = false;
+            }
+
             this.group.Settings.Position = new Rectangle(Camera.WorldPositionToCameraPoint(this.Transform.Position + new Vector2(-this.Actor.Size.X, -this.Actor.Size.Y)), this.size.ToPoint());
 
-            this.square.Position = new Rectangle(this.square.Position.Location, new Point((int)(this.Actor.CurrentHealth / this.Actor.MaximumHealth) * 100, this.square.Position.Size.Y));
+            int width = (int)((this.Actor.CurrentHealth / this.Actor.MaximumHealth) * 100);
+
+            this.square.Position = new Rectangle(this.square.Position.Location, new Point(width - 8, this.square.Position.Size.Y));
+
+            previousHealth = currentHealth;
         }
     }
 }

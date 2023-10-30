@@ -31,6 +31,8 @@ namespace Client.Factories
         public required Spritesheet MovementSheet { get; set; }
 
         public required Vector2 StartPosition { get; set; } = Vector2.Zero;
+
+        public required Action OnDeath { get; set; }
     }
 
     public class CharacterFactory
@@ -63,9 +65,14 @@ namespace Client.Factories
 
             actor.Size = request.CollisionBounds;
 
+            actor.CurrentHealth = 100;
+            actor.MaximumHealth = 100;
+
             actor.MovementSpeed = request.MovementSpeed;
 
-            actor.SpriteAnimator = spriteAnimator; 
+            actor.SpriteAnimator = spriteAnimator;
+
+            actor.OnDeath = request.OnDeath;
 
             var spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 

@@ -11,6 +11,7 @@ namespace LDG
 {
     public abstract class GameComponent
     {
+        public virtual bool Enabled { get; set; } = true;
 
         public virtual void Update(TimeFrame time)
         {

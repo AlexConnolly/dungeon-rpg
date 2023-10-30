@@ -45,6 +45,8 @@ namespace Client.Actor
             base.Initialize();
         }
 
+        public Action OnDeath { get; set; }
+
         private float actualMovementSpeed { get; set; }
         private float maximumMovementSpeed { get; set; }
 
@@ -72,7 +74,13 @@ namespace Client.Actor
 
             set
             {
-                this.maximumHealth = value; 
+                this.actualHealth = value;
+
+                if(this.actualHealth <= 0)
+                {
+                    if (this.OnDeath != null)
+                        this.OnDeath();
+                }
             }
         }
 
@@ -82,11 +90,16 @@ namespace Client.Actor
             {
                 return this.maximumHealth;
             }
+
+            set
+            {
+                this.maximumHealth = value;
+            }
         }
 
         public void DealDamage(float baseAmount)
         {
-            this.actualHealth -= baseAmount;
+            this.CurrentHealth -= baseAmount;
         }
 
         public override void Update(TimeFrame time)
