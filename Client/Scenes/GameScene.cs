@@ -1,6 +1,7 @@
 ﻿using Client.Factories;
 using LDG;
 using LDG.Components;
+using LDG.Components.Engine;
 using LDG.Components.Particles;
 using LDG.Particles.MovementStrategies;
 using LDG.Sprite;
@@ -26,6 +27,11 @@ namespace Client.Scenes
         {
             // Create world
             WorldRendererFactory.CreateWorldRenderer(this);
+
+            // FPS
+            var fpsObject = this.AddGameObject();
+
+            fpsObject.AddComponent<FpsComponent>();
 
             // Create player
             PlayerFactory.CreatePlayer(this, new CreatePlayerRequest()

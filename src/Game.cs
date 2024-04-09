@@ -127,8 +127,6 @@ namespace LDG
                 _spriteBatch.End();
             }
 
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }

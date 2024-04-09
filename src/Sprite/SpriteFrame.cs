@@ -1,4 +1,5 @@
-﻿using LDG.Extensions;
+﻿using LDG.Drawing;
+using LDG.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -86,7 +87,7 @@ namespace LDG.Sprite
             return result;
         }
 
-        public void Draw(SpriteBatch batch, Vector2 position,Color color, Point? drawSize = null, float opacity = 1)
+        public void Draw(OccludedSpriteBatch batch, Vector2 position,Color color, Point? drawSize = null, float opacity = 1)
         {
             Rectangle destination = new Rectangle((int)position.X, (int)position.Y, (int)Size.X, (int)Size.Y);
 

@@ -1,4 +1,5 @@
 ﻿using LDG.Components;
+using LDG.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -31,7 +32,7 @@ namespace LDG
 
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(OccludedSpriteBatch spriteBatch)
         {
 
         }
