@@ -1,4 +1,5 @@
-﻿using LDG.Extensions;
+﻿using LDG.Drawing;
+using LDG.Extensions;
 using LDG.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

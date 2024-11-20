@@ -32,7 +32,7 @@ namespace LDG
 
         }
 
-        public virtual void Draw(OccludedSpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
 
         }

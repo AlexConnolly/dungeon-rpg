@@ -1,4 +1,5 @@
-﻿using LDG.Sprite;
+﻿using LDG.Drawing;
+using LDG.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
