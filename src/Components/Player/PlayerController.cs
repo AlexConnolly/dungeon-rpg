@@ -1,5 +1,5 @@
-﻿using Client.Actor;
-using LDG;
+﻿using LDG;
+using LDG.Components.Actor;
 using LDG.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace LDG.Components.Player
 {
     public class PlayerController : LDG.GameComponent
     {

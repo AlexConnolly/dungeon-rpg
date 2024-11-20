@@ -2,6 +2,7 @@
 using Client.Actor.Effects;
 using LDG;
 using LDG.Components;
+using LDG.Components.Actor;
 using LDG.Sprite;
 using System;
 using System.Collections.Generic;

@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Actor
+namespace LDG.Components.Actor
 {
     public class ActorComponent : LDG.GameComponent
     {

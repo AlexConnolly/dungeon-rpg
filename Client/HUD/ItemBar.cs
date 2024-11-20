@@ -7,6 +7,7 @@ using LDG;
 using Microsoft.Xna.Framework;
 using LDG.Input;
 using Client.Actor;
+using LDG.Components.Actor;
 
 namespace Client.HUD
 {
