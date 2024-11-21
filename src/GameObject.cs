@@ -41,6 +41,8 @@ namespace LDG
 
             this.Components.Add(component);
 
+            component.Load(Scene._contentManager);
+
             component.Initialize();
 
             return component;

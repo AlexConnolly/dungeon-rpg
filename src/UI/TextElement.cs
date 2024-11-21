@@ -18,6 +18,8 @@ namespace LDG.UI
 
         public required FontConfig Font { get; set; }
 
+        public Color Color { get; set; } = Color.White;
+
         public override Vector2 ContentDimensions()
         {
             return Font.Font.MeasureString(this.Text);
@@ -30,7 +32,7 @@ namespace LDG.UI
                 spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y) + this.Font.Shadow.Offset, this.Font.Shadow.Color);
             }
 
-            spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Font.Color);
+            spriteBatch.DrawString(Font.Font, this.Text, new Vector2(this.GlobalPosition.X, this.GlobalPosition.Y), this.Color);
         }
     }
 }

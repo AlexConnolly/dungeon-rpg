@@ -11,7 +11,6 @@ namespace LDG.UI
     public class FontConfig
     {
         public SpriteFont Font { get; set; }
-        public Color Color { get; set; }
 
         public FontShadowConfig? Shadow { get; set; }
     }

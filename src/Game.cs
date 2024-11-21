@@ -45,13 +45,14 @@ namespace LDG
             UIManager.Load(_spriteBatch, Content);
             SpriteSheetManager.Load(Content);
             AudioManager.Load(Content);
+            SceneManager.Initialize(Content);
 
             if(this.startScene != null)
             {
-                Scene.SetScene(this.startScene);
+                SceneManager.SetScene(this.startScene);
             } else
             {
-                Scene.LoadScene<DemoScene>();
+                SceneManager.SetScene<DemoScene>();
             }
         }
 
@@ -74,6 +75,8 @@ namespace LDG
                         x.Update(timeFrame);
                 });
             }
+
+            Scene.CurrentScene.Update(timeFrame);
 
             var keyboardState = Keyboard.GetState();
 

@@ -1,6 +1,7 @@
 ﻿using LDG.Components;
 using LDG.Components.Collision;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace LDG
         }
 
         private static Scene _currentScene = null;
+        internal ContentManager _contentManager;
 
         public IEnumerable<GameObject> GameObjects
         {
@@ -39,6 +41,16 @@ namespace LDG
         }
 
         public virtual void Initialize()
+        {
+
+        }
+
+        public virtual void Update(TimeFrame time)
+        {
+
+        }
+
+        public virtual void Load(ContentManager contentManager)
         {
 
         }
@@ -76,26 +88,6 @@ namespace LDG
             }
 
             return null;
-        }
-
-        public static T LoadScene<T>() where T : Scene
-        {
-            var scene = Activator.CreateInstance<T>();
-
-            scene.Initialize();
-
-            Scene._currentScene = scene;
-
-            return scene;
-        }
-
-        public static Scene SetScene(Scene scene)
-        {
-            scene.Initialize();
-
-            Scene._currentScene = scene;
-
-            return scene;
         }
 
         public List<T> GetAllComponentsOfType<T>() where T : GameComponent

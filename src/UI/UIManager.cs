@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LDG.UI
 {
-    internal static class UIManager
+    public static class UIManager
     {
         public static SpriteBatch CurrentSpriteBatch
         {
@@ -29,7 +29,6 @@ namespace LDG.UI
             var defaultFont = new FontConfig()
             {
                 Font = Content.Load<SpriteFont>("Fonts/Large"),
-                Color = Color.White,
                 Shadow = new FontShadowConfig()
                 {
                     Color = Color.Black

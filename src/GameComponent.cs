@@ -1,6 +1,7 @@
 ﻿using LDG.Components;
 using LDG.Drawing;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace LDG
         public virtual bool Enabled { get; set; } = true;
 
         public virtual void Update(TimeFrame time)
+        {
+
+        }
+
+        public virtual void Load(ContentManager contentManager)
         {
 
         }

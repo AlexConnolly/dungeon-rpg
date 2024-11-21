@@ -19,7 +19,7 @@ namespace LDG.Components.Actor
         public AudioSource WalkingAudio { get; set; }
         public ParticleEngine WalkingParticles { get; set; }
 
-        public SpriteMovementAnimator SpriteAnimator { get; set; }
+        public required SpriteMovementAnimator SpriteAnimator { get; set; }
 
         public BoxTrigger ReachZone { get; set; }
 
@@ -61,7 +61,9 @@ namespace LDG.Components.Actor
             set
             {
                 _direction = value;
-                SpriteAnimator.Direction = value;
+
+                if(SpriteAnimator != null)
+                    SpriteAnimator.Direction = value;
             }
         }
 
@@ -108,7 +110,8 @@ namespace LDG.Components.Actor
                     }
                 }
 
-                SpriteAnimator.IsMoving = value;
+                if(SpriteAnimator != null)
+                    SpriteAnimator.IsMoving = value;
             }
         }
 
@@ -167,10 +170,13 @@ namespace LDG.Components.Actor
                     break;
             }
 
-            ReachZone.Bounds = new Microsoft.Xna.Framework.Rectangle(
-                offset.ToPoint(),
-                ReachZone.Bounds.Size
-            );
+            if(ReachZone != null)
+            {
+                ReachZone.Bounds = new Microsoft.Xna.Framework.Rectangle(
+                    offset.ToPoint(),
+                    ReachZone.Bounds.Size
+                );
+            }         
 
             // Handle movement
             Vector2 move = Velocity * time.Delta;
