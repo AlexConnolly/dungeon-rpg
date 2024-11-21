@@ -45,7 +45,7 @@ namespace LDG
             UIManager.Load(_spriteBatch, Content);
             SpriteSheetManager.Load(Content);
             AudioManager.Load(Content);
-            SceneManager.Initialize(Content);
+            SceneManager.Initialize(Content, GraphicsDevice);
 
             if(this.startScene != null)
             {
@@ -67,7 +67,7 @@ namespace LDG
             UIManager.Update(timeFrame);
 
             // Update the scene
-            foreach (var gameObject in Scene.CurrentScene.GameObjects)
+            foreach (var gameObject in SceneManager.CurrentScene.GameObjects)
             {
                 gameObject.Components.ForEach((x) =>
                 {
@@ -76,7 +76,7 @@ namespace LDG
                 });
             }
 
-            Scene.CurrentScene.Update(timeFrame);
+            SceneManager.CurrentScene.Update(timeFrame);
 
             var keyboardState = Keyboard.GetState();
 
@@ -91,12 +91,12 @@ namespace LDG
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Scene.CurrentScene.ClearColor);
+            GraphicsDevice.Clear(SceneManager.CurrentScene.ClearColor);
 
             // Draw scene
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
-            foreach(var gameObject in Scene.CurrentScene.GameObjects.OrderByDescending(x=> x.DrawPriority))
+            foreach(var gameObject in SceneManager.CurrentScene.GameObjects.OrderByDescending(x=> x.DrawPriority))
             {
                 gameObject.Components.ForEach((x) =>
                 {
@@ -119,7 +119,7 @@ namespace LDG
             {
                 _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
-                foreach (var gameObject in Scene.CurrentScene.GameObjects)
+                foreach (var gameObject in SceneManager.CurrentScene.GameObjects)
                 {
                     gameObject.Components.ForEach((x) =>
                     {

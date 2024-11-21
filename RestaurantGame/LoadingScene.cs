@@ -15,10 +15,9 @@ namespace RestaurantGame
 
         private TextElement textElement = null;
 
-        private string[] randomText = new string[] { "Now with more burgers!", "My bbbbb bbbbutton is bbbbroken", "More mayo is gooooooood for you", "Deep fry everything"};
+        private string[] randomText = new string[] { "Now with more burgers!", "My bbbbb bbbbutton is bbbbroken", "More mayo is gooooooood for you", "Deep fry everything", "Hello world! (in 4k)"};
 
         private float nextTime = 3.0f;
-
 
         public override void Initialize()
         {

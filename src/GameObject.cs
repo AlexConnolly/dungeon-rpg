@@ -41,7 +41,7 @@ namespace LDG
 
             this.Components.Add(component);
 
-            component.Load(Scene._contentManager);
+            component.Load(Scene._contentManager, Scene._graphicsDevice);
 
             component.Initialize();
 

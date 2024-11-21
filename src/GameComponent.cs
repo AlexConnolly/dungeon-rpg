@@ -20,7 +20,7 @@ namespace LDG
 
         }
 
-        public virtual void Load(ContentManager contentManager)
+        public virtual void Load(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace LDG
         public static Scene CurrentScene { get; private set; }
 
         private static ContentManager _contentManager;
+        private static GraphicsDevice _graphicsDevice;
 
-        public static void Initialize(ContentManager contentManager)
+        public static void Initialize(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
             SceneManager._contentManager = contentManager;
+            SceneManager._graphicsDevice = graphicsDevice;
         }
 
         public static Scene SetScene<T>() where T : Scene
@@ -28,8 +31,12 @@ namespace LDG
 
         public static Scene SetScene(Scene scene)
         {
+            scene._contentManager = _contentManager;
+            scene._graphicsDevice = _graphicsDevice;
+
             scene.Initialize();
-            scene.Load(_contentManager);
+
+            scene.Load(_contentManager, _graphicsDevice);
 
             SceneManager.CurrentScene = scene;
 

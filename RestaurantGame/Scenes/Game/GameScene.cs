@@ -9,7 +9,12 @@ namespace RestaurantGame.Scenes.Game
 
         public override void Initialize()
         {
-            var npc = AddGameObject().AddComponent<Npc>();
+            for(int x = 0; x < 100; x++)
+            {
+                var npc2 = AddGameObject().AddComponent<Npc>();
+
+                npc2.Transform.Position = new Vector2(x * 15, npc2.Transform.Position.Y - (x * 15));
+            }
         }
     }
 }

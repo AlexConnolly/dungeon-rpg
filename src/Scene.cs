@@ -2,6 +2,7 @@
 using LDG.Components.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,12 @@ namespace LDG
 {
     public class Scene
     {
-
         private List<GameObject> _gameObjects = new List<GameObject>();
 
-        public static Scene CurrentScene { 
-            get
-            {
-                return _currentScene;
-            }        
-        }
-
         private static Scene _currentScene = null;
+
         internal ContentManager _contentManager;
+        internal GraphicsDevice _graphicsDevice;
 
         public IEnumerable<GameObject> GameObjects
         {
@@ -50,7 +45,7 @@ namespace LDG
 
         }
 
-        public virtual void Load(ContentManager contentManager)
+        public virtual void Load(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
 
         }

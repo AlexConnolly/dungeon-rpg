@@ -11,4 +11,14 @@
     <ProjectReference Include="..\src\LDG.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scenes\Game\Artwork\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Scenes\Game\Artwork\Npc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
