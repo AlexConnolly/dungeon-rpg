@@ -18,6 +18,8 @@ namespace LDG.Components.Sprite
 
         public SpriteFrame Frame { get; set; }
 
+        public Color Color { get; set; } = Color.White;
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (Frame == null)
@@ -31,7 +33,7 @@ namespace LDG.Components.Sprite
             Vector2 drawPosition = currentPosition - (sizing / 2);
 
             // Draw the sprite
-            Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2(), Color.White);
+            Frame.Draw(spriteBatch, LDG.Camera.WorldPositionToCameraPoint(drawPosition).ToVector2(), Color);
 
             base.Draw(spriteBatch);
         }

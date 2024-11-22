@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LDG.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting;
@@ -59,6 +60,14 @@ namespace LDG
             }
 
             return null;
+        }
+
+        public Transform Transform
+        {
+            get
+            {
+                return GetComponent<Transform>();
+            }
         }
 
         public bool TryGetComponent<T>(out T obj) where T : GameComponent

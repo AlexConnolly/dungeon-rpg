@@ -2,124 +2,121 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LDG
 {
     public class PathFinder
     {
+        private Vector2 start;
+        private Vector2 destination;
+        private int objectWidth, objectHeight;
         private List<Rectangle> colliders;
-        private Rectangle movingObject;
+        private int gridSize;
 
-        public PathFinder(List<Rectangle> colliders)
+        public PathFinder(Vector2 start, Vector2 destination, int objectWidth, int objectHeight, List<Rectangle> colliders, int gridSize = 24)
         {
+            this.start = SnapToGrid(start, gridSize);
+            this.destination = SnapToGrid(destination, gridSize);
+            this.objectWidth = objectWidth;
+            this.objectHeight = objectHeight;
             this.colliders = colliders;
+            this.gridSize = gridSize;
         }
 
-        private const int MAX_DEPTH = 1000000000; // Limit the search depth
-
-        // ... [rest of the code]
-        public List<Vector2> FindPath(Vector2 destination, Rectangle currentObject, int size = 10)
+        public List<Vector2> FindPath()
         {
-            this.movingObject = currentObject;
+            var openList = new PriorityQueue<Vector2, int>();
+            var closedSet = new HashSet<Vector2>();
+            var cameFrom = new Dictionary<Vector2, Vector2>();
 
-            Queue<Node> queue = new Queue<Node>();
-            HashSet<Point> visited = new HashSet<Point>();
-            Node startNode = new Node(currentObject.Location, null);
-            queue.Enqueue(startNode);
-            int depth = 0; // Track the current search depth
+            var gScores = new Dictionary<Vector2, int> { [start] = 0 };
+            var fScores = new Dictionary<Vector2, int> { [start] = Heuristic(start, destination) };
 
-            while (queue.Count > 0 && depth < MAX_DEPTH * 2) // Increase the MAX_DEPTH
+            openList.Enqueue(start, fScores[start]);
+
+            while (openList.Count > 0)
             {
-                depth++;
-                Node current = queue.Dequeue();
-                visited.Add(current.position);
+                var current = openList.Dequeue();
 
-                if (WithinStepSize(current.position, destination.ToPoint(), size)) // New check to see if destination is nearby
-                {
-                    return RetracePath(current);
-                }
+                if (current == destination)
+                    return ReconstructPath(cameFrom, current);
 
-                // Prioritize neighbors based on their distance to the destination
-                var neighbors = GetNeighbors(current.position, size);
-                neighbors.Sort((a, b) =>
-                {
-                    int distanceA = (int)Math.Abs(a.X - destination.X) + (int)Math.Abs(a.Y - destination.Y);
-                    int distanceB = (int)Math.Abs(b.X - destination.X) + (int)Math.Abs(b.Y - destination.Y);
-                    return distanceA.CompareTo(distanceB);
-                });
+                closedSet.Add(current);
 
-                foreach (var neighborPosition in neighbors)
+                foreach (var neighbor in GetNeighbors(current))
                 {
-                    if (!visited.Contains(neighborPosition) && !IsCollider(neighborPosition))
+                    if (closedSet.Contains(neighbor) || !IsPositionValid(neighbor))
+                        continue;
+
+                    var tentativeGScore = gScores[current] + 1;
+
+                    if (!gScores.ContainsKey(neighbor) || tentativeGScore < gScores[neighbor])
                     {
-                        queue.Enqueue(new Node(neighborPosition, current));
-                        visited.Add(neighborPosition);
+                        cameFrom[neighbor] = current;
+                        gScores[neighbor] = tentativeGScore;
+                        fScores[neighbor] = tentativeGScore + Heuristic(neighbor, destination);
+
+                        if (!openList.UnorderedItems.Any(item => item.Element == neighbor))
+                            openList.Enqueue(neighbor, fScores[neighbor]);
                     }
                 }
             }
 
-            return null; // No path found or exceeded max depth
+            return null; // No path found
         }
 
-        private bool WithinStepSize(Point current, Point destination, int size)
+        private List<Vector2> ReconstructPath(Dictionary<Vector2, Vector2> cameFrom, Vector2 current)
         {
-            return Math.Abs(current.X - destination.X) <= size && Math.Abs(current.Y - destination.Y) <= size;
+            var path = new List<Vector2> { current };
+            while (cameFrom.ContainsKey(current))
+            {
+                current = cameFrom[current];
+                path.Add(current);
+            }
+            path.Reverse();
+            return path.Select(p => UnsnapFromGrid(p, gridSize)).ToList();
         }
 
-        private List<Point> GetNeighbors(Point current, int size)
+        private int Heuristic(Vector2 a, Vector2 b)
         {
-            List<Point> neighbors = new List<Point>
-        {
-            new Point(current.X + size, current.Y),
-            new Point(current.X - size, current.Y),
-            new Point(current.X, current.Y + size),
-            new Point(current.X, current.Y - size)
-        };
-
-            return neighbors;
+            return (int)(Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y)); // Manhattan distance
         }
 
-
-        private bool IsCollider(Point position)
+        private IEnumerable<Vector2> GetNeighbors(Vector2 position)
         {
-            Rectangle objectBounds = new Rectangle(position.X, position.Y, movingObject.Width, movingObject.Height);
+            var directions = new[]
+            {
+                new Vector2(0, -gridSize), new Vector2(0, gridSize),
+                new Vector2(-gridSize, 0), new Vector2(gridSize, 0)
+            };
+
+            foreach (var dir in directions)
+                yield return position + dir;
+        }
+
+        private bool IsPositionValid(Vector2 position)
+        {
+            var rect = new Rectangle((int)position.X, (int)position.Y, objectWidth, objectHeight);
+
             foreach (var collider in colliders)
             {
-                if (objectBounds.Intersects(collider))
-                {
-                    return true;
-                }
+                if (collider.Intersects(rect))
+                    return false;
             }
-            return false;
+            return true;
         }
 
-        private List<Vector2> RetracePath(Node endNode)
+        private Vector2 SnapToGrid(Vector2 position, int gridSize)
         {
-            List<Vector2> path = new List<Vector2>();
-            Node currentNode = endNode;
-
-            while (currentNode != null)
-            {
-                path.Add(currentNode.position.ToVector2());
-                currentNode = currentNode.parent;
-            }
-
-            path.Reverse();
-            return path;
+            return new Vector2(
+                (float)Math.Floor(position.X / gridSize) * gridSize,
+                (float)Math.Floor(position.Y / gridSize) * gridSize
+            );
         }
 
-        private class Node
+        private Vector2 UnsnapFromGrid(Vector2 position, int gridSize)
         {
-            public Point position;
-            public Node parent;
-
-            public Node(Point position, Node parent)
-            {
-                this.position = position;
-                this.parent = parent;
-            }
+            return new Vector2(position.X + gridSize / 2, position.Y + gridSize / 2);
         }
     }
 }

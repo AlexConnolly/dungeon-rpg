@@ -35,7 +35,7 @@ namespace LDG.Components.Sprite
 
         }
 
-        public float FramesPerSecond { get; set; }
+        public float FramesPerSecond { get; set; } = 2;
 
         private List<SpriteFrame> LeftFrames { get; set; }
 

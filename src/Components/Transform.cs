@@ -73,5 +73,10 @@ namespace LDG.Components
 
             return this.Position;
         }
+
+        public override void Update(TimeFrame time)
+        {
+
+        }
     }
 }

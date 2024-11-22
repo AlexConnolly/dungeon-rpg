@@ -16,23 +16,6 @@ namespace RestaurantGame.Scenes.Game.Factories
 
             var tilemap = worldObject.AddComponent<Tilemap>();
 
-            tilemap.Layers = new List<TilemapLayer>()
-            {
-                new TilemapLayer()
-                {
-                    Tiles = new List<TilemapItem>()
-                    {
-
-                    }
-                },
-                new TilemapLayer()
-                {
-                    Tiles = new List<TilemapItem>()
-                    {
-
-                    }
-                }
-            };
 
             return worldObject;
         }

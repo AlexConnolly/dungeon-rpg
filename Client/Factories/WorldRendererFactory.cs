@@ -21,20 +21,6 @@ namespace Client.Factories
 
             Point tileSize = new Point(48, 48);
 
-            tilemap.Layers = new List<TilemapLayer>()
-            {
-                // Ground layer (eg. Grass)
-                new TilemapLayer() { Tiles = new List<TilemapItem>() },
-
-                // Ground detail layer
-                new TilemapLayer() {Tiles = new List<TilemapItem>()},
-
-                // Object layer (eg. Tables, anything the player can't walk through)
-                new TilemapLayer() { Tiles = new List<TilemapItem>() },
-
-                // Detail layer (eg. A rug on the floor)
-                new TilemapLayer() {Tiles = new List<TilemapItem>()}
-            };
 
             tilemap.TileSize = tileSize;
 

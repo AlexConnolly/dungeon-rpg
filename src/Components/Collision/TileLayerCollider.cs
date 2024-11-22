@@ -31,8 +31,8 @@ namespace LDG.Components.Collision
             foreach (var tile in Layer.Tiles)
             {
                 // Convert tile location to world coordinates
-                int tileX = tile.Location.X * TileSize.X;
-                int tileY = tile.Location.Y * TileSize.Y;
+                int tileX = (tile.Location.X * TileSize.X) + (int)Transform.Position.X;
+                int tileY = (tile.Location.Y * TileSize.Y) + (int)Transform.Position.Y;
 
                 // Skip tiles outside the potential bounding box
                 if (tileX > endX || tileX + TileSize.X < startX || tileY > endY || tileY + TileSize.Y < startY)
@@ -51,7 +51,10 @@ namespace LDG.Components.Collision
         {
             foreach (var tile in Layer.Tiles)
             {
-                var tileRect = new Rectangle(tile.Location.X * TileSize.X, tile.Location.Y * TileSize.Y, TileSize.X, TileSize.Y);
+                int x = (int)(tile.Location.X * TileSize.X) + (int)Transform.Position.X;
+                int y = (int)(tile.Location.Y * TileSize.Y) + (int)Transform.Position.Y;
+
+                var tileRect = new Rectangle(x, y, TileSize.X, TileSize.Y);
 
                 spriteBatch.DrawSquare(new Rectangle(LDG.Camera.WorldPositionToCameraPoint(new Vector2(tileRect.Location.X, tileRect.Location.Y)), tileRect.Size), Color.GreenYellow, null, 0);
             }
@@ -61,9 +64,14 @@ namespace LDG.Components.Collision
         {
             var returns = new List<Rectangle>();
 
+            var transformPosition = Transform.Position;
+
             foreach (var tile in Layer.Tiles)
             {
-                returns.Add(new Rectangle(tile.Location.X * TileSize.X, tile.Location.Y * TileSize.Y, TileSize.X, TileSize.Y));
+                int x = (int)(tile.Location.X * TileSize.X) + (int)transformPosition.X;
+                int y = (int)(tile.Location.Y * TileSize.Y) + (int)transformPosition.Y;
+                
+                returns.Add(new Rectangle(x, y, TileSize.X, TileSize.Y));
             }
 
             return returns;

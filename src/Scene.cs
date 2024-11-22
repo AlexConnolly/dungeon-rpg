@@ -21,6 +21,11 @@ namespace LDG
         internal ContentManager _contentManager;
         internal GraphicsDevice _graphicsDevice;
 
+        public GraphicsDevice Graphics { get
+            {
+                return _graphicsDevice;
+            } }
+
         public IEnumerable<GameObject> GameObjects
         {
             get
@@ -51,6 +56,15 @@ namespace LDG
         }
 
         public virtual Color ClearColor { get; } = Color.CornflowerBlue;
+
+        public GameObject AddGameObject(Vector2 position)
+        {
+            var obj = AddGameObject();
+
+            obj.Transform.Position = position;
+
+            return obj;
+        }
 
         public GameObject AddGameObject()
         {
