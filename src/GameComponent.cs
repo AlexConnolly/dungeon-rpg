@@ -15,6 +15,10 @@ namespace LDG
     {
         public virtual bool Enabled { get; set; } = true;
 
+        public virtual bool Hidden { get; set; } = false;
+
+        public virtual bool IsUi { get; set; } = false;
+
         public virtual void Update(TimeFrame time)
         {
 

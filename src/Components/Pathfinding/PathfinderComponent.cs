@@ -1,4 +1,5 @@
 ﻿using LDG.Components.Actor;
+using LDG.Components.Collision;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace LDG.Components.Pathfinding
     {
         private List<Vector2> path = null; // Current path
         private int currentPathIndex = 0; // Current position in the path
-        private Vector2 destination = Vector2.Zero; // Target destination
+        private Nullable<Vector2> destination = Vector2.Zero; // Target destination
         private Vector2 lastKnownPosition = Vector2.Zero; // Last known position to detect destination changes
         private const float speed = 0.2f; // Movement speed multiplier
+
+        private float stuckTime = 0.5f;
 
         public void SetDestination(Vector2 newDestination)
         {
@@ -25,7 +28,8 @@ namespace LDG.Components.Pathfinding
 
         public override void Update(TimeFrame time)
         {
-            base.Update(time);
+            if (destination == null)
+                return;
 
             // Get the actor component
             var actor = GetComponent<ActorComponent>();
@@ -34,22 +38,36 @@ namespace LDG.Components.Pathfinding
             // Recalculate path if necessary
             if (path == null || currentPathIndex >= path.Count || lastKnownPosition != destination)
             {
-                var colliders = new List<Rectangle> // Replace this with actual collider data
-            {
-                new Rectangle(50, 50, 30, 30) // Example collider
-            };
+                var getColliders = GameObject.Scene.GetAllComponentsOfTypeAs<TileLayerCollider, Collider>();
 
                 var pathFinder = new PathFinder(
                     new Vector2((int)Transform.Position.X, (int)Transform.Position.Y),
-                    new Vector2((int)destination.X, (int)destination.Y),
+                    new Vector2((int)destination.Value.X, (int)destination.Value.Y),
                     24, // Default size width
                     24, // Default size height
-                    colliders
+                    getColliders
                 );
 
                 path = pathFinder.FindPath();
                 currentPathIndex = 0;
-                lastKnownPosition = destination;
+                lastKnownPosition = destination.Value;
+            } else
+            {
+                // Aka we have a path
+                bool isStuck = lastKnownPosition == Transform.Position;
+
+                if(isStuck)
+                {
+                    stuckTime -= time.Delta;
+
+                    if(stuckTime <= 0)
+                    {
+                        // Reset path
+                        stuckTime = 0.5f;
+                        path = null;
+                        return;
+                    }
+                }
             }
 
             // No path available or target already reached
@@ -80,6 +98,8 @@ namespace LDG.Components.Pathfinding
 
             // Update movement status
             actor.IsMoving = currentPathIndex < path.Count;
+
+            lastKnownPosition = Transform.Position;
         }
     }
 }

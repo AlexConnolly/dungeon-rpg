@@ -30,8 +30,9 @@ namespace LDG.UI
             return new Vector2(Position.Width, Position.Height);
         }
 
-        public ButtonElement(Rectangle position) : base(position)
+        public ButtonElement(Rectangle position, string text = "") : base(position)
         {
+            Text = text;
         }
 
         public override void Initialize()

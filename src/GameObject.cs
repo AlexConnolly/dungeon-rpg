@@ -20,7 +20,7 @@ namespace LDG
         /// <summary>
         /// The higher the priority the sooner the item will be drawn before others
         /// </summary>
-        public int DrawPriority { get; set; } = 0;
+        public int DrawPriority { get; set; } = 1;
 
         public string Tag { get; set; }
 

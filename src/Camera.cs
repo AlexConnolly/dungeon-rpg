@@ -15,11 +15,21 @@ namespace LDG
         {
             var relative = position - Position;
 
-            // Take off screen size
+            // Adjust based on screen size
             relative.X += (Screen.Resolution.X / 2);
             relative.Y += (Screen.Resolution.Y / 2);
 
             return new Point((int)relative.X, (int)relative.Y);
+        }
+
+        public static Vector2 CameraPointToWorldPosition(Point point)
+        {
+            // Reverse screen adjustment
+            var relative = new Vector2(point.X - (Screen.Resolution.X / 2),
+                                       point.Y - (Screen.Resolution.Y / 2));
+
+            // Add camera position to get world position
+            return relative + Position;
         }
     }
 }

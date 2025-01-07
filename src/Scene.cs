@@ -99,19 +99,26 @@ namespace LDG
             return null;
         }
 
-        public List<T> GetAllComponentsOfType<T>() where T : GameComponent
+        public List<DestinationType> GetAllComponentsOfTypeAs<SourceType, DestinationType>() 
+            where SourceType : GameComponent 
+            where DestinationType : GameComponent
         {
-            var components = new List<T>();
+            var components = new List<DestinationType>();
 
-            foreach(var gameObject in _gameObjects)
+            foreach (var gameObject in _gameObjects)
             {
-                var objectComponents = gameObject.GetComponent<T>();
+                var objectComponents = gameObject.GetComponent<SourceType>();
 
-                if(objectComponents != null)
-                    components.Add(objectComponents);
+                if (objectComponents != null)
+                    components.Add(objectComponents as DestinationType);
             }
 
             return components;
+        }
+
+        public List<T> GetAllComponentsOfType<T>() where T : GameComponent
+        {
+            return GetAllComponentsOfTypeAs<T, T>();
         }
     }
 }

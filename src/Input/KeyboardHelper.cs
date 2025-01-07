@@ -18,6 +18,11 @@ namespace LDG.Input
         {
             return KeyboardHelper.keysPressed.Contains(key);
         }
+
+        public static bool IsKeyDown(Keys key)
+        {
+            return KeyboardHelper.keysDown.Contains(key);
+        }
         
         public static void Update(TimeFrame time)
         {

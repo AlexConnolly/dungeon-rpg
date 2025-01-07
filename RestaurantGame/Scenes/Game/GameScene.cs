@@ -1,8 +1,10 @@
 ﻿using LDG;
+using LDG.Components.Camera;
 using LDG.Components.Tile;
 using LDG.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RestaurantGame.Scenes.Game.Components.Ui;
 
 namespace RestaurantGame.Scenes.Game
 {
@@ -12,6 +14,12 @@ namespace RestaurantGame.Scenes.Game
 
         public override void Initialize()
         {
+            var uiObject = AddGameObject();
+            uiObject.AddComponent<GameUiComponent>();
+
+            // We want it to be drawn last
+            uiObject.DrawPriority = 0;
+            
             var tilemapObject = AddGameObject();
 
             tilemapObject.Transform.Position = new Vector2(-500, -200);

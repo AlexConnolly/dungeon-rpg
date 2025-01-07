@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Scenes\Game\Artwork\Icons.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Scenes\Game\Artwork\Npc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

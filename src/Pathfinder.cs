@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LDG.Components.Collision;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace LDG
         private Vector2 start;
         private Vector2 destination;
         private int objectWidth, objectHeight;
-        private List<Rectangle> colliders;
+        private List<Collider> colliders;
         private int gridSize;
 
-        public PathFinder(Vector2 start, Vector2 destination, int objectWidth, int objectHeight, List<Rectangle> colliders, int gridSize = 24)
+        public PathFinder(Vector2 start, Vector2 destination, int objectWidth, int objectHeight, List<Collider> colliders, int gridSize = 24)
         {
             this.start = SnapToGrid(start, gridSize);
             this.destination = SnapToGrid(destination, gridSize);
