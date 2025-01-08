@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurvivalRpg", "..\Client\Su
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{6A7D69BB-434C-446D-9EB9-F5EDA04F9CB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantGame", "..\RestaurantGame\RestaurantGame.csproj", "{E0C13F98-06B8-4049-B189-E0F29868504B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantGame", "..\RestaurantGame\RestaurantGame.csproj", "{E0C13F98-06B8-4049-B189-E0F29868504B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homestead", "..\Homestead\Homestead.csproj", "{4C4AFF7D-E445-432A-AB00-543D95ADD47C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{E0C13F98-06B8-4049-B189-E0F29868504B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0C13F98-06B8-4049-B189-E0F29868504B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0C13F98-06B8-4049-B189-E0F29868504B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C4AFF7D-E445-432A-AB00-543D95ADD47C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C4AFF7D-E445-432A-AB00-543D95ADD47C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C4AFF7D-E445-432A-AB00-543D95ADD47C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C4AFF7D-E445-432A-AB00-543D95ADD47C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{995B5C4C-E181-42AB-8745-92283C4DE44F} = {6A7D69BB-434C-446D-9EB9-F5EDA04F9CB6}
 		{E0C13F98-06B8-4049-B189-E0F29868504B} = {6A7D69BB-434C-446D-9EB9-F5EDA04F9CB6}
+		{4C4AFF7D-E445-432A-AB00-543D95ADD47C} = {6A7D69BB-434C-446D-9EB9-F5EDA04F9CB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECF7EDE7-BEAB-4482-86CB-1B0232886ADD}
