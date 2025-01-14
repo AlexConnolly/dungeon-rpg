@@ -72,6 +72,13 @@ namespace LDG
             return null;
         }
 
+        public bool HasComponent<T>(out T component) where T : GameComponent
+        {
+            component = GetComponent<T>();
+
+            return component != null;
+        }
+
         public GameObject GameObject {
             get; internal set;
         }

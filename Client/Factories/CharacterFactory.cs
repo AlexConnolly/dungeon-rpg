@@ -43,8 +43,6 @@ namespace Client.Factories
 
             var walkingAudio = gameObject.AddComponent<AudioSource>();
 
-            walkingAudio.Sound = AudioManager.GetSound("character_footsteps");
-
             var walkingParticles = ParticleFactory.AddParticle(gameObject, ParticleType.Footsteps);
 
             var reachZone = gameObject.AddComponent<BoxTrigger>();

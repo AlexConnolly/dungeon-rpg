@@ -9,6 +9,7 @@ namespace Homestead.World
     public enum FloorType
     {
         Grass,
-        Flower
+        Flower,
+        GrassRock
     }
 }

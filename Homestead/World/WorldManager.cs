@@ -19,13 +19,66 @@ namespace Homestead.World
         private Point _previousPoint;
         private ChunkView _previousChunkView;
 
+        private ChunkGenerator _chunkGenerator;
+
         private Point GetCurrentChunkPoint()
+        {
+            return GetPointAtPosition(LDG.Camera.Position);
+        }
+
+        private Point GetPointAtPosition(Vector2 position)
         {
             int resolution = TileResolution * ChunkResolution;
 
-            var currentCameraPosition = LDG.Camera.Position;
+            int x = (int)Math.Floor(position.X / (double)resolution);
+            int y = (int)Math.Floor(position.Y / (double)resolution);
 
-            return new Point((int)currentCameraPosition.X / resolution, (int)currentCameraPosition.Y / resolution);
+            return new Point(x, y);
+        }
+
+        private Point GetRelativePosition(Vector2 position)
+        {
+            // Determine the chunk position
+            int chunkResolution = TileResolution * ChunkResolution;
+            int chunkX = (int)Math.Floor(position.X / (double)chunkResolution);
+            int chunkY = (int)Math.Floor(position.Y / (double)chunkResolution);
+
+            // Determine the local tile position within the chunk
+            int tileX = (int)(position.X % chunkResolution) / TileResolution;
+            int tileY = (int)(position.Y % chunkResolution) / TileResolution;
+
+            return new Point(tileX, tileY);
+        }
+
+        public Chunk GetCurrentChunk()
+        {
+            return GetOrGenerateChunk(GetCurrentChunkPoint());
+        }
+
+        public Point GetRelativePositionAndChunk(Vector2 currentPosition, out Chunk chunk)
+        {
+            var chunkPoint = GetCurrentChunkPoint();
+
+            chunk = GetOrGenerateChunk(chunkPoint);
+
+            var relativePosition = GetRelativePosition(currentPosition);
+
+            return relativePosition;
+        }
+
+        public override void Initialize()
+        {
+            _chunkGenerator = GameObject.AddComponent<ChunkGenerator>();
+        }
+
+        internal WorldObject GetWorldObjectAtWorldPosition(Vector2 position, Point offset)
+        {
+            // Get the chunk
+            Vector2 calculatedOffset = new Vector2(offset.X * TileResolution, offset.Y * TileResolution);
+
+            var relativePosition = GetRelativePositionAndChunk(position + calculatedOffset, out var chunk);
+
+            return chunk.GetWorldObjectAtPoint(relativePosition);
         }
 
         private Chunk GetOrGenerateChunk(Point point)
@@ -35,7 +88,7 @@ namespace Homestead.World
                 return _chunks[point];
             }
 
-            var newChunk = ChunkGenerator.Generate(null, ChunkResolution, LDG.Direction.Down);
+            var newChunk = _chunkGenerator.Generate(null, ChunkResolution, LDG.Direction.Down);
 
             _chunks.Add(point, newChunk);
 

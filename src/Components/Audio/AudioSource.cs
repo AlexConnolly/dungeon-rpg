@@ -2,18 +2,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LDG.Components.Audio
 {
     public class AudioSource : GameComponent
     {
-        private SoundEffectInstance instance;
-
-        public SoundEffect Sound { get; set; }
+        public SoundEffectInstance Sound { get; set; }
 
         public AudioSource()
         {
@@ -22,7 +16,7 @@ namespace LDG.Components.Audio
 
         public bool IsPlaying()
         {
-            return instance != null && instance.State == SoundState.Playing;
+            return Sound != null && Sound.State == SoundState.Playing;
         }
 
         public void Loop()
@@ -32,28 +26,26 @@ namespace LDG.Components.Audio
 
         public void Start(bool loop = false)
         {
-            if(instance != null)
+            if(Sound != null)
             {
                 this.Stop();
             }
 
-            instance = Sound.CreateInstance();
-            instance.IsLooped = loop;
-            instance.Play();
+            Sound.IsLooped = loop;
+            Sound.Play();
         }
 
         public void Stop()
         {
-            if(instance != null)
+            if(Sound != null)
             {
-                instance.Stop();
-                instance = null;
+                Sound.Stop();
             }
         }
 
         public override void Update(TimeFrame time)
         {
-            if(this.instance != null)
+            if(this.Sound != null)
             {
                 const float MaximumListenRange = 250f;
 
@@ -61,7 +53,7 @@ namespace LDG.Components.Audio
 
                 if (distance > MaximumListenRange)
                 {
-                    this.instance.Volume = 0.1f;
+                    this.Sound.Volume = 0.1f;
                 }
                 else
                 {
@@ -71,7 +63,7 @@ namespace LDG.Components.Audio
                     float percentage = rangeLeft / MaximumListenRange;
 
                     // Set volume 
-                    this.instance.Volume = LDGMathHelpers.LogFade(0.1f, 1, percentage);
+                    this.Sound.Volume = LDGMathHelpers.LogFade(0.1f, 1, percentage);
                 }
             }
         }

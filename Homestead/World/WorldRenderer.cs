@@ -9,17 +9,15 @@ namespace Homestead.World
 {
     internal class WorldRenderer : LDG.GameComponent
     {
-        private readonly WorldManager _worldManager;
+        private WorldManager _worldManager;
         private Tilemap _tilemap;
         private Spritesheet _floorSheet;
 
-        public WorldRenderer()
-        {
-            _worldManager = new WorldManager();
-        }
 
         public override void Initialize()
         {
+            _worldManager = GameObject.AddComponent<WorldManager>();
+
             _tilemap = GameObject.AddComponent<Tilemap>();
 
             _tilemap.AddLayer(new TilemapLayer()
@@ -40,6 +38,7 @@ namespace Homestead.World
         {
             var grass = _floorSheet.GetByKey("0");
             var flower = _floorSheet.GetByKey("1");
+            var grassRock = _floorSheet.GetByKey("2");
 
             for (int i = 0; i < chunk.Floor.Length; i++)
             {
@@ -47,9 +46,38 @@ namespace Homestead.World
                 int x = i % _worldManager.ChunkResolution; // Remainder gives the column (x)
                 int y = i / _worldManager.ChunkResolution; // Integer division gives the row (y)
 
+                SpriteFrame frame = null;
+
+                switch(chunk.Floor[i])
+                {
+                    case FloorType.Grass:
+                        frame = grass;
+                        break;
+
+                    case FloorType.GrassRock:
+                        frame = grassRock;
+                        break;
+
+                    case FloorType.Flower:
+                        frame = flower;
+                        break;
+                }
+
                 // Now you have x and y for the current index
-                _tilemap.SetTileAtLocation(0, new Microsoft.Xna.Framework.Point(offset.X + x, offset.Y + y), chunk.Floor[i] == FloorType.Grass ? grass : flower);
+                _tilemap.SetTileAtLocation(0, new Microsoft.Xna.Framework.Point(offset.X + x, offset.Y  + y), frame);
             }
+        }
+
+        private Point GetCameraOffset()
+        {
+            int resolution = _worldManager.TileResolution * _worldManager.ChunkResolution;
+
+            var currentCameraPosition = LDG.Camera.Position;
+
+            int x = (int)Math.Floor(currentCameraPosition.X / (double)resolution);
+            int y = (int)Math.Floor(currentCameraPosition.Y / (double)resolution);
+
+            return new Point(x * _worldManager.ChunkResolution, y * _worldManager.ChunkResolution);
         }
 
         public override void Update(TimeFrame time)
@@ -57,17 +85,19 @@ namespace Homestead.World
             // Update tilemap only if we changed chonks
             if(_worldManager.GetChunkView(out var visibleChunks))
             {
-                DrawChunk(visibleChunks.Center, new Point(0, 0));
-                DrawChunk(visibleChunks.Left, new Point(-_worldManager.ChunkResolution, 0));
-                DrawChunk(visibleChunks.Right, new Point(_worldManager.ChunkResolution, 0));
+                var cameraOffset = GetCameraOffset();
 
-                DrawChunk(visibleChunks.TopCenter, new Point(0, -_worldManager.ChunkResolution));
-                DrawChunk(visibleChunks.TopLeft, new Point(-_worldManager.ChunkResolution, -_worldManager.ChunkResolution));
-                DrawChunk(visibleChunks.TopRight, new Point(_worldManager.ChunkResolution, -_worldManager.ChunkResolution));
+                DrawChunk(visibleChunks.Center, cameraOffset + new Point(0, 0));
+                DrawChunk(visibleChunks.Left, cameraOffset + new Point(-_worldManager.ChunkResolution, 0));
+                DrawChunk(visibleChunks.Right, cameraOffset + new Point(_worldManager.ChunkResolution, 0));
 
-                DrawChunk(visibleChunks.BottomCenter, new Point(0, +_worldManager.ChunkResolution));
-                DrawChunk(visibleChunks.BottomLeft, new Point(-_worldManager.ChunkResolution, +_worldManager.ChunkResolution));
-                DrawChunk(visibleChunks.BottomRight, new Point(_worldManager.ChunkResolution, +_worldManager.ChunkResolution));
+                DrawChunk(visibleChunks.TopCenter, cameraOffset + new Point(0, -_worldManager.ChunkResolution));
+                DrawChunk(visibleChunks.TopLeft, cameraOffset + new Point(-_worldManager.ChunkResolution, -_worldManager.ChunkResolution));
+                DrawChunk(visibleChunks.TopRight, cameraOffset + new Point(_worldManager.ChunkResolution, -_worldManager.ChunkResolution));
+
+                DrawChunk(visibleChunks.BottomCenter, cameraOffset + new Point(0, +_worldManager.ChunkResolution));
+                DrawChunk(visibleChunks.BottomLeft, cameraOffset + new Point(-_worldManager.ChunkResolution, +_worldManager.ChunkResolution));
+                DrawChunk(visibleChunks.BottomRight, cameraOffset + new Point(_worldManager.ChunkResolution, +_worldManager.ChunkResolution));
             }
         }
     }

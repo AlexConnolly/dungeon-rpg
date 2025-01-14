@@ -12,12 +12,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Media\Spritesheets\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Update="Media\Audio\Effects\AxeHit.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Media\Audio\Effects\AxeHit.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Media\Spritesheets\Floor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Media\Spritesheets\Icons.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Media\Spritesheets\WorldObjects.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
