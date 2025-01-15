@@ -15,6 +15,8 @@ namespace Homestead.World
             }
         }
 
+        public int Resolution { get; private set; }
+
         public Chunk(int resolution, WorldManager worldManager, Point location)
         {
             Floor = new FloorType[resolution * resolution];
@@ -22,6 +24,8 @@ namespace Homestead.World
 
             _worldManager = worldManager;
             _chunkLocation = location;
+
+            Resolution = resolution;
         }
 
         public FloorType[] Floor;

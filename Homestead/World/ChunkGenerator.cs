@@ -19,14 +19,30 @@ namespace Homestead.World
 
             FloodGrass(newChunk);
 
-            var newTree = GameObject.Scene.AddGameObject();
-
-            newTree.DrawPriority = -1;
-
-            var tree = newTree.AddComponent<TreeComponent>();
-            newChunk.AddWorldObject(tree, new Microsoft.Xna.Framework.Point(0, 0));
+            GenerateTrees(newChunk);
 
             return newChunk;
+        }
+
+        private void GenerateTrees(Chunk chunk)
+        {
+            for(int x = 0; x < chunk.Resolution; x++)
+            {
+                for(int y =0; y < chunk.Resolution; y++)
+                {
+                    var generateTree = Random.Shared.Next(0, 10) == 1;
+
+                    if (generateTree)
+                    {
+                        var newTree = GameObject.Scene.AddGameObject();
+
+                        newTree.DrawPriority = -1;
+
+                        var tree = newTree.AddComponent<TreeComponent>();
+                        chunk.AddWorldObject(tree, new Microsoft.Xna.Framework.Point(x, y));
+                    }
+                }
+            }
         }
 
         private static void FloodGrass(Chunk chunk)

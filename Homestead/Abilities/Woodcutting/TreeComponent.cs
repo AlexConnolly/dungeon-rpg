@@ -52,6 +52,23 @@ namespace Homestead.Abilities.Woodcutting
             base.Initialize();
         }
 
+        private void SpawnLogs()
+        {
+            var itemObject = AddGameObject();
+
+            var random = new System.Random();
+            float randomX = (float)(random.NextDouble() * 100 - 50);
+            float randomY = (float)(random.NextDouble() * 100 - 50);
+
+            itemObject.Transform.Position = this.Transform.Position + new Microsoft.Xna.Framework.Vector2(randomX, randomY);
+
+            var worldItem = itemObject.AddComponent<WorldItem>();
+
+            worldItem.Item = new Logs();
+
+            GameObject.Scene.RemoveObject(this.GameObject);
+        }
+
         public void Hit()
         {
             if(HitsLeft != 0)
@@ -62,15 +79,10 @@ namespace Homestead.Abilities.Woodcutting
 
                 if (HitsLeft == 0)
                 {
-                    var itemObject = AddGameObject();
-
-                    itemObject.Transform.Position = this.Transform.Position;
-
-                    var worldItem = itemObject.AddComponent<WorldItem>();
-
-                    worldItem.Item = new Logs();
-
-                    GameObject.Scene.RemoveObject(this.GameObject);
+                    for(int x = 0; x < 3;x ++)
+                    {
+                        SpawnLogs();
+                    }
                 }
             }
         }
