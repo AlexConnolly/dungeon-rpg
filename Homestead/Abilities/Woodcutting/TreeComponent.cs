@@ -70,7 +70,7 @@ namespace Homestead.Abilities.Woodcutting
 
                     worldItem.Item = new Logs();
 
-                    Sprite = SpriteSheetManager.GetSheetByName("WorldObjects").GetByKey("1");
+                    GameObject.Scene.RemoveObject(this.GameObject);
                 }
             }
         }

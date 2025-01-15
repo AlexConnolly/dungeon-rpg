@@ -16,7 +16,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Media\Audio\Effects\AxeHit.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Media\Audio\Effects\ItemDrop.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Media\Spritesheets\Floor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -12,7 +12,7 @@ namespace LDG.Audio
     {
         public static AudioClip FromFile(string resource)
         {
-            using (FileStream fileStream = new FileStream(resource, FileMode.Open))
+            using (FileStream fileStream = new FileStream(resource, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 SoundEffect soundEffect = SoundEffect.FromStream(fileStream);
                 SoundEffectInstance soundEffectInstance = soundEffect.CreateInstance();
