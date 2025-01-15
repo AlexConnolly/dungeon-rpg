@@ -69,6 +69,9 @@ namespace LDG
             // Update the scene
             foreach (var gameObject in SceneManager.CurrentScene.GameObjects)
             {
+                if (!gameObject.Enabled)
+                    continue;
+
                 gameObject.Components.ForEach((x) =>
                 {
                     if(x.Enabled)
@@ -98,6 +101,9 @@ namespace LDG
 
             foreach(var gameObject in SceneManager.CurrentScene.GameObjects.OrderByDescending(x=> x.DrawPriority))
             {
+                if (!gameObject.Enabled)
+                    continue;
+
                 gameObject.Components.ForEach((x) =>
                 {
                     if(x.Enabled)

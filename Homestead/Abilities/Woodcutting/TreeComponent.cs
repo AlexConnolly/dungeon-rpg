@@ -1,7 +1,9 @@
-﻿using Homestead.World;
+﻿using Homestead.Abilities.Woodcutting.Items;
+using Homestead.World;
 using LDG.Components.Particles;
 using LDG.Particles.MovementStrategies;
 using LDG.Sprite;
+using Microsoft.Xna.Framework;
 using System.Numerics;
 
 namespace Homestead.Abilities.Woodcutting
@@ -9,8 +11,6 @@ namespace Homestead.Abilities.Woodcutting
     internal class TreeComponent : WorldObject
     {
         public int HitsLeft = 3;
-
-        public override SpriteFrame Sprite => SpriteSheetManager.GetSheetByName("WorldObjects").GetByKey("0");
 
         private ParticleEngine _hitEmitter;
 
@@ -22,10 +22,16 @@ namespace Homestead.Abilities.Woodcutting
             {
                 ParticleConfig = new LDG.Particles.ParticleConfig()
                 {
-                    Frame = SpriteSheetManager.GetSheetByName("WorldObjects").GetByKey("0"),
-                    MovementStrategy = new DirectionMovementStrategy() { RelativeDirection = new Vector2(0, -20) },
-                    StartSize = 20,
-                    EndSize = 30
+                    Frame = SpriteSheetManager.GetSheetByName("Particles").GetByKey("0"),
+                    MovementStrategy = new WeightedRandomMovementStrategy() { RelativeDirection = new Microsoft.Xna.Framework.Vector2(0, 20) },
+                    StartSize = 15,
+                    EndSize = 5,
+                    TimeToLive = 0.5f,
+                    StartSpeed = 5,
+                    EndSpeed = 3,
+                    StartOpacity = 1,
+                    EndOpacity = 1,
+                    Color = Color.White
                 },
                 OneShot = true,
                 EmissionArea = new Microsoft.Xna.Framework.Rectangle()
@@ -38,7 +44,9 @@ namespace Homestead.Abilities.Woodcutting
                 ParticlesPerSecond = 10
             };
 
-            _hitEmitter.Enabled = false;
+            _hitEmitter.Enabled = false; 
+            
+            Sprite = SpriteSheetManager.GetSheetByName("WorldObjects").GetByKey("0");
 
             // Important
             base.Initialize();
@@ -46,13 +54,24 @@ namespace Homestead.Abilities.Woodcutting
 
         public void Hit()
         {
-            HitsLeft--;
-
-            _hitEmitter.Enabled = true;
-
-            if(HitsLeft == 0)
+            if(HitsLeft != 0)
             {
+                HitsLeft--;
 
+                _hitEmitter.Enabled = true;
+
+                if (HitsLeft == 0)
+                {
+                    var itemObject = AddGameObject();
+
+                    itemObject.Transform.Position = this.Transform.Position;
+
+                    var worldItem = itemObject.AddComponent<WorldItem>();
+
+                    worldItem.Item = new Logs();
+
+                    Sprite = SpriteSheetManager.GetSheetByName("WorldObjects").GetByKey("1");
+                }
             }
         }
 

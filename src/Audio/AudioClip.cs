@@ -24,6 +24,15 @@ namespace LDG.Audio
             }
         }
 
+        public static AudioClip FromSoundEffect(SoundEffectInstance instance)
+        {
+            return new AudioClip()
+            {
+                Effect = instance,
+                Pitch = 1
+            };
+        }
+
         public SoundEffectInstance Effect { get; private set; }
 
         public float Pitch

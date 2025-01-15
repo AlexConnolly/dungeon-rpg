@@ -10,5 +10,6 @@ namespace Homestead.Items
     public static class Icons
     {
         public static SpriteFrame Axe { get; } = SpriteSheetManager.GetSheetByName("Icons").GetByKey("0");
+        public static SpriteFrame Logs { get; } = SpriteSheetManager.GetSheetByName("Icons").GetByKey("1");
     }
 }

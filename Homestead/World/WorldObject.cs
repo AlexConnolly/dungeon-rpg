@@ -8,12 +8,14 @@ namespace Homestead.World
     {
         private SpriteRenderer _spriteRenderer;
 
-        public override void Initialize()
-        {
-            _spriteRenderer = GameObject.AddComponent<SpriteRenderer>();
-            _spriteRenderer.Frame = this.Sprite;
-        }
+        public SpriteFrame Sprite { 
+            set
+            {
+                if (_spriteRenderer == null)
+                    _spriteRenderer = AddComponent<SpriteRenderer>();
 
-        public abstract SpriteFrame Sprite { get; }
+                _spriteRenderer.Frame = value;
+            }
+        }
     }
 }

@@ -85,5 +85,23 @@ namespace LDG
 
             return false;
         }
+
+        private bool _enabled = true;
+
+        public bool Enabled { 
+            get
+            {
+                return _enabled;
+            }
+            set
+            {
+                _enabled = value;
+
+                foreach(var component in Components)
+                {
+                    component.Enabled = value;
+                }
+            }
+        }
     }
 }

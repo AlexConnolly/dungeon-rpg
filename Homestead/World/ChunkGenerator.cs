@@ -1,5 +1,6 @@
 ﻿using Homestead.Abilities.Woodcutting;
 using LDG;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace Homestead.World
 {
-    public class ChunkGenerator : GameComponent
+    public class ChunkGenerator : LDG.GameComponent
     {
-        public Chunk Generate(Chunk adjacent, int resolution, Direction relation)
+        private bool everAdded = false;
+
+        public Chunk Generate(int resolution, WorldManager worldManager, Point location)
         {
-            var newChunk = new Chunk(resolution);
+            var newChunk = new Chunk(resolution, worldManager, location);
 
             FloodGrass(newChunk);
 
@@ -21,7 +24,6 @@ namespace Homestead.World
             newTree.DrawPriority = -1;
 
             var tree = newTree.AddComponent<TreeComponent>();
-
             newChunk.AddWorldObject(tree, new Microsoft.Xna.Framework.Point(0, 0));
 
             return newChunk;

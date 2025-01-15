@@ -37,6 +37,16 @@ namespace LDG
 
         }
 
+        public GameObject AddGameObject()
+        {
+            return GameObject.Scene.AddGameObject();
+        }
+
+        public T AddComponent<T>() where T : GameComponent
+        {
+            return GameObject.AddComponent<T>();
+        }
+
         public virtual void Initialize()
         {
 

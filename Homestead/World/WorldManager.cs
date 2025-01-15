@@ -21,9 +21,9 @@ namespace Homestead.World
 
         private ChunkGenerator _chunkGenerator;
 
-        private Point GetCurrentChunkPoint()
+        private Point GetCurrentChunkPoint(Vector2 currentPosition)
         {
-            return GetPointAtPosition(LDG.Camera.Position);
+            return GetPointAtPosition(currentPosition);
         }
 
         private Point GetPointAtPosition(Vector2 position)
@@ -36,32 +36,40 @@ namespace Homestead.World
             return new Point(x, y);
         }
 
-        private Point GetRelativePosition(Vector2 position)
+        private Point GetRelativePosition(Vector2 position, Chunk chunk)
         {
-            // Determine the chunk position
-            int chunkResolution = TileResolution * ChunkResolution;
-            int chunkX = (int)Math.Floor(position.X / (double)chunkResolution);
-            int chunkY = (int)Math.Floor(position.Y / (double)chunkResolution);
+            // Determine the chunk position (world space)
+            var chunkX = this.Transform.Position.X + (chunk.Location.X * (ChunkResolution * TileResolution));
+            var chunkY = this.Transform.Position.Y + (chunk.Location.Y * (ChunkResolution * TileResolution));
 
-            // Determine the local tile position within the chunk
-            int tileX = (int)(position.X % chunkResolution) / TileResolution;
-            int tileY = (int)(position.Y % chunkResolution) / TileResolution;
+            // Calculate the chunk boundaries
+            var chunkFarX = chunkX + (ChunkResolution * TileResolution);
+            var chunkFarY = chunkY + (ChunkResolution * TileResolution);
 
-            return new Point(tileX, tileY);
+            // Calculate the offset of the world position within the chunk's space
+            var offsetX = position.X - chunkX;
+            var offsetY = position.Y - chunkY;
+
+            // Calculate the relative position (tile) within the chunk
+            int relativeX = (int)(offsetX / TileResolution);
+            int relativeY = (int)(offsetY / TileResolution);
+
+            // Return the relative position as a Point (tile coordinate)
+            return new Point(relativeX, relativeY);
         }
 
         public Chunk GetCurrentChunk()
         {
-            return GetOrGenerateChunk(GetCurrentChunkPoint());
+            return GetOrGenerateChunk(GetCurrentChunkPoint(LDG.Camera.Position));
         }
 
         public Point GetRelativePositionAndChunk(Vector2 currentPosition, out Chunk chunk)
         {
-            var chunkPoint = GetCurrentChunkPoint();
+            var chunkPoint = GetCurrentChunkPoint(currentPosition);
 
             chunk = GetOrGenerateChunk(chunkPoint);
 
-            var relativePosition = GetRelativePosition(currentPosition);
+            var relativePosition = GetRelativePosition(currentPosition, chunk);
 
             return relativePosition;
         }
@@ -73,10 +81,7 @@ namespace Homestead.World
 
         internal WorldObject GetWorldObjectAtWorldPosition(Vector2 position, Point offset)
         {
-            // Get the chunk
-            Vector2 calculatedOffset = new Vector2(offset.X * TileResolution, offset.Y * TileResolution);
-
-            var relativePosition = GetRelativePositionAndChunk(position + calculatedOffset, out var chunk);
+            var relativePosition = GetRelativePositionAndChunk(position + (offset.ToVector2() * TileResolution), out var chunk);
 
             return chunk.GetWorldObjectAtPoint(relativePosition);
         }
@@ -88,7 +93,9 @@ namespace Homestead.World
                 return _chunks[point];
             }
 
-            var newChunk = _chunkGenerator.Generate(null, ChunkResolution, LDG.Direction.Down);
+            var newChunk = _chunkGenerator.Generate(ChunkResolution, this, point);
+
+            newChunk.Load();
 
             _chunks.Add(point, newChunk);
 
@@ -105,7 +112,7 @@ namespace Homestead.World
             // TODO: Cache chunkView here by comparing currentPoint vs lastPoint and only returning if needed
 
             // Convert camera position to chunk
-            var currentPoint = GetCurrentChunkPoint();
+            var currentPoint = GetCurrentChunkPoint(LDG.Camera.Position);
 
             if(currentPoint == _previousPoint && _previousChunkView != null)
             {

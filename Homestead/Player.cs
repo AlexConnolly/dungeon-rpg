@@ -6,6 +6,7 @@ using LDG.Components.Audio;
 using LDG.Components.Player;
 using LDG.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace Homestead
             _worldManager = GameObject.Scene.GetAllComponentsOfType<WorldManager>().FirstOrDefault();
             _actor = GameObject.Scene.GetAllComponentsOfType<ActorComponent>().FirstOrDefault();
             _audioSource = GameObject.AddComponent<AudioSource>();
+
+            _actor.Size = new Microsoft.Xna.Framework.Vector2(32, 32);
         }
 
         private Point GetRelativeFacingDirection()
@@ -50,7 +53,7 @@ namespace Homestead
 
         public WorldObject GetObjectInfront()
         {
-            return _worldManager.GetWorldObjectAtWorldPosition(this.Transform.Position, GetRelativeFacingDirection());
+            return _worldManager.GetWorldObjectAtWorldPosition(Camera.Position + (_actor.Size / 2), GetRelativeFacingDirection());
         }
 
         public override void Update(TimeFrame time)
@@ -66,6 +69,11 @@ namespace Homestead
                     _audioSource.Start();
                 }
             }
+        }
+
+        public override void DrawDebug(SpriteBatch spriteBatch)
+        {
+
         }
     }
 }

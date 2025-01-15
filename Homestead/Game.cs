@@ -27,6 +27,7 @@ namespace Homestead
             // Preload sprites
             SpriteSheetManager.AddToCache("Icons", Spritesheet.FromSheet(Texture2D.FromFile(Graphics, "Media/Spritesheets/Icons.png"), new Point(24, 24)));
             SpriteSheetManager.AddToCache("WorldObjects", Spritesheet.FromSheet(Texture2D.FromFile(Graphics, "Media/Spritesheets/WorldObjects.png"), new Point(32, 32)));
+            SpriteSheetManager.AddToCache("Particles", Spritesheet.FromSheet(Texture2D.FromFile(Graphics, "Media/Spritesheets/Particles.png"), new Point(12, 12)));
 
             // Create the player
             CreatePlayer();

@@ -24,6 +24,9 @@
     <None Update="Media\Spritesheets\Icons.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Media\Spritesheets\Particles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Media\Spritesheets\WorldObjects.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
