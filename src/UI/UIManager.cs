@@ -21,6 +21,8 @@ namespace LDG.UI
 
         public static UIStyle Style { get; set; }
 
+        private static WindowElement _window;
+
         public static void Load(SpriteBatch spriteBatch, ContentManager Content)
         {
             UIManager.CurrentSpriteBatch = spriteBatch;
@@ -39,6 +41,7 @@ namespace LDG.UI
             {
                 BackgroundColor = new Color(255, 224, 163),
                 BorderColor = new Color(61, 52, 22),
+                BorderColorActive = new Color(173, 62, 75),
                 
                 ButtonFont = defaultFont,
                 HeaderFont = defaultFont,
@@ -46,9 +49,14 @@ namespace LDG.UI
             };
         }
 
-        internal static void RegisterGroup(UIGroup group)
+        public static void RegisterGroup(UIGroup group)
         {
             _groups.Add(group);
+        }
+
+        public static void RemoveGroup(UIGroup group)
+        {
+            _groups.Remove(group);
         }
 
         private static void ClearGroups()
@@ -58,15 +66,47 @@ namespace LDG.UI
 
         public static void Update(TimeFrame frame)
         {
-            UIManager.ClearGroups();
+            foreach (var element in _groups)
+            {
+                if (element != _window?.Group)
+                    element.Update(frame);
+            }
+
+            if (_window != null)
+            {
+                _window.Group.Update(frame);
+            }
         }
 
         public static void Draw()
         {
             foreach(var group in UIManager._groups)
             {
-                group.Draw(UIManager.CurrentSpriteBatch);
+                if(group != _window?.Group)
+                    group.Draw(UIManager.CurrentSpriteBatch);
             }
+
+            if(_window != null)
+            {
+                _window.Group.Draw(UIManager.CurrentSpriteBatch);
+            }
+        }
+
+        public static void SetWindow(WindowElement element)
+        {
+            if(_window != null)
+            {
+                if(_window.OnClosed != null)
+                {
+                    _window.OnClosed();
+                    _groups.Remove(_window.Group);
+                }
+            }
+
+            if(element != null)
+                element.AddElements(element.Group);
+
+            _window = element;
         }
     }
 }

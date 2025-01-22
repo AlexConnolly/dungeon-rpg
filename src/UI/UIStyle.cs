@@ -26,6 +26,8 @@ namespace LDG.UI
         public Color BackgroundColor { get; set; }
         public Color BorderColor { get; set; }
 
+        public Color BorderColorActive { get; set; }
+
         public FontConfig ButtonFont { get; set; }
         public FontConfig HeaderFont { get; set; }
         public FontConfig TextFont { get; set; }

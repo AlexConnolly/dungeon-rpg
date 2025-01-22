@@ -11,5 +11,6 @@ namespace Homestead.Items
     {
         public static SpriteFrame Axe { get; } = SpriteSheetManager.GetSheetByName("Icons").GetByKey("0");
         public static SpriteFrame Logs { get; } = SpriteSheetManager.GetSheetByName("Icons").GetByKey("1");
+        public static SpriteFrame TreeSeed { get; } = SpriteSheetManager.GetSheetByName("Icons").GetByKey("3");
     }
 }

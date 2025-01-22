@@ -25,6 +25,8 @@ namespace LDG.UI
 
         public Action OnClick { get; set; }
 
+        public bool IsActive { get; set; } = false;
+
         public override Vector2 ContentDimensions()
         {
             return new Vector2(Position.Width, Position.Height);
@@ -74,12 +76,14 @@ namespace LDG.UI
 
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
+            Color borderColor = IsActive ? UIManager.Style.BorderColorActive : UIManager.Style.BorderColor;
+
             if(IsMouseOver())
             {
-                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), Color.White, UIManager.Style.BorderColor, 2);
+                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), Color.White, borderColor, 2);
             } else
             {
-                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), UIManager.Style.BackgroundColor, UIManager.Style.BorderColor, 2);
+                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), UIManager.Style.BackgroundColor, borderColor, 2);
             }
 
             if(Image != null && Image.Image != null)

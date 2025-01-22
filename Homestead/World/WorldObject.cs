@@ -1,4 +1,5 @@
 ﻿using LDG;
+using LDG.Audio;
 using LDG.Components.Sprite;
 using LDG.Sprite;
 
@@ -17,5 +18,14 @@ namespace Homestead.World
                 _spriteRenderer.Frame = value;
             }
         }
+
+        public virtual AudioClip InteractionSound { get; }
+
+        public virtual bool Interact(Player player, WorldManager world)
+        {
+            return false;
+        }
+
+        public abstract string InteractionName { get; }
     }
 }

@@ -42,6 +42,11 @@ namespace Homestead.World
 
         internal void AddWorldObject(WorldObject obj, Point location)
         {
+            if(WorldObjects.ContainsKey(location))
+            {
+                WorldObjects.Remove(location);
+            }
+
             WorldObjects.Add(location, obj);
 
             // Reset world position relative to the chunk

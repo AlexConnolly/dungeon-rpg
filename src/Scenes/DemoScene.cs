@@ -12,7 +12,7 @@ namespace LDG.Scenes
         {
             var loading = AddGameObject();
 
-            var group = loading.AddComponent<UIGroup>();
+            var group = new UIGroup();
             
             group.Text(new TextElement(new Rectangle((Screen.Resolution.X / 2 - (100)), (Screen.Resolution.Y / 2 - (20)), 200, 40))
             {

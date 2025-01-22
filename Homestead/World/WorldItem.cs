@@ -26,13 +26,6 @@ namespace Homestead.World
         public override void Initialize()
         {
             _backgroundFrame = SpriteSheetManager.GetSheetByName("Icons").GetByKey("2");
-            _audioSource = AddComponent<AudioSource>();
-
-            _audioSource.Sound = Sounds.ItemDrop.Effect;
-
-            _audioSource.Sound.Pitch = new LDG.Range(0.85f, 1f).GenerateRandom();
-
-            _audioSource.Start();
 
             _player = GameObject.Scene.GetAllComponentsOfType<Player>().First();
 
@@ -59,6 +52,9 @@ namespace Homestead.World
             if (_trigger.IntersectingObjects.Contains(_player.GameObject))
             {
                 _pickupSource.Start();
+
+                _player.Inventory.AddItem(this.Item);
+
                 GameObject.Scene.RemoveObject(this.GameObject);
             }
         }

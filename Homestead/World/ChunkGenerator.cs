@@ -1,4 +1,5 @@
-﻿using Homestead.Abilities.Woodcutting;
+﻿using Homestead.Abilities.Crafting;
+using Homestead.Abilities.Woodcutting;
 using LDG;
 using Microsoft.Xna.Framework;
 using System;
@@ -21,6 +22,12 @@ namespace Homestead.World
 
             GenerateTrees(newChunk);
 
+            var crafting = GameObject.Scene.AddGameObject();
+
+            var bench = crafting.AddComponent<CraftingBench>();
+
+            newChunk.AddWorldObject(bench, new Point(0, 0));
+
             return newChunk;
         }
 
@@ -28,7 +35,7 @@ namespace Homestead.World
         {
             for(int x = 0; x < chunk.Resolution; x++)
             {
-                for(int y =0; y < chunk.Resolution; y++)
+                for(int y = 0; y < chunk.Resolution; y++)
                 {
                     var generateTree = Random.Shared.Next(0, 10) == 1;
 
@@ -36,7 +43,7 @@ namespace Homestead.World
                     {
                         var newTree = GameObject.Scene.AddGameObject();
 
-                        newTree.DrawPriority = -1;
+                        newTree.DrawPriority = 0;
 
                         var tree = newTree.AddComponent<TreeComponent>();
                         chunk.AddWorldObject(tree, new Microsoft.Xna.Framework.Point(x, y));

@@ -11,22 +11,16 @@ namespace Homestead.Items
 {
     internal abstract class BaseItem : IItem
     {
-        public abstract bool ConsumeOnAction { get; }
-
         public abstract string Name { get; }
 
         public abstract SpriteFrame Icon { get; }
 
-        public abstract AudioClip Sound { get; }
+        public AudioClip Sound => null;
 
-        public AudioClipConfig ActionSound => new AudioClipConfig() { Clip = Sound, Pitch = new LDG.Range(0.65f, 1) };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="world"></param>
-        /// <returns>Whether the item was consummed</returns>
-        public abstract bool Action(Player player, WorldManager world);
+        public bool Action(Player player, WorldManager world)
+        {
+            // Do nothing because a base item inherently does nothing when actioned
+            return false;
+        }
     }
 }

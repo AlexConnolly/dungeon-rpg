@@ -4,15 +4,9 @@ using LDG.Components.Actor;
 using LDG.Components.Camera;
 using LDG.Components.Player;
 using LDG.Components.Sprite;
-using LDG.Components.Tile;
 using LDG.Sprite;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Homestead
 {

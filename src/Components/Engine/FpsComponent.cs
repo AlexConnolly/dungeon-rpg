@@ -16,7 +16,7 @@ namespace LDG.Components.Engine
 
         public override void Initialize()
         {
-            var uiGroup = this.GameObject.AddComponent<UIGroup>();
+            var uiGroup = new UIGroup();
 
             textElement = uiGroup.Text(new TextElement(new Rectangle(10, 10, 250, 100))
             {

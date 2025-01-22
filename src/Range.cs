@@ -16,10 +16,6 @@ namespace LDG
             get => _from;
             set
             {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Value must be between 0 and 1.");
-                }
                 if (value > _to)
                 {
                     throw new ArgumentException("From cannot be greater than To.");
@@ -33,10 +29,6 @@ namespace LDG
             get => _to;
             set
             {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Value must be between 0 and 1.");
-                }
                 if (value < _from)
                 {
                     throw new ArgumentException("To cannot be less than From.");
@@ -47,10 +39,6 @@ namespace LDG
 
         public Range(float from, float to)
         {
-            if (from < 0 || from > 1 || to < 0 || to > 1)
-            {
-                throw new ArgumentOutOfRangeException("Values must be between 0 and 1.");
-            }
             if (from > to)
             {
                 throw new ArgumentException("From cannot be greater than To.");

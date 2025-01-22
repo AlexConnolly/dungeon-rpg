@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LDG.UI
 {
-    public class UIGroup : GameComponent
+    public class UIGroup
     {
         public UIGroupSettings Settings { get; set; } = new UIGroupSettings() { Position = new Rectangle(10, 10, 200, 40), ShowBox = true };
 
@@ -19,10 +19,10 @@ namespace LDG.UI
 
         public UIGroup()
         {
-
+            UIManager.RegisterGroup(this);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             if(Settings.ShowBox)
                 spriteBatch.DrawSquare(this.Settings.Position, UIManager.Style.BackgroundColor, UIManager.Style.BorderColor, 4);
@@ -33,7 +33,7 @@ namespace LDG.UI
             }
         }
 
-        public override void Update(TimeFrame time)
+        public void Update(TimeFrame time)
         {
             foreach(var element in _elements)
             {

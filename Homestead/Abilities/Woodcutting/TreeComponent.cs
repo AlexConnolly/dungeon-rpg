@@ -1,5 +1,7 @@
 ﻿using Homestead.Abilities.Woodcutting.Items;
+using Homestead.Items;
 using Homestead.World;
+using LDG.Audio;
 using LDG.Components.Particles;
 using LDG.Particles.MovementStrategies;
 using LDG.Sprite;
@@ -87,9 +89,31 @@ namespace Homestead.Abilities.Woodcutting
             }
         }
 
-        public void Shake()
-        {
+        public override AudioClip InteractionSound => Sounds.TreeShake;
 
+        public override string InteractionName => "Shake";
+
+        public override bool Interact(Player player, WorldManager world)
+        {
+            if(player.Inventory.HasActiveItem())
+            {
+                return false;
+            }
+
+            // Only allow shake if the player does not have an item equipped
+            var itemObject = AddGameObject();
+
+            var random = new System.Random();
+            float randomX = (float)(random.NextDouble() * 100 - 50);
+            float randomY = (float)(random.NextDouble() * 100 - 50);
+
+            itemObject.Transform.Position = this.Transform.Position + new Microsoft.Xna.Framework.Vector2(randomX, randomY);
+
+            var worldItem = itemObject.AddComponent<WorldItem>();
+
+            worldItem.Item = new TreeSeed();
+
+            return true;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Homestead.Items;
-using Homestead.World;
-using LDG.Audio;
 using LDG.Sprite;
 using System;
 using System.Collections.Generic;
@@ -10,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Homestead.Abilities.Woodcutting.Items
 {
-    internal class Logs : BaseItem
+    internal class TreeSeed : BaseItem
     {
+        public override string Name => "Tree Seed";
 
-        public override string Name => "Logs";
-
-        public override SpriteFrame Icon => Icons.Logs;
+        public override SpriteFrame Icon => Icons.TreeSeed;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LDG.Audio;
 using LDG.Scenes;
+using LDG.Shaders;
 using LDG.Sprite;
 using LDG.UI;
 using Microsoft.Xna.Framework;
@@ -9,6 +10,12 @@ using System.Linq;
 
 namespace LDG
 {
+    public class ShaderConfiguration
+    {
+        public string Key { get; set; }
+        public string Resource { get; set; }
+    }
+
     public class LDGGame : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -18,8 +25,11 @@ namespace LDG
 
         private Scene startScene;
 
-        public LDGGame(Scene startScene = null)
+        private ShaderConfiguration[] _shaders;
+
+        public LDGGame(ShaderConfiguration[] shaders = null, Scene startScene = null)
         {
+
             _graphics = new GraphicsDeviceManager(this);
 
             _graphics.PreferredBackBufferWidth = Screen.Resolution.X;
@@ -30,12 +40,15 @@ namespace LDG
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
+            _shaders = shaders;
+
             this.startScene = startScene;
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+
         }
 
         protected override void LoadContent()
@@ -97,21 +110,51 @@ namespace LDG
             GraphicsDevice.Clear(SceneManager.CurrentScene.ClearColor);
 
             // Draw scene
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
+            Effect? currentEffect = null; // Tracks the current active Effect
+            bool batchStarted = false;
 
-            foreach(var gameObject in SceneManager.CurrentScene.GameObjects.OrderByDescending(x=> x.DrawPriority))
+            // Draw scene
+            foreach (var gameObject in SceneManager.CurrentScene.GameObjects
+                .OrderByDescending(x => x.DrawPriority))
             {
-                if (!gameObject.Enabled)
-                    continue;
+                if (!gameObject.Enabled) continue;
 
-                gameObject.Components.ForEach((x) =>
+                foreach (var component in gameObject.Components.Where(x => x.Enabled))
                 {
-                    if(x.Enabled)
-                        x.Draw(_spriteBatch);
-                });
+                    // Check if the component has an Effect
+                    var effectComponent = component as ShaderComponent;
+                    var effect = effectComponent?.Effect;
+
+                    // Start a new batch if no batch started yet, or if the Effect changes
+                    if (!batchStarted || currentEffect != effect)
+                    {
+                        if (batchStarted)
+                            _spriteBatch.End();
+
+                        _spriteBatch.Begin(
+                            SpriteSortMode.Deferred,
+                            BlendState.AlphaBlend,
+                            SamplerState.PointClamp,
+                            null,
+                            null,
+                            effect
+                        );
+
+                        currentEffect = effect;
+                        batchStarted = true;
+                    }
+
+                    // Draw the component
+                    component.Draw(_spriteBatch);
+                }
             }
 
-            _spriteBatch.End();
+            // Ensure the last batch ends, regardless of what happens in the loop
+            if (batchStarted)
+            {
+                _spriteBatch.End();
+            }
+
 
             // Draw UI
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
