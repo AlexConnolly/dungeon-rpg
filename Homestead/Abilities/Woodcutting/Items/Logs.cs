@@ -16,5 +16,7 @@ namespace Homestead.Abilities.Woodcutting.Items
         public override string Name => "Logs";
 
         public override SpriteFrame Icon => Icons.Logs;
+
+        public override string Description => "Great for building things!";
     }
 }

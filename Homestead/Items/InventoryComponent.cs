@@ -43,6 +43,50 @@ namespace Homestead.Items
             return _items[_activeIndex];
         }
 
+        public bool HasItems(params IItem[] items)
+        {
+            // Create a copy of the current items to avoid modifying the original list
+            var availableItems = new List<IItem>(_items);
+
+            foreach (var item in items)
+            {
+                // Try to find the item by matching the type
+                var foundItem = availableItems.FirstOrDefault(i => i.GetType() == item.GetType());
+
+                if (foundItem == null)
+                {
+                    // Item not found; we don't have all the required items
+                    return false;
+                }
+
+                // Remove the found item to account for duplicates
+                availableItems.Remove(foundItem);
+            }
+
+            // All items matched
+            return true;
+        }
+
+        public void RemoveItems(params IItem[] items)
+        {
+            foreach (var item in items)
+            {
+                // Find the first occurrence of the item by type
+                var foundItem = _items.FirstOrDefault(i => i.GetType() == item.GetType());
+
+                if (foundItem != null)
+                {
+                    // Remove the item from the list
+                    _items.Remove(foundItem);
+                }
+                else
+                {
+                    // Optional: Handle the case where the item to be removed isn't found
+                    throw new InvalidOperationException($"Item of type {item.GetType().Name} not found in the inventory.");
+                }
+            }
+        }
+
         public void RemoveActiveItem()
         {
             if (_items[_activeIndex] != null)
@@ -153,7 +197,9 @@ namespace Homestead.Items
 
                     _buttons[_activeIndex].IsActive = true;
 
-                    _clickSource.Start();
+                    // Only play sound if there is an item
+                    if(_items.Count > actualIndex && _items[actualIndex] != null) 
+                        _clickSource.Start();
                 };
 
                 if(actualIndex == 0)
@@ -170,10 +216,17 @@ namespace Homestead.Items
 
         public override void Update(TimeFrame time)
         {
-            for(int x = 0; x < _items.Count; x++)
+            for(int x = 0; x < 9; x++)
             {
                 if (x == 9)
                     break;
+
+                // Set null if we don't have an item
+                if(_items.Count <= x)
+                {
+                    _buttons[x].Image = null;
+                    continue;
+                }
 
                 _buttons[x].Image = new ButtonImage() { Image = _items[x].Icon, Size = new Vector2(32, 32) };
             }

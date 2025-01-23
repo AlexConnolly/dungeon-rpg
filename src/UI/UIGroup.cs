@@ -50,6 +50,11 @@ namespace LDG.UI
             return element;
         }
 
+        public ListElement List(ListElement element)
+        {
+            return (ListElement)AddElement(element);
+        }
+
         public TextElement Text(TextElement element)
         {
             return (TextElement)AddElement(element);
@@ -68,13 +73,14 @@ namespace LDG.UI
             });
         }
 
-        public SquareElement Square(Point location, Point size, Color background, Color border, int borderSize = 0)
+        public SquareElement Square(Point location, Point size, Color background, Color border, int borderSize = 0, Action onClick = null)
         {
             var element = new SquareElement(new Rectangle(location, size))
             {
                 Color = background,
                 Border = border,
-                BorderSize = borderSize
+                BorderSize = borderSize,
+                OnClick = onClick
             };
 
             return (SquareElement)AddElement(element);

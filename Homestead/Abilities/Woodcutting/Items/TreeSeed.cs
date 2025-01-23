@@ -1,10 +1,5 @@
 ﻿using Homestead.Items;
 using LDG.Sprite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Homestead.Abilities.Woodcutting.Items
 {
@@ -13,5 +8,7 @@ namespace Homestead.Abilities.Woodcutting.Items
         public override string Name => "Tree Seed";
 
         public override SpriteFrame Icon => Icons.TreeSeed;
+
+        public override string Description => "When planted, grows a tree";
     }
 }

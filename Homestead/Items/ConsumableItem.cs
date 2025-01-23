@@ -7,6 +7,7 @@ namespace Homestead.Items
     public abstract class ConsumableItem : IItem
     {
         public abstract string Name { get; }
+        public abstract string Description { get; }
 
         public abstract SpriteFrame Icon { get; }
 

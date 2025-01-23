@@ -77,13 +77,14 @@ namespace LDG.UI
         public override void Draw(SpriteBatch spriteBatch, UIGroup group)
         {
             Color borderColor = IsActive ? UIManager.Style.BorderColorActive : UIManager.Style.BorderColor;
+            Color backgroundColor = IsActive ? UIManager.Style.BackgroundColorActive : UIManager.Style.BackgroundColor;
 
             if(IsMouseOver())
             {
-                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), Color.White, borderColor, 2);
+                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), new Color(127, 94, 79), borderColor, 2);
             } else
             {
-                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), UIManager.Style.BackgroundColor, borderColor, 2);
+                spriteBatch.DrawSquare(new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, Position.Width, Position.Height), backgroundColor, borderColor, 2);
             }
 
             if(Image != null && Image.Image != null)

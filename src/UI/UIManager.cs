@@ -28,24 +28,25 @@ namespace LDG.UI
             UIManager.CurrentSpriteBatch = spriteBatch;
 
             // Load sprite sheets
-            var defaultFont = new FontConfig()
+            var mediumFont = new FontConfig()
             {
-                Font = Content.Load<SpriteFont>("Fonts/Large"),
-                Shadow = new FontShadowConfig()
-                {
-                    Color = Color.Black
-                }
+                Font = Content.Load<SpriteFont>("Fonts/Medium")
+            };
+
+            var smallFont = new FontConfig()
+            {
+                Font = Content.Load<SpriteFont>("Fonts/Small")
             };
 
             UIManager.Style = new UIStyle()
             {
-                BackgroundColor = new Color(255, 224, 163),
+                BackgroundColor = new Color(91, 67, 56),
                 BorderColor = new Color(61, 52, 22),
-                BorderColorActive = new Color(173, 62, 75),
-                
-                ButtonFont = defaultFont,
-                HeaderFont = defaultFont,
-                TextFont = defaultFont
+                BorderColorActive = new Color(255, 255, 255),
+                BackgroundColorActive = new Color(127, 94, 79),                
+                ButtonFont = smallFont,
+                HeaderFont = mediumFont,
+                TextFont = smallFont
             };
         }
 
@@ -104,7 +105,27 @@ namespace LDG.UI
             }
 
             if(element != null)
+            {
                 element.AddElements(element.Group);
+
+                element.Group.Image(element.Icon, new Rectangle(10, 10, 48, 48));
+
+                element.Group.Text(new TextElement(new Rectangle(68, 25, 250, 100))
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Text = element.Title,
+                    Font = UIManager.Style.HeaderFont
+                });
+
+                element.Group.Button(new ButtonElement(new Rectangle(element.Size.X - 70, 10, 60, 40), "X")
+                {
+                    OnClick = () =>
+                    {
+                        UIManager.SetWindow(null);
+                    }
+                });
+            }
 
             _window = element;
         }

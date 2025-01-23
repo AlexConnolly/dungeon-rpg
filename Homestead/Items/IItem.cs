@@ -7,6 +7,7 @@ namespace Homestead.Items
     public interface IItem
     {
         public string Name { get; }
+        public string Description { get; }
         public SpriteFrame Icon { get; }
 
         public AudioClip Sound { get; }

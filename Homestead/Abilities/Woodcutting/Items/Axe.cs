@@ -14,6 +14,8 @@ namespace Homestead.Abilities.Woodcutting.Items
 
         public override AudioClip Sound => Sounds.Axe;
 
+        public override string Description => "I bet I could chop a tree with this...";
+
         public override bool Use(WorldObject objectInfront)
         {
             if (objectInfront == null)

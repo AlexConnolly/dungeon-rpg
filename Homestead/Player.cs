@@ -2,6 +2,7 @@
 using Homestead.Items;
 using Homestead.World;
 using LDG;
+using LDG.Audio;
 using LDG.Components.Actor;
 using LDG.Components.Audio;
 using LDG.Components.Player;
@@ -26,6 +27,11 @@ namespace Homestead
         private AudioSource _walkingAudio;
         internal InventoryComponent Inventory { get; private set; }
 
+        public static Player GetInstance()
+        {
+            return SceneManager.CurrentScene.GetAllComponentsOfType<Player>().First();
+        }
+
 
         public override void Initialize()
         {
@@ -43,6 +49,12 @@ namespace Homestead
             _actor.Size = new Microsoft.Xna.Framework.Vector2(32, 32);
 
             _actor.WalkingAudio = _walkingAudio;
+        }
+
+        public void PlaySound(AudioClip clip)
+        {
+            _audioSource.Sound = clip.Effect;
+            _audioSource.Start();
         }
 
         private Point GetRelativeFacingDirection()

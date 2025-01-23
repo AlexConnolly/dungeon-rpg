@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LDG.Sprite;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -10,6 +11,8 @@ namespace LDG.UI
         public abstract string Title { get; }
         public abstract Point Size { get; }
         public UIGroup Group { get; }
+
+        public abstract SpriteFrame Icon { get; }
 
         public WindowElement()
         {

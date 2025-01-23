@@ -54,23 +54,6 @@ namespace Homestead.Abilities.Woodcutting
             base.Initialize();
         }
 
-        private void SpawnLogs()
-        {
-            var itemObject = AddGameObject();
-
-            var random = new System.Random();
-            float randomX = (float)(random.NextDouble() * 100 - 50);
-            float randomY = (float)(random.NextDouble() * 100 - 50);
-
-            itemObject.Transform.Position = this.Transform.Position + new Microsoft.Xna.Framework.Vector2(randomX, randomY);
-
-            var worldItem = itemObject.AddComponent<WorldItem>();
-
-            worldItem.Item = new Logs();
-
-            GameObject.Scene.RemoveObject(this.GameObject);
-        }
-
         public void Hit()
         {
             if(HitsLeft != 0)
@@ -81,10 +64,9 @@ namespace Homestead.Abilities.Woodcutting
 
                 if (HitsLeft == 0)
                 {
-                    for(int x = 0; x < 3;x ++)
-                    {
-                        SpawnLogs();
-                    }
+                    GameObject.AddSpawner(new Logs(), 3, 0.0f, 0.1f);
+
+                    GameObject.Scene.RemoveObject(this.GameObject);
                 }
             }
         }
@@ -101,17 +83,7 @@ namespace Homestead.Abilities.Woodcutting
             }
 
             // Only allow shake if the player does not have an item equipped
-            var itemObject = AddGameObject();
-
-            var random = new System.Random();
-            float randomX = (float)(random.NextDouble() * 100 - 50);
-            float randomY = (float)(random.NextDouble() * 100 - 50);
-
-            itemObject.Transform.Position = this.Transform.Position + new Microsoft.Xna.Framework.Vector2(randomX, randomY);
-
-            var worldItem = itemObject.AddComponent<WorldItem>();
-
-            worldItem.Item = new TreeSeed();
+            GameObject.AddSpawner(new TreeSeed(), 1, 1.0f, 0.2f);
 
             return true;
         }

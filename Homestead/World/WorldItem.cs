@@ -10,7 +10,7 @@ namespace Homestead.World
 {
     internal class WorldItem : LDG.GameComponent
     {
-        public BaseItem Item { get; set; }
+        public IItem Item { get; set; }
 
         private SpriteFrame _backgroundFrame { get; set; }
 

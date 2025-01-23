@@ -24,6 +24,7 @@ namespace LDG.UI
     public class UIStyle
     {
         public Color BackgroundColor { get; set; }
+        public Color BackgroundColorActive { get; set; }
         public Color BorderColor { get; set; }
 
         public Color BorderColorActive { get; set; }
