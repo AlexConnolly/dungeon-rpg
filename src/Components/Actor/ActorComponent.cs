@@ -43,6 +43,26 @@ namespace LDG.Components.Actor
             }
         }
 
+        private Vector2 _collisionOffset = Vector2.Zero;
+
+        public Vector2 CollisionOffset
+        {
+            get
+            {
+                return _size;
+            }
+
+            set
+            {
+                _collisionOffset = value;
+
+                if(Collider != null)
+                {
+                    Collider.Offset = _collisionOffset;
+                }
+            }
+        }
+
         private BoxCollider Collider { get; set; }
 
         public ActorComponent()
@@ -143,7 +163,9 @@ namespace LDG.Components.Actor
         public override void Initialize()
         {
             Collider = GameObject.AddComponent<BoxCollider>();
+
             Collider.Bounds = Size;
+            Collider.Offset = _collisionOffset;
         }
 
         public override void Update(TimeFrame time)

@@ -82,8 +82,12 @@ namespace Homestead.Abilities.Woodcutting
                 return false;
             }
 
-            // Only allow shake if the player does not have an item equipped
-            GameObject.AddSpawner(new TreeSeed(), 1, 1.0f, 0.2f);
+            // Only drop a seed with a 1 in 20 chance
+            if (Random.Shared.Next(0, 20) == 0)
+            {
+                // Only allow shake if the player does not have an item equipped
+                GameObject.AddSpawner(new TreeSeed(), 1, 1.0f, 0.2f);
+            }
 
             return true;
         }

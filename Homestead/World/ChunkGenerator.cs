@@ -26,7 +26,7 @@ namespace Homestead.World
 
             var bench = crafting.AddComponent<CraftingBench>();
 
-            newChunk.AddWorldObject(bench, new Point(0, 0));
+            newChunk.AddWorldObject(bench, new Point(2, 1));
 
             return newChunk;
         }

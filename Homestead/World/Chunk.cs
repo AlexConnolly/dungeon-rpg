@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LDG.Components.Collision;
+using Microsoft.Xna.Framework;
 
 namespace Homestead.World
 {
@@ -6,6 +7,8 @@ namespace Homestead.World
     {
         private readonly WorldManager _worldManager;
         private readonly Point _chunkLocation;
+
+        public bool NeedsRedraw { get; set; } = false;
 
         public Point Location
         {
@@ -58,6 +61,12 @@ namespace Homestead.World
             var locationY = location.Y * _worldManager.TileResolution;
 
             obj.Transform.Position = new Vector2(chunkX + locationX, chunkY + locationY);
+
+            var collider = obj.AddComponent<BoxCollider>();
+
+            collider.Bounds = new Vector2(_worldManager.TileResolution, _worldManager.TileResolution);
+
+            NeedsRedraw = true;
         }
 
         public void Unload()

@@ -44,9 +44,8 @@ namespace Homestead
 
             Inventory = AddComponent<InventoryComponent>();
 
-            Inventory.AddItem<Axe>();
-
-            _actor.Size = new Microsoft.Xna.Framework.Vector2(32, 32);
+            _actor.Size = new Microsoft.Xna.Framework.Vector2(25, 20);
+            _actor.CollisionOffset = new Microsoft.Xna.Framework.Vector2(0, 10);
 
             _actor.WalkingAudio = _walkingAudio;
         }
@@ -79,11 +78,26 @@ namespace Homestead
 
         public WorldObject GetObjectInfront()
         {
-            return _worldManager.GetWorldObjectAtWorldPosition(Camera.Position + (_actor.Size / 2), GetRelativeFacingDirection());
+            return _worldManager.GetWorldObjectAtWorldPosition(GetPositionInfront());
         }
+
+        public Microsoft.Xna.Framework.Vector2 GetPositionInfront()
+        {
+            var relativePosition = GetRelativeFacingDirection();
+
+            return (Camera.Position + (_actor.Size / 2)) + new Microsoft.Xna.Framework.Vector2(relativePosition.X * _worldManager.ChunkResolution, relativePosition.Y * _worldManager.ChunkResolution);
+        }
+
+        private bool addedAxe = false;
 
         public override void Update(TimeFrame time)
         {
+            if(!addedAxe)
+            {
+                Inventory.AddItem<Axe>();
+                addedAxe = true;
+            }
+
             if(KeyboardHelper.WasKeyPressed(Microsoft.Xna.Framework.Input.Keys.E))
             {
                 var usedItem = Inventory.ActionItemInHand();
@@ -107,6 +121,18 @@ namespace Homestead
                         }
                     }
                 }
+            }
+
+            if(KeyboardHelper.WasKeyPressed(Microsoft.Xna.Framework.Input.Keys.Q))
+            {
+                // Spawn object infront of player 
+                var relativePosition = GetRelativeFacingDirection();
+
+                var position = GetPositionInfront();
+
+                GameObject.AddSpawner(Inventory.GetActiveItem(), 1, 0.5f, 0);
+
+                Inventory.RemoveActiveItem();
             }
 
             if(_actor.IsMoving)

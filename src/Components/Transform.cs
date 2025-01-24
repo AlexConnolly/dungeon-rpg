@@ -27,7 +27,8 @@ namespace LDG.Components
             float halfWidth = collider.Bounds.X / 2;
             float halfHeight = collider.Bounds.Y / 2;
 
-            Rectangle targetRect = new Rectangle((int)(position.X - halfWidth), (int)(position.Y - halfHeight), (int)collider.Bounds.X, (int)collider.Bounds.Y);
+            // Adjust to account for the fact that BoxCollider has an offset property
+            Rectangle targetRect = new Rectangle((int)(position.X - halfWidth + collider.Offset.X), (int)(position.Y - halfHeight + collider.Offset.Y), (int)collider.Bounds.X, (int)collider.Bounds.Y);
 
             bool result = true;
 

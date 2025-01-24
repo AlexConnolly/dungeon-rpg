@@ -3,8 +3,10 @@ using Homestead.World;
 using LDG;
 using LDG.Audio;
 using LDG.Components.Audio;
+using LDG.Input;
 using LDG.UI;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace Homestead.Items
         private readonly int _width = 410;
         private readonly int _height = 50;
 
-        private List<IItem> _items = new List<IItem>();
+        private IItem[] _items = new IItem[9];
 
         private int _activeIndex = 0;
 
@@ -37,9 +39,6 @@ namespace Homestead.Items
 
         public IItem GetActiveItem()
         {
-            if (_items.Count <= _activeIndex)
-                return null;
-
             return _items[_activeIndex];
         }
 
@@ -50,17 +49,27 @@ namespace Homestead.Items
 
             foreach (var item in items)
             {
-                // Try to find the item by matching the type
-                var foundItem = availableItems.FirstOrDefault(i => i.GetType() == item.GetType());
+                var itemType = item.GetType();
 
-                if (foundItem == null)
+                bool foundItem = false;
+
+                for (int x = 0; x < availableItems.Count; x++)
                 {
-                    // Item not found; we don't have all the required items
-                    return false;
+                    if(availableItems[x] == null)
+                    {
+                        continue;
+                    }
+
+                    if (_items[x].GetType() == itemType)
+                    {
+                        foundItem = true;
+                        availableItems.RemoveAt(x);
+                        break;
+                    }
                 }
 
-                // Remove the found item to account for duplicates
-                availableItems.Remove(foundItem);
+                if (!foundItem)
+                    return false;
             }
 
             // All items matched
@@ -71,18 +80,20 @@ namespace Homestead.Items
         {
             foreach (var item in items)
             {
-                // Find the first occurrence of the item by type
-                var foundItem = _items.FirstOrDefault(i => i.GetType() == item.GetType());
+                var itemType = item.GetType();
 
-                if (foundItem != null)
+                for(int x = 0; x < _items.Length; x++)
                 {
-                    // Remove the item from the list
-                    _items.Remove(foundItem);
-                }
-                else
-                {
-                    // Optional: Handle the case where the item to be removed isn't found
-                    throw new InvalidOperationException($"Item of type {item.GetType().Name} not found in the inventory.");
+                    if(_items[x] == null)
+                    {
+                        continue;
+                    }
+
+                    if (_items[x].GetType() == itemType)
+                    {
+                        _items[x] = null;
+                        break;
+                    }
                 }
             }
         }
@@ -108,16 +119,29 @@ namespace Homestead.Items
             }
         }
 
-        public void AddItem(IItem item)
+        public bool AddItem(IItem item)
         {
-            _items.Add(item);
+            // Find empty slot in _items
+            for(int i = 0; i < 9; i++)
+            {
+                if (_items[i] == null)
+                {
+                    _items[i] = item;
+
+                    Player.GetInstance().PlaySound(Sounds.ItemPickup);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public T AddItem<T>() where T : IItem
         {
             var instance = (IItem)Activator.CreateInstance(typeof(T));
-
-            _items.Add(instance);
+            
+            AddItem(instance);
 
             return (T)instance;
         }
@@ -125,20 +149,20 @@ namespace Homestead.Items
         public bool ActionItemInHand()
         {
             // If our should always be greater than our active index
-            if (_items.Count <= _activeIndex)
+            var activeItem = GetActiveItem();
+
+            if (activeItem == null)
                 return false;
 
-            var currentItem = _items[_activeIndex];
-
-            if(currentItem != null)
+            if(activeItem != null)
             {
-                if (currentItem.Action(_player, _worldManager))
+                if (activeItem.Action(_player, _worldManager))
                 {
-                    if(currentItem.Sound != null)
+                    if(activeItem.Sound != null)
                     {
                         var audioClipConfig = new AudioClipConfig()
                         {
-                            Clip = currentItem.Sound,
+                            Clip = activeItem.Sound,
                             Pitch = new LDG.Range(-0.1f, 0.1f)
                         };
 
@@ -152,6 +176,26 @@ namespace Homestead.Items
             }
 
             return false;
+        }
+
+        private void SetActiveIndex(int index)
+        {
+            // Make sure that we dont overflow
+            if (index < 0)
+                index = 8;
+
+            if (index > 8)
+                index = 0;
+
+            _buttons[_activeIndex].IsActive = false;
+
+            _activeIndex = index;
+
+            _buttons[_activeIndex].IsActive = true;
+
+            // Only play sound if there is an item
+            if (_items[index] != null)
+                _clickSource.Start();
         }
 
         public override void Initialize()
@@ -191,15 +235,7 @@ namespace Homestead.Items
 
                 button.OnClick = () =>
                 {
-                    _buttons[_activeIndex].IsActive = false;
-
-                    _activeIndex = actualIndex;
-
-                    _buttons[_activeIndex].IsActive = true;
-
-                    // Only play sound if there is an item
-                    if(_items.Count > actualIndex && _items[actualIndex] != null) 
-                        _clickSource.Start();
+                    SetActiveIndex(actualIndex);
                 };
 
                 if(actualIndex == 0)
@@ -222,13 +258,26 @@ namespace Homestead.Items
                     break;
 
                 // Set null if we don't have an item
-                if(_items.Count <= x)
+                if(_items[x] == null)
                 {
                     _buttons[x].Image = null;
                     continue;
                 }
 
                 _buttons[x].Image = new ButtonImage() { Image = _items[x].Icon, Size = new Vector2(32, 32) };
+            }
+
+            switch(MouseHelper.GetScrollDirection())
+            {
+                case MouseHelper.ScrollDirection.Up:
+                    SetActiveIndex(_activeIndex - 1);
+
+                    break;
+
+                case MouseHelper.ScrollDirection.Down:
+                    SetActiveIndex(_activeIndex + 1);
+
+                    break;
             }
         }
     }

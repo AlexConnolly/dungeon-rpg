@@ -75,6 +75,7 @@ namespace LDG
 
             // Update keyboard
             Input.KeyboardHelper.Update(timeFrame);
+            Input.MouseHelper.Update(timeFrame);
 
             // Update the UI manager
             UIManager.Update(timeFrame);

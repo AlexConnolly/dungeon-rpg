@@ -13,11 +13,14 @@ namespace LDG.Components.Collision
 
         public Vector2 Bounds { get; set; }
 
+        public Vector2 Offset { get; set; }
+
         public Rectangle WorldRectangle
         {
             get
             {
-                return new Rectangle((int)this.Transform.Position.X - (int)(Bounds.X / 2), (int)this.Transform.Position.Y - (int)(Bounds.Y / 2), (int)Bounds.X, (int)Bounds.Y);
+                // Account for offset
+                return new Rectangle((int)this.Transform.Position.X - (int)(Bounds.X / 2) + (int)Offset.X, (int)this.Transform.Position.Y - (int)(Bounds.Y / 2) + (int)Offset.Y, (int)Bounds.X, (int)Bounds.Y);
             }
         }
 

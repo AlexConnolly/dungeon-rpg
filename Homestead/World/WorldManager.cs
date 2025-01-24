@@ -79,9 +79,16 @@ namespace Homestead.World
             _chunkGenerator = GameObject.AddComponent<ChunkGenerator>();
         }
 
-        internal WorldObject GetWorldObjectAtWorldPosition(Vector2 position, Point offset)
+        internal void AddWorldObjectAtWorldPosition(Vector2 position, WorldObject worldObject)
         {
-            var relativePosition = GetRelativePositionAndChunk(position + (offset.ToVector2() * TileResolution), out var chunk);
+            var relativePosition = GetRelativePositionAndChunk(position, out var chunk);
+
+            chunk.AddWorldObject(worldObject, relativePosition);
+        }
+
+        internal WorldObject GetWorldObjectAtWorldPosition(Vector2 position)
+        {
+            var relativePosition = GetRelativePositionAndChunk(position, out var chunk);
 
             return chunk.GetWorldObjectAtPoint(relativePosition);
         }

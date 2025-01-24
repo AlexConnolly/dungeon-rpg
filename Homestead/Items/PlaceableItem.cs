@@ -1,4 +1,5 @@
 ﻿using Homestead.World;
+using LDG;
 using LDG.Audio;
 using LDG.Sprite;
 using System;
@@ -11,6 +12,8 @@ namespace Homestead.Items
 {
     internal abstract class PlaceableItem : BaseItem
     {
+        public abstract Func<GameObject, WorldObject> OnPlace { get; }
+
         public override bool Action(Player player, WorldManager world)
         {
             // Get object infront 
@@ -18,8 +21,16 @@ namespace Homestead.Items
 
             if(objectInfront == null)
             {
-                world.
+                var newObject = world.AddGameObject();
+
+                world.AddWorldObjectAtWorldPosition(player.GetPositionInfront(), OnPlace(newObject));
+
+                player.Inventory.RemoveActiveItem();
+
+                return true;
             }
+
+            return false;
         }
     }
 }
